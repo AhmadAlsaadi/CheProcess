@@ -33,7 +33,7 @@ import os
 import sqlite3
 
 
-databank_name = os.path.join(os.environ["pychemqt"], 'dat', 'databank.db')
+databank_name = os.path.join(os.environ["CheProcess"], 'dat', 'databank.db')
 databank = sqlite3.connect(databank_name).cursor()
 databank.execute("SELECT COUNT(*) AS Total FROM compuestos")
 N_comp = databank.fetchone()[0]

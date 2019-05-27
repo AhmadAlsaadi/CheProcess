@@ -214,17 +214,17 @@ class Catalogo_Materiales(QtWidgets.QWidget):
         self.TablaDiametro.itemChanged.connect(self.emitirSignal)
         gridLayout.addWidget(self.TablaDiametro, 2, 0, 1, 2)
 
-        path = os.environ["pychemqt"]+"/images/button/clear.png"
+        path = os.environ["CheProcess"]+"/images/button/clear.png"
         self.botonClear = QtWidgets.QPushButton(
             QtGui.QIcon(QtGui.QPixmap(path)),
-            QtWidgets.QApplication.translate("pychemqt", "Reset"))
+            QtWidgets.QApplication.translate("CheProcess", "Reset"))
         self.botonClear.clicked.connect(self.clear)
         gridLayout.addWidget(self.botonClear, 1, 2)
 
-        path = os.environ["pychemqt"]+"/images/button/filenew.png"
+        path = os.environ["CheProcess"]+"/images/button/filenew.png"
         self.botonEdit = QtWidgets.QPushButton(
             QtGui.QIcon(QtGui.QPixmap(path)),
-            QtWidgets.QApplication.translate("pychemqt", "Edit"))
+            QtWidgets.QApplication.translate("CheProcess", "Edit"))
         self.botonEdit.clicked.connect(self.edit)
         self.botonEdit.setCheckable(True)
         gridLayout.addWidget(self.botonEdit, 2, 2)
@@ -235,7 +235,7 @@ class Catalogo_Materiales(QtWidgets.QWidget):
         gridLayout.addWidget(self.line, 3, 0, 1, 3)
 
         label = QtWidgets.QLabel(
-            QtWidgets.QApplication.translate("pychemqt", "Material:"))
+            QtWidgets.QApplication.translate("CheProcess", "Material:"))
         label.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         gridLayout.addWidget(label, 4, 0)
         self.ComboMaterial = QtWidgets.QComboBox()
@@ -251,10 +251,10 @@ class Catalogo_Materiales(QtWidgets.QWidget):
         self.TablaDiametro2.setFixedWidth(720)
         gridLayout.addWidget(self.TablaDiametro2, 5, 0, 1, 2)
 
-        path = os.environ["pychemqt"]+"/images/button/arrow-up-double.png"
+        path = os.environ["CheProcess"]+"/images/button/arrow-up-double.png"
         self.botonSelect = QtWidgets.QPushButton(
             QtGui.QIcon(QtGui.QPixmap(path)),
-            QtWidgets.QApplication.translate("pychemqt", "Select"))
+            QtWidgets.QApplication.translate("CheProcess", "Select"))
         self.botonSelect.setDisabled(True)
         self.TablaDiametro2.currentCellChanged.connect(self.selectedChanged)
         self.TablaDiametro2.cellDoubleClicked.connect(self.add)
@@ -434,7 +434,7 @@ class Catalogo_Materiales_Dialog(QtWidgets.QDialog, Catalogo_Materiales):
     def __init__(self, parent=None):
         super(Catalogo_Materiales_Dialog, self).__init__(parent)
         self.setWindowTitle(QtWidgets.QApplication.translate(
-            "pychemqt", "Select Pipe from Database"))
+            "CheProcess", "Select Pipe from Database"))
         buttonBox = QtWidgets.QDialogButtonBox(
             QtWidgets.QDialogButtonBox.Cancel | QtWidgets.QDialogButtonBox.Ok)
         buttonBox.accepted.connect(self.accept)
@@ -446,9 +446,9 @@ class Catalogo_Accesorios(QtWidgets.QWidget):
     """Widget to select/edit/add fitting to pipe"""
     valueChanged = QtCore.pyqtSignal(list)
     titles = [
-        QtWidgets.QApplication.translate("pychemqt", "Type"),
+        QtWidgets.QApplication.translate("CheProcess", "Type"),
         "D,mm", "D,in", "K", "Nº",
-        QtWidgets.QApplication.translate("pychemqt", "Description")]
+        QtWidgets.QApplication.translate("CheProcess", "Description")]
 
     def __init__(self, parent=None):
         super(Catalogo_Accesorios, self).__init__(parent)
@@ -479,16 +479,16 @@ class Catalogo_Accesorios(QtWidgets.QWidget):
         self.k_total.setAlignment(QtCore.Qt.AlignCenter | QtCore.Qt.AlignTop)
         self.k_total.setFixedSize(100, 25)
         gridLayout.addWidget(self.k_total, 0, 1)
-        path = os.environ["pychemqt"]+"/images/button/editDelete.png"
+        path = os.environ["CheProcess"]+"/images/button/editDelete.png"
         self.botonBorrar = QtWidgets.QPushButton(
             QtGui.QIcon(QtGui.QPixmap(path)),
-            QtWidgets.QApplication.translate("pychemqt", "Delete"))
-        path = os.environ["pychemqt"]+"/images/button/clear.png"
+            QtWidgets.QApplication.translate("CheProcess", "Delete"))
+        path = os.environ["CheProcess"]+"/images/button/clear.png"
         self.botonBorrar.clicked.connect(self.borrar)
         gridLayout.addWidget(self.botonBorrar, 1, 1)
         self.botonClear = QtWidgets.QPushButton(
             QtGui.QIcon(QtGui.QPixmap(path)),
-            QtWidgets.QApplication.translate("pychemqt", "Clear"))
+            QtWidgets.QApplication.translate("CheProcess", "Clear"))
         self.botonClear.clicked.connect(self.clear)
         gridLayout.addWidget(self.botonClear, 2, 1)
 
@@ -505,46 +505,46 @@ class Catalogo_Accesorios(QtWidgets.QWidget):
         self.TablaAccesorios.cellDoubleClicked.connect(self.add)
         gridLayout.addWidget(self.TablaAccesorios, 4, 0, 7, 1)
 
-        path = os.environ["pychemqt"]+"/images/button/add.png"
+        path = os.environ["CheProcess"]+"/images/button/add.png"
         self.botonAdd = QtWidgets.QPushButton(
             QtGui.QIcon(QtGui.QPixmap(path)),
-            QtWidgets.QApplication.translate("pychemqt", "Add"))
+            QtWidgets.QApplication.translate("CheProcess", "Add"))
         self.botonAdd.setDisabled(True)
         self.botonAdd.clicked.connect(self.add)
         gridLayout.addWidget(self.botonAdd, 4, 1)
 
-        path = os.environ["pychemqt"]+"/images/equip/ER.png"
+        path = os.environ["CheProcess"]+"/images/equip/ER.png"
         self.botonEntrada = QtWidgets.QPushButton(
             QtGui.QIcon(QtGui.QPixmap(path)),
-            QtWidgets.QApplication.translate("pychemqt", "Entrance"))
+            QtWidgets.QApplication.translate("CheProcess", "Entrance"))
         self.botonEntrada.clicked.connect(self.EntradaRedondeada)
         gridLayout.addWidget(self.botonEntrada, 6, 1)
 
-        path = os.environ["pychemqt"]+"/images/equip/GE.png"
+        path = os.environ["CheProcess"]+"/images/equip/GE.png"
         self.botonExpansion = QtWidgets.QPushButton(
             QtGui.QIcon(QtGui.QPixmap(path)),
-            QtWidgets.QApplication.translate("pychemqt", "Enlargement"))
+            QtWidgets.QApplication.translate("CheProcess", "Enlargement"))
         self.botonExpansion.clicked.connect(self.expansion)
         gridLayout.addWidget(self.botonExpansion, 7, 1)
 
-        path = os.environ["pychemqt"]+"/images/equip/GC.png"
+        path = os.environ["CheProcess"]+"/images/equip/GC.png"
         self.botonContraccion = QtWidgets.QPushButton(
             QtGui.QIcon(QtGui.QPixmap(path)),
-            QtWidgets.QApplication.translate("pychemqt", "Contraction"))
+            QtWidgets.QApplication.translate("CheProcess", "Contraction"))
         self.botonContraccion.clicked.connect(self.contraccion)
         gridLayout.addWidget(self.botonContraccion, 8, 1)
 
-        path = os.environ["pychemqt"]+"/images/equip/LB.png"
+        path = os.environ["CheProcess"]+"/images/equip/LB.png"
         self.botonCodoLargo = QtWidgets.QPushButton(
             QtGui.QIcon(QtGui.QPixmap(path)),
-            QtWidgets.QApplication.translate("pychemqt", "Long bend"))
+            QtWidgets.QApplication.translate("CheProcess", "Long bend"))
         self.botonCodoLargo.clicked.connect(self.CodoLargo)
         gridLayout.addWidget(self.botonCodoLargo, 9, 1)
 
-        path = os.environ["pychemqt"]+"/images/equip/MB45.png"
+        path = os.environ["CheProcess"]+"/images/equip/MB45.png"
         self.botonCodoSegmentado = QtWidgets.QPushButton(
             QtGui.QIcon(QtGui.QPixmap(path)),
-            QtWidgets.QApplication.translate("pychemqt", "Mitre bend"))
+            QtWidgets.QApplication.translate("CheProcess", "Mitre bend"))
         self.botonCodoSegmentado.clicked.connect(self.CodoSegmentado)
         gridLayout.addWidget(self.botonCodoSegmentado, 10, 1)
 
@@ -579,7 +579,7 @@ class Catalogo_Accesorios(QtWidgets.QWidget):
                 self.pulgadas.append([Di_in])
                 self.k.append([K])
                 self.TablaAccesorios.setRowCount(indice+1)
-                icon = os.environ["pychemqt"]+"images/equip/%s.png" % key
+                icon = os.environ["CheProcess"]+"images/equip/%s.png" % key
                 self.TablaAccesorios.setItem(
                     indice, 0, QtWidgets.QTableWidgetItem(QtGui.QIcon(
                         QtGui.QPixmap(icon)), key))
@@ -608,11 +608,11 @@ class Catalogo_Accesorios(QtWidgets.QWidget):
         self.TablaAccesorios.setColumnWidth(3, 50)
 
     def expansion(self):
-        title = QtWidgets.QApplication.translate("pychemqt", "Expansion")
-        icon = os.environ["pychemqt"]+"/images/equip/GE.png"
+        title = QtWidgets.QApplication.translate("CheProcess", "Expansion")
+        icon = os.environ["CheProcess"]+"/images/equip/GE.png"
         parameter = [
-            QtWidgets.QApplication.translate("pychemqt", "Input diameter"),
-            QtWidgets.QApplication.translate("pychemqt", "Output diameter")]
+            QtWidgets.QApplication.translate("CheProcess", "Input diameter"),
+            QtWidgets.QApplication.translate("CheProcess", "Output diameter")]
         dialog = Dialog(0, title, icon, parameter)
         if dialog.exec_():
             indice = self.Accesorios.rowCount()
@@ -620,15 +620,15 @@ class Catalogo_Accesorios(QtWidgets.QWidget):
             if dialog.checkBox.isChecked():
                 type = "GE"
                 txt = QtWidgets.QApplication.translate(
-                    "pychemqt", "Gradual enlargement")
+                    "CheProcess", "Gradual enlargement")
                 dia = "%0.3f->%0.3f θ=%iº" % (
                     dialog.D1.value, dialog.D2.value, dialog.angulo.value())
             else:
                 icon = QtGui.QIcon(QtGui.QPixmap(
-                    os.environ["pychemqt"]+"/images/equip/SE.png"))
+                    os.environ["CheProcess"]+"/images/equip/SE.png"))
                 type = "SE"
                 txt = QtWidgets.QApplication.translate(
-                    "pychemqt", "Sudden enlargement")
+                    "CheProcess", "Sudden enlargement")
                 dia = "%0.3f->%0.3f" % (dialog.D1.value, dialog.D2.value)
             self.Accesorios.setItem(indice, 0, QtWidgets.QTableWidgetItem(icon, type))
             self.Accesorios.setSpan(indice, 1, 1, 2)
@@ -645,11 +645,11 @@ class Catalogo_Accesorios(QtWidgets.QWidget):
             self.CalcularK()
 
     def contraccion(self):
-        title = QtWidgets.QApplication.translate("pychemqt", "Contraction")
-        icon = os.environ["pychemqt"]+"/images/equip/GC.png"
+        title = QtWidgets.QApplication.translate("CheProcess", "Contraction")
+        icon = os.environ["CheProcess"]+"/images/equip/GC.png"
         parameter = [
-            QtWidgets.QApplication.translate("pychemqt", "Input diameter"),
-            QtWidgets.QApplication.translate("pychemqt", "Output diameter")]
+            QtWidgets.QApplication.translate("CheProcess", "Input diameter"),
+            QtWidgets.QApplication.translate("CheProcess", "Output diameter")]
         dialog = Dialog(0, title, icon, parameter)
         if dialog.exec_():
             indice = self.Accesorios.rowCount()
@@ -657,15 +657,15 @@ class Catalogo_Accesorios(QtWidgets.QWidget):
             if dialog.checkBox.isChecked():
                 type = "GC"
                 txt = QtWidgets.QApplication.translate(
-                    "pychemqt", "Gradual contraction")
+                    "CheProcess", "Gradual contraction")
                 dia = "%0.3f->%0.3f θ=%iº" % (
                     dialog.D1.value, dialog.D2.value, dialog.angulo.value())
             else:
                 icon = QtGui.QIcon(QtGui.QPixmap(
-                    os.environ["pychemqt"]+"/images/equip/SC.png"))
+                    os.environ["CheProcess"]+"/images/equip/SC.png"))
                 type = "SC"
                 txt = QtWidgets.QApplication.translate(
-                    "pychemqt", "Sudden contraction")
+                    "CheProcess", "Sudden contraction")
                 dia =  "%0.3f->%0.3f" % (dialog.D1.value, dialog.D2.value)
             self.Accesorios.setItem(indice, 0,
                                     QtWidgets.QTableWidgetItem(icon, type))
@@ -683,11 +683,11 @@ class Catalogo_Accesorios(QtWidgets.QWidget):
             self.CalcularK()
 
     def EntradaRedondeada(self):
-        title = QtWidgets.QApplication.translate("pychemqt", "Rounded entrance")
-        icon = os.environ["pychemqt"]+"/images/equip/ER.png"
+        title = QtWidgets.QApplication.translate("CheProcess", "Rounded entrance")
+        icon = os.environ["CheProcess"]+"/images/equip/ER.png"
         parameter = [
-            QtWidgets.QApplication.translate("pychemqt", "Exit radio"),
-            QtWidgets.QApplication.translate("pychemqt", "Pipe Diameter")]
+            QtWidgets.QApplication.translate("CheProcess", "Exit radio"),
+            QtWidgets.QApplication.translate("CheProcess", "Pipe Diameter")]
         dialog = Dialog(3, title, icon, parameter)
         if dialog.exec_():
             indice = self.Accesorios.rowCount()
@@ -706,16 +706,16 @@ class Catalogo_Accesorios(QtWidgets.QWidget):
                 QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
             self.Accesorios.setItem(indice, 5, QtWidgets.QTableWidgetItem(
                 QtWidgets.QApplication.translate(
-                    "pychemqt", "Pipe entrance rounded intake")))
+                    "CheProcess", "Pipe entrance rounded intake")))
             self.Accesorios.setRowHeight(indice, 20)
             self.CalcularK()
 
     def CodoLargo(self):
-        title = QtWidgets.QApplication.translate("pychemqt", "Long Pipe Bend")
-        icon = os.environ["pychemqt"]+"/images/equip/LB.png"
+        title = QtWidgets.QApplication.translate("CheProcess", "Long Pipe Bend")
+        icon = os.environ["CheProcess"]+"/images/equip/LB.png"
         parameter = [
-            QtWidgets.QApplication.translate("pychemqt", "Bend radio"),
-            QtWidgets.QApplication.translate("pychemqt", "Pipe diameter")]
+            QtWidgets.QApplication.translate("CheProcess", "Bend radio"),
+            QtWidgets.QApplication.translate("CheProcess", "Pipe diameter")]
         dialog = Dialog(2, title, icon, parameter)
         if dialog.exec_():
             indice = self.Accesorios.rowCount()
@@ -737,9 +737,9 @@ class Catalogo_Accesorios(QtWidgets.QWidget):
             self.CalcularK()
 
     def CodoSegmentado(self):
-        title = QtWidgets.QApplication.translate("pychemqt", "Mitre bend with custom angle")
-        icon = os.environ["pychemqt"]+"/images/equip/MB45.png"
-        parameter = [QtWidgets.QApplication.translate("pychemqt", "Pipe diameter"), ""]
+        title = QtWidgets.QApplication.translate("CheProcess", "Mitre bend with custom angle")
+        icon = os.environ["CheProcess"]+"/images/equip/MB45.png"
+        parameter = [QtWidgets.QApplication.translate("CheProcess", "Pipe diameter"), ""]
         dialog = Dialog(1, title, icon, parameter)
         if dialog.exec_():
             indice = self.Accesorios.rowCount()
@@ -758,7 +758,7 @@ class Catalogo_Accesorios(QtWidgets.QWidget):
             self.Accesorios.item(indice, 4).setTextAlignment(
                 QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
             self.Accesorios.setItem(indice, 5, QtWidgets.QTableWidgetItem(
-                QtWidgets.QApplication.translate("pychemqt", "Mitre Bend")))
+                QtWidgets.QApplication.translate("CheProcess", "Mitre Bend")))
             self.Accesorios.setRowHeight(indice, 20)
             self.CalcularK()
 
@@ -889,7 +889,7 @@ class UI_equipment(UI_equip):
             partial(self.changeParams, "material"))
         self.tabWidget.insertTab(
             1, self.tabCatalogo,
-            QtWidgets.QApplication.translate("pychemqt", "Catalog"))
+            QtWidgets.QApplication.translate("CheProcess", "Catalog"))
 
         # Fitting tab
         self.tabAccesorios = Catalogo_Accesorios()
@@ -897,15 +897,15 @@ class UI_equipment(UI_equip):
             partial(self.changeParams, "accesorios"))
         self.tabWidget.insertTab(
             2, self.tabAccesorios,
-            QtWidgets.QApplication.translate("pychemqt", "Fittings"))
+            QtWidgets.QApplication.translate("CheProcess", "Fittings"))
 
         # Calculate tab
         lyt = QtWidgets.QGridLayout(self.tabCalculo)
-#        lyt.addWidget(QtGui.QLabel(QtGui.QApplication.translate("pychemqt", "Modo:")),0,0)
+#        lyt.addWidget(QtGui.QLabel(QtGui.QApplication.translate("CheProcess", "Modo:")),0,0)
 #        self.Modo=QtGui.QComboBox()
 #        lyt.addWidget(self.Modo,0,1,1,1)
         lyt.addWidget(QtWidgets.QLabel(
-            QtWidgets.QApplication.translate("pychemqt", "Method")), 1, 0)
+            QtWidgets.QApplication.translate("CheProcess", "Method")), 1, 0)
         self.metodo = QtWidgets.QComboBox()
         for txt in self.Equipment.TEXT_METODO:
             self.metodo.addItem(txt)
@@ -916,17 +916,17 @@ class UI_equipment(UI_equip):
             1, 0, 1, 6)
 
         lyt.addWidget(QtWidgets.QLabel(
-            QtWidgets.QApplication.translate("pychemqt", "Length")), 2, 0)
+            QtWidgets.QApplication.translate("CheProcess", "Length")), 2, 0)
         self.l = Entrada_con_unidades(Length, resaltado=True)
         self.l.valueChanged.connect(partial(self.changeParams, "l"))
         lyt.addWidget(self.l, 2, 1)
         lyt.addWidget(QtWidgets.QLabel(
-            QtWidgets.QApplication.translate("pychemqt", "Elevation")), 3, 0)
+            QtWidgets.QApplication.translate("CheProcess", "Elevation")), 3, 0)
         self.h = Entrada_con_unidades(Length, min=float("-inf"))
         self.h.valueChanged.connect(partial(self.changeParams, "h"))
         lyt.addWidget(self.h, 3, 1)
         self.labelC = QtWidgets.QLabel(
-            QtWidgets.QApplication.translate("pychemqt", "C Factor"))
+            QtWidgets.QApplication.translate("CheProcess", "C Factor"))
         lyt.addWidget(self.labelC, 2, 3)
         self.C = Entrada_con_unidades(float)
         self.C.valueChanged.connect(partial(self.changeParams, "C"))
@@ -936,7 +936,7 @@ class UI_equipment(UI_equip):
             4, 0, 1, 6)
 
         lyt.addWidget(QtWidgets.QLabel(
-            QtWidgets.QApplication.translate("pychemqt", "Thermal Mode")), 11, 0)
+            QtWidgets.QApplication.translate("CheProcess", "Thermal Mode")), 11, 0)
         self.thermal = QtWidgets.QComboBox()
         for txt in self.Equipment.TEXT_THERMAL:
             self.thermal.addItem(txt)
@@ -944,16 +944,16 @@ class UI_equipment(UI_equip):
         lyt.addWidget(self.thermal, 11, 1, 1, 5)
 
         self.groupBox_Heat = QtWidgets.QGroupBox(QtWidgets.QApplication.translate(
-            "pychemqt", "Heat transfer to surroundings"))
+            "CheProcess", "Heat transfer to surroundings"))
         lyt.addWidget(self.groupBox_Heat, 12, 0, 3, 2)
         layout = QtWidgets.QGridLayout(self.groupBox_Heat)
         layout.addWidget(QtWidgets.QLabel(QtWidgets.QApplication.translate(
-            "pychemqt", "External temperature")), 1, 1)
+            "CheProcess", "External temperature")), 1, 1)
         self.T_ext = Entrada_con_unidades(Temperature)
         self.T_ext.valueChanged.connect(partial(self.changeParams, "T_ext"))
         layout.addWidget(self.T_ext, 1, 2)
         layout.addWidget(QtWidgets.QLabel(QtWidgets.QApplication.translate(
-            "pychemqt", "Heat transfer coefficient")), 2, 1)
+            "CheProcess", "Heat transfer coefficient")), 2, 1)
         self.U = Entrada_con_unidades(HeatTransfCoef)
         self.U.valueChanged.connect(partial(self.changeParams, "U"))
         layout.addWidget(self.U, 2, 2)
@@ -962,7 +962,7 @@ class UI_equipment(UI_equip):
             10, 10, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed),
             12, 0, 1, 6)
         self.labelQ = QtWidgets.QLabel(
-            QtWidgets.QApplication.translate("pychemqt", "Heat Flux"))
+            QtWidgets.QApplication.translate("CheProcess", "Heat Flux"))
         lyt.addWidget(self.labelQ, 13, 0)
         self.Calor = Entrada_con_unidades(Power)
         self.Calor.valueChanged.connect(partial(self.changeParams, "Q"))
@@ -976,35 +976,35 @@ class UI_equipment(UI_equip):
             15, 0, 1, 6)
 
         group = QtWidgets.QGroupBox(
-            QtWidgets.QApplication.translate("pychemqt", "Results"))
+            QtWidgets.QApplication.translate("CheProcess", "Results"))
         lyt.addWidget(group, 16, 0, 1, 6)
         layout = QtWidgets.QGridLayout(group)
         layout.addWidget(QtWidgets.QLabel(QtWidgets.QApplication.translate(
-            "pychemqt", "ΔP total", None)),
+            "CheProcess", "ΔP total", None)),
             0, 0)
         self.DeltaP = Entrada_con_unidades(Pressure, retornar=False,
                                            readOnly=True)
         layout.addWidget(self.DeltaP, 0, 1)
         layout.addWidget(QtWidgets.QLabel(QtWidgets.QApplication.translate(
-            "pychemqt", "ΔP friction", None)),
+            "CheProcess", "ΔP friction", None)),
             1, 0)
         self.DeltaP_f = Entrada_con_unidades(Pressure, retornar=False,
                                              readOnly=True)
         layout.addWidget(self.DeltaP_f, 1, 1)
         layout.addWidget(QtWidgets.QLabel(QtWidgets.QApplication.translate(
-            "pychemqt", "ΔP fittings", None)),
+            "CheProcess", "ΔP fittings", None)),
             2, 0)
         self.DeltaP_ac = Entrada_con_unidades(Pressure, retornar=False,
                                               readOnly=True)
         layout.addWidget(self.DeltaP_ac, 2, 1)
         layout.addWidget(QtWidgets.QLabel(QtWidgets.QApplication.translate(
-            "pychemqt", "ΔP elevation", None)),
+            "CheProcess", "ΔP elevation", None)),
             3, 0)
         self.DeltaP_h = Entrada_con_unidades(Pressure, retornar=False,
                                              readOnly=True)
         layout.addWidget(self.DeltaP_h, 3, 1)
         layout.addWidget(QtWidgets.QLabel(QtWidgets.QApplication.translate(
-            "pychemqt", "ΔP acceleration", None)),
+            "CheProcess", "ΔP acceleration", None)),
             4, 0)
         self.DeltaP_v = Entrada_con_unidades(Pressure, retornar=False,
                                              readOnly=True)
@@ -1015,42 +1015,42 @@ class UI_equipment(UI_equip):
                                                  readOnly=True)
         layout.addWidget(self.DeltaP_100ft, 0, 5)
         layout.addWidget(QtWidgets.QLabel(
-            QtWidgets.QApplication.translate("pychemqt", "Speed")), 1, 4)
+            QtWidgets.QApplication.translate("CheProcess", "Speed")), 1, 4)
         self.V = Entrada_con_unidades(Speed, retornar=False, readOnly=True)
         layout.addWidget(self.V, 1, 5)
         layout.addWidget(QtWidgets.QLabel(
-            QtWidgets.QApplication.translate("pychemqt", "Friction factor")), 2, 4)
+            QtWidgets.QApplication.translate("CheProcess", "Friction factor")), 2, 4)
         self.f = Entrada_con_unidades(float, readOnly=True)
         layout.addWidget(self.f, 2, 5)
         layout.addWidget(QtWidgets.QLabel(
-            QtWidgets.QApplication.translate("pychemqt", "Reynolds")), 3, 4)
+            QtWidgets.QApplication.translate("CheProcess", "Reynolds")), 3, 4)
         self.Re = Entrada_con_unidades(float, tolerancia=5, decimales=1,
                                        readOnly=True)
         layout.addWidget(self.Re, 3, 5)
         layout.addWidget(QtWidgets.QLabel(QtWidgets.QApplication.translate(
-            "pychemqt", "Output Temperature")), 4, 4)
+            "CheProcess", "Output Temperature")), 4, 4)
         self.Tout = Entrada_con_unidades(Temperature, decimales=2,
                                          retornar=False, readOnly=True)
         layout.addWidget(self.Tout, 4, 5)
 
         layout.addWidget(QtWidgets.QLabel(
-            QtWidgets.QApplication.translate("pychemqt", "Flow region")), 0, 7)
+            QtWidgets.QApplication.translate("CheProcess", "Flow region")), 0, 7)
         self.regimen = Entrada_con_unidades(float, readOnly=True)
         layout.addWidget(self.regimen, 0, 8)
         layout.addWidget(QtWidgets.QLabel(
-            QtWidgets.QApplication.translate("pychemqt", "Reynolds liquid")), 1, 7)
+            QtWidgets.QApplication.translate("CheProcess", "Reynolds liquid")), 1, 7)
         self.Re_liq = Entrada_con_unidades(float, readOnly=True)
         layout.addWidget(self.Re_liq, 1, 8)
         layout.addWidget(QtWidgets.QLabel(
-            QtWidgets.QApplication.translate("pychemqt", "Reynolds gas")), 2, 7)
+            QtWidgets.QApplication.translate("CheProcess", "Reynolds gas")), 2, 7)
         self.Re_gas = Entrada_con_unidades(float, readOnly=True)
         layout.addWidget(self.Re_gas, 2, 8)
         layout.addWidget(QtWidgets.QLabel(
-            QtWidgets.QApplication.translate("pychemqt", "Friction liquid")), 3, 7)
+            QtWidgets.QApplication.translate("CheProcess", "Friction liquid")), 3, 7)
         self.f_liq = Entrada_con_unidades(float, readOnly=True)
         layout.addWidget(self.f_liq, 3, 8)
         layout.addWidget(QtWidgets.QLabel(
-            QtWidgets.QApplication.translate("pychemqt", "Friction gas")), 4, 7)
+            QtWidgets.QApplication.translate("CheProcess", "Friction gas")), 4, 7)
         self.f_gas = Entrada_con_unidades(float, readOnly=True)
         layout.addWidget(self.f_gas, 4, 8)
 
@@ -1065,7 +1065,7 @@ class UI_equipment(UI_equip):
         # Cost tab
         lyt = QtWidgets.QGridLayout(self.tabCostos)
         self.labelAvisoCostos = QtWidgets.QLabel(QtWidgets.QApplication.translate(
-            "pychemqt", "Costs only available for steel pipes"))
+            "CheProcess", "Costs only available for steel pipes"))
         self.labelAvisoCostos.setVisible(False)
         self.labelAvisoCostos.setStyleSheet("color: #FF0000;")
         lyt.addWidget(self.labelAvisoCostos, 0, 0, 1, 2)
@@ -1078,16 +1078,16 @@ class UI_equipment(UI_equip):
             20, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding),
             2, 0, 1, 2)
         group = QtWidgets.QGroupBox(
-            QtWidgets.QApplication.translate("pychemqt", "Stimated Cost"))
+            QtWidgets.QApplication.translate("CheProcess", "Stimated Cost"))
         lyt.addWidget(group, 3, 0, 1, 2)
         layout = QtWidgets.QGridLayout(group)
         layout.addWidget(QtWidgets.QLabel(
-            QtWidgets.QApplication.translate("pychemqt", "Purchase Costs")), 0, 1)
+            QtWidgets.QApplication.translate("CheProcess", "Purchase Costs")), 0, 1)
         self.C_adq = Entrada_con_unidades(Currency, retornar=False,
                                           readOnly=True)
         layout.addWidget(self.C_adq, 0, 2)
         layout.addWidget(QtWidgets.QLabel(
-            QtWidgets.QApplication.translate("pychemqt", "Installed Costs")), 1, 1)
+            QtWidgets.QApplication.translate("CheProcess", "Installed Costs")), 1, 1)
         self.C_inst = Entrada_con_unidades(Currency, retornar=False,
                                            readOnly=True)
         layout.addWidget(self.C_inst, 1, 2)

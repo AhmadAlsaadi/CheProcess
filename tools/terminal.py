@@ -18,7 +18,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.'''
 
 
-
 ###############################################################################
 # Tools to create a python shell with pychemqt libraries imported
 # For now only work in linux with xterm as terminal
@@ -33,6 +32,7 @@ from tools.firstrun import which
 
 class XTerm(QtCore.QProcess):
     """Gui container for terminal widget"""
+
     def __init__(self, config, parent=None):
         super(XTerm, self).__init__(parent)
         self.config = config
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     conf_dir = os.path.expanduser('~') + "/.pychemqt/"
     pychemqt_dir = os.environ["PWD"] + "/"
     preferences = ConfigParser()
-    preferences.read(conf_dir+"pychemqtrc")
+    preferences.read(conf_dir+"CheProcessrc")
 
     terminal = XTerm(preferences)
     app.exec_()

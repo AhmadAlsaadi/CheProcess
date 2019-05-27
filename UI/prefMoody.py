@@ -34,6 +34,7 @@ from UI.widgets import LineConfig
 
 class Widget(QtWidgets.QWidget):
     """Moody chart configuration"""
+
     def __init__(self, config=None, parent=None):
         super(Widget, self).__init__(parent)
         layout = QtWidgets.QGridLayout(self)
@@ -87,6 +88,7 @@ class Widget(QtWidgets.QWidget):
 
 class ConfigDialog(QtWidgets.QDialog):
     """Dialog to config thermal method calculations"""
+
     def __init__(self, config=None, parent=None):
         super(ConfigDialog, self).__init__(parent)
         self.setWindowTitle(QtWidgets.QApplication.translate(
@@ -112,9 +114,9 @@ if __name__ == "__main__":
     from configparser import ConfigParser
     app = QtWidgets.QApplication(sys.argv)
 
-    conf_dir = os.path.expanduser('~') + "/.pychemqt/"
+    conf_dir = os.path.expanduser('~') + "/.CheProcess/"
     config = ConfigParser()
-    config.read(conf_dir+"pychemqtrc")
+    config.read(conf_dir+"CheProcessrc")
 
     Dialog = ConfigDialog(config)
     Dialog.show()

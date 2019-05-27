@@ -63,7 +63,6 @@ This library implement a chemical element with several properties
 '''
 
 
-
 import os
 import sqlite3
 
@@ -75,7 +74,7 @@ from lib.utilities import colors
 
 # Connection to database with element data
 connection = sqlite3.connect(os.path.join(
-    os.environ["pychemqt"], "dat", "elemental.db"))
+    os.environ["CheProcess"], "dat", "elemental.db"))
 databank = connection.cursor()
 
 # Load system locale to implement a custon translation system (non qt)

@@ -38,6 +38,7 @@ from UI.widgets import Entrada_con_unidades, LineConfig
 
 class Isolinea(QtWidgets.QDialog):
     """Widget for isoline configuration for mEoS plot tools"""
+
     def __init__(self, unit, ConfSection, config, section="MEOS", parent=None):
         """Constructor
             unit: subclass of unidad to define the isoline type
@@ -292,6 +293,7 @@ class Widget(QtWidgets.QDialog):
 
 class Dialog(QtWidgets.QDialog):
     """Dialog to config thermal method calculations"""
+
     def __init__(self, config=None, parent=None):
         super(Dialog, self).__init__(parent)
         self.setWindowTitle(QtWidgets.QApplication.translate(
@@ -316,9 +318,9 @@ if __name__ == "__main__":
     from configparser import ConfigParser
     app = QtWidgets.QApplication(sys.argv)
 
-    conf_dir = os.path.expanduser('~') + "/.pychemqt/"
+    conf_dir = os.path.expanduser('~') + "/.CheProcess/"
     config = ConfigParser()
-    config.read(conf_dir+"pychemqtrc")
+    config.read(conf_dir+"CheProcessrc")
 
     Dialog = Dialog(config)
     Dialog.show()

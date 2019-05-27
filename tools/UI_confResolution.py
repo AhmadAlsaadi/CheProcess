@@ -18,7 +18,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.'''
 
 
-
 ###############################################################################
 # PFD resolution tools
 ###############################################################################
@@ -34,6 +33,7 @@ from lib.config import conf_dir
 
 class UI_confResolution_widget(QtWidgets.QWidget):
     """PFD resolution widget"""
+
     def __init__(self, config=None, parent=None):
         self.standards = [(600, 400), (640, 480), (720, 400), (800, 600),
                           (832, 624), (1024, 768), (1152, 864), (1280, 1024),
@@ -52,12 +52,14 @@ class UI_confResolution_widget(QtWidgets.QWidget):
         self.checkCustom = QtWidgets.QCheckBox(QtWidgets.QApplication.translate(
             "pychemqt", "Use Custom resolution"))
         layout.addWidget(self.checkCustom, 1, 0, 1, 2)
-        label = QtWidgets.QLabel(QtWidgets.QApplication.translate("pychemqt", "Width:"))
+        label = QtWidgets.QLabel(
+            QtWidgets.QApplication.translate("pychemqt", "Width:"))
         label.setIndent(50)
         layout.addWidget(label, 2, 0)
         self.x = Entrada_con_unidades(int, width=60, spinbox=True, step=1)
         layout.addWidget(self.x, 2, 1)
-        label = QtWidgets.QLabel(QtWidgets.QApplication.translate("pychemqt", "Height:"))
+        label = QtWidgets.QLabel(
+            QtWidgets.QApplication.translate("pychemqt", "Height:"))
         label.setIndent(50)
         layout.addWidget(label, 3, 0)
         self.y = Entrada_con_unidades(int, width=60, spinbox=True, step=1)
@@ -98,7 +100,7 @@ class UI_confResolution_widget(QtWidgets.QWidget):
     def default(cls, config):
         config.add_section("PFD")
         Preferences = ConfigParser()
-        Preferences.read(conf_dir+"pychemqtrc")
+        Preferences.read(conf_dir+"CheProcessrc")
         config.set("PFD", "x", Preferences.get("PFD", "x"))
         config.set("PFD", "y", Preferences.get("PFD", "y"))
         return config
@@ -106,6 +108,7 @@ class UI_confResolution_widget(QtWidgets.QWidget):
 
 class Dialog(QtWidgets.QDialog):
     """PFD resolution dialog"""
+
     def __init__(self, config=None, parent=None):
         super(Dialog, self).__init__(parent)
         self.setWindowTitle(
@@ -114,7 +117,7 @@ class Dialog(QtWidgets.QDialog):
         self.datos = UI_confResolution_widget(config)
         layout.addWidget(self.datos)
         self.buttonBox = QtWidgets.QDialogButtonBox(QtWidgets.QDialogButtonBox.Cancel |
-                                                QtWidgets.QDialogButtonBox.Ok)
+                                                    QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.accepted.connect(self.accept)
         self.buttonBox.rejected.connect(self.reject)
         layout.addWidget(self.buttonBox)

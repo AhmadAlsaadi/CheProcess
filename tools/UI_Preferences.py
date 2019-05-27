@@ -50,6 +50,7 @@ from UI.widgets import ColorSelector, NumericFactor, PathConfig
 
 class ConfGeneral(QtWidgets.QDialog):
     """General configuration options"""
+
     def __init__(self, config=None, parent=None):
         super(ConfGeneral, self).__init__(parent)
 
@@ -115,6 +116,7 @@ class ConfGeneral(QtWidgets.QDialog):
 
 class ConfTooltipUnit(QtWidgets.QDialog):
     """Tooltip with unit alternate value configuration"""
+
     def __init__(self, config, parent=None):
         super(ConfTooltipUnit, self).__init__(parent)
 
@@ -229,6 +231,7 @@ class ConfTooltipUnit(QtWidgets.QDialog):
 
 class ConfTooltipEntity(QtWidgets.QDialog):
     """Entity properties in popup window configuration"""
+
     def __init__(self, config, parent=None):
         super(ConfTooltipEntity, self).__init__(parent)
 
@@ -310,6 +313,7 @@ class ConfTooltipEntity(QtWidgets.QDialog):
 
 class ConfFormat(QtWidgets.QTableWidget):
     """Numeric format configuration"""
+
     def __init__(self, config=None, parent=None):
         super(ConfFormat, self).__init__(parent)
         self.setColumnCount(2)
@@ -372,6 +376,7 @@ class ConfFormat(QtWidgets.QTableWidget):
 
 class ConfApplications(QtWidgets.QDialog):
     """External applications configuration"""
+
     def __init__(self, config=None, parent=None):
         super(ConfApplications, self).__init__(parent)
         layout = QtWidgets.QGridLayout(self)
@@ -457,6 +462,7 @@ class ConfApplications(QtWidgets.QDialog):
 
 class ConfBabel(QtWidgets.QDialog):
     """Openbabel image generation configuration options"""
+
     def __init__(self, config=None, parent=None):
         super(ConfBabel, self).__init__(parent)
 
@@ -582,7 +588,7 @@ class Preferences(QtWidgets.QDialog):
         for icon, dialog, title in self.classes:
             self.stacked.addWidget(dialog(config))
             icon = QtGui.QIcon(QtGui.QPixmap(
-                os.environ["pychemqt"]+"/images/%s" % icon))
+                os.environ["CheProcess"]+"/images/%s" % icon))
             self.lista.addItem(QtWidgets.QListWidgetItem(icon, title))
 
         self.lista.currentRowChanged.connect(self.stacked.setCurrentIndex)
@@ -609,7 +615,7 @@ if __name__ == "__main__":
 #    dialogo=NumericFactor(config)
 
     config = ConfigParser()
-    config.read(conf_dir+"pychemqtrc")
+    config.read(conf_dir+"CheProcessrc")
     dialogo = Preferences(config)
 
     dialogo.show()

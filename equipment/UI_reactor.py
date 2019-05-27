@@ -63,28 +63,28 @@ class widgetReacciones(QtWidgets.QWidget):
         self.TablaReacciones.itemSelectionChanged.connect(self.actualizarBotones)
         gridLayout.addWidget(self.TablaReacciones,1,1,6,4)
 
-        self.botonAbrir=QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(os.environ["pychemqt"]+"/images/button/fileOpen.png")), QtWidgets.QApplication.translate("pychemqt", "Open"))
+        self.botonAbrir=QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(os.environ["CheProcess"]+"/images/button/fileOpen.png")), QtWidgets.QApplication.translate("CheProcess", "Open"))
         self.botonAbrir.clicked.connect(self.botonAbrirClicked)
         gridLayout.addWidget(self.botonAbrir,1,5)
-        self.botonGuardar=QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(os.environ["pychemqt"]+"/images/button/fileSave.png")), QtWidgets.QApplication.translate("pychemqt", "Save"))
+        self.botonGuardar=QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(os.environ["CheProcess"]+"/images/button/fileSave.png")), QtWidgets.QApplication.translate("CheProcess", "Save"))
         self.botonGuardar.clicked.connect(self.botonGuardarClicked)
         self.botonGuardar.setSizePolicy(QtWidgets.QSizePolicy.Fixed,QtWidgets.QSizePolicy.Fixed)
         self.botonGuardar.setEnabled(False)
         gridLayout.addWidget(self.botonGuardar,2,5)
 
-        self.botonNew=QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(os.environ["pychemqt"]+"/images/button/fileNew.png")), QtWidgets.QApplication.translate("pychemqt", "New"))
+        self.botonNew=QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(os.environ["CheProcess"]+"/images/button/fileNew.png")), QtWidgets.QApplication.translate("CheProcess", "New"))
         self.botonNew.clicked.connect(self.botonNewClicked)
         gridLayout.addWidget(self.botonNew,3,5)
-        self.botonEdit=QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(os.environ["pychemqt"]+"/images/button/editor.png")), QtWidgets.QApplication.translate("pychemqt", "Edit"))
+        self.botonEdit=QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(os.environ["CheProcess"]+"/images/button/editor.png")), QtWidgets.QApplication.translate("CheProcess", "Edit"))
         self.botonEdit.setEnabled(False)
         self.botonEdit.setCheckable(True)
         self.botonEdit.clicked.connect(self.botonEditClicked)
         gridLayout.addWidget(self.botonEdit,4,5)
-        self.botonDelete=QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(os.environ["pychemqt"]+"/images/button/editDelete.png")), QtWidgets.QApplication.translate("pychemqt", "Delete"))
+        self.botonDelete=QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(os.environ["CheProcess"]+"/images/button/editDelete.png")), QtWidgets.QApplication.translate("CheProcess", "Delete"))
         self.botonDelete.setEnabled(False)
         self.botonDelete.clicked.connect(self.botonDeleteClicked)
         gridLayout.addWidget(self.botonDelete,5,5)
-        self.botonClear=QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(os.environ["pychemqt"]+"/images/button/clear.png")), QtWidgets.QApplication.translate("pychemqt", "Clear"))
+        self.botonClear=QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(os.environ["CheProcess"]+"/images/button/clear.png")), QtWidgets.QApplication.translate("CheProcess", "Clear"))
         self.botonClear.clicked.connect(self.botonClearClicked)
         gridLayout.addWidget(self.botonClear,6,5)
         gridLayout.addItem(QtWidgets.QSpacerItem(10,10,QtWidgets.QSizePolicy.Expanding,QtWidgets.QSizePolicy.Expanding),10,1)
@@ -95,7 +95,7 @@ class widgetReacciones(QtWidgets.QWidget):
         self.botonDelete.setEnabled(bool)
 
     def botonAbrirClicked(self):
-        fname = str(QtWidgets.QFileDialog.getOpenFileName(self, QtWidgets.QApplication.translate("pychemqt", "Open reaction file"), "./", QtWidgets.QApplication.translate("pychemqt", "reaction file")+" (*.rec);;"+QtWidgets.QApplication.translate("pychemqt", "All files")+" (*.*)")[0])
+        fname = str(QtWidgets.QFileDialog.getOpenFileName(self, QtWidgets.QApplication.translate("CheProcess", "Open reaction file"), "./", QtWidgets.QApplication.translate("CheProcess", "reaction file")+" (*.rec);;"+QtWidgets.QApplication.translate("CheProcess", "All files")+" (*.*)")[0])
         if fname:
             with open(fname, "r") as archivo:
                 reacciones=pickle.load(archivo)
@@ -114,7 +114,7 @@ class widgetReacciones(QtWidgets.QWidget):
         self.changed.emit()
 
     def botonGuardarClicked(self):
-        fname = str(QtWidgets.QFileDialog.getSaveFileName(self, QtWidgets.QApplication.translate("pychemqt", "Save reaction to file"), "./", QtWidgets.QApplication.translate("pychemqt", "reaction file")+" (*.rec)")[0])
+        fname = str(QtWidgets.QFileDialog.getSaveFileName(self, QtWidgets.QApplication.translate("CheProcess", "Save reaction to file"), "./", QtWidgets.QApplication.translate("pychemqt", "reaction file")+" (*.rec)")[0])
         if fname:
             if fname.split(".")[-1]!="rec":
                 fname+=".rec"
@@ -317,10 +317,10 @@ class UI_reacciones(QtWidgets.QDialog):
         lyt.addWidget(QtWidgets.QLabel("r²"),4,5)
         self.r2=Entrada_con_unidades(float, readOnly=True)
         lyt.addWidget(self.r2,4,6)
-        self.botonTablaPlot=QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(os.environ["pychemqt"]+"/images/button/plot.png")), QtWidgets.QApplication.translate("pychemqt", "Plot"))
+        self.botonTablaPlot=QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(os.environ["CheProcess"]+"/images/button/plot.png")), QtWidgets.QApplication.translate("CheProcess", "Plot"))
         self.botonTablaPlot.clicked.connect(self.Plot)
         lyt.addWidget(self.botonTablaPlot,4,7)
-        self.botonTablaClear=QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(os.environ["pychemqt"]+"/images/button/clear.png")), QtWidgets.QApplication.translate("pychemqt", "Clear"))
+        self.botonTablaClear=QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(os.environ["CheProcess"]+"/images/button/clear.png")), QtWidgets.QApplication.translate("CheProcess", "Clear"))
         self.botonTablaClear.clicked.connect(self.KEq_Tab.clear)
         lyt.addWidget(self.botonTablaClear,4,8)
         mathTex = r"$\lnK_eq = A+B/T+C\lnT+DT+ET^2+FT^3+GT^4+HT^5$"
@@ -516,7 +516,7 @@ class UI_equipment(UI_equip):
         self.direccion.addItem(QtWidgets.QApplication.translate("pychemqt", "Countercurrent"))
         self.direccion.addItem(QtWidgets.QApplication.translate("pychemqt", "Cocurrent"))
         layout.addWidget(self.direccion,4,6)
-        self.botonPerfil=QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(os.environ["pychemqt"]+"/images/button/table.png")), QtWidgets.QApplication.translate("pychemqt", "Add Profile"))
+        self.botonPerfil=QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(os.environ["CheProcess"]+"/images/button/table.png")), QtWidgets.QApplication.translate("CheProcess", "Add Profile"))
         self.botonPerfil.clicked.connect(self.editorPerfil)
         layout.addWidget(self.botonPerfil,5,2,1,1)
         gridLayout_Calculo.addWidget(groupbox, 7, 0, 1, 5)

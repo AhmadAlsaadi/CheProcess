@@ -4,10 +4,14 @@
 # Main script for unit testing
 
 
+from test_lib import TestLib
+from unittest import TextTestRunner, TestSuite
+import warnings
+from numpy import seterr
 import os
 
 # Define pychemqt environment
-os.environ["pychemqt"] = os.path.abspath('.')
+os.environ["CheProcess"] = os.path.abspath('.')
 os.environ["freesteam"] = "False"
 os.environ["pybel"] = "False"
 os.environ["CoolProp"] = "False"
@@ -21,14 +25,10 @@ os.environ["PyQt5.Qsci"] = "False"
 
 
 # Don't print the numpy RuntimeWarning
-from numpy import seterr
 seterr("ignore")
 
-import warnings
 warnings.simplefilter("ignore")
 
-from unittest import TextTestRunner, TestSuite
-from test_lib import TestLib
 
 suite = TestSuite()
 suite.addTest(TestLib)

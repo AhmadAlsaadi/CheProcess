@@ -3480,7 +3480,7 @@ class Petroleo(newComponente):
 
     def __init__(self, **kwargs):
         self.Preferences = ConfigParser()
-        self.Preferences.read(conf_dir+"pychemqtrc")
+        self.Preferences.read(conf_dir+"CheProcessrc")
         self.__call__(**kwargs)
 
     def __call__(self, **kwargs):

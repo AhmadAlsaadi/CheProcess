@@ -41,7 +41,7 @@ import os
 from PyQt5 import QtWidgets
 
 # TODO: Delete when it isn´t necessary debug
-# os.environ["pychemqt"] = "/home/jjgomera/Programacion/pychemqt/"
+# os.environ["CheProcess"] = "/home/jjgomera/Programacion/pychemqt/"
 # os.environ["freesteam"] = "True"
 # os.environ["pybel"] = "True"
 # os.environ["CoolProp"] = "True"
@@ -57,16 +57,16 @@ from PyQt5 import QtWidgets
 from lib.sql import databank
 
 
-conf_dir = os.path.expanduser('~') + os.sep + ".pychemqt" + os.sep
-IMAGE_PATH = os.path.join(os.environ["pychemqt"], "images") + os.sep
+conf_dir = os.path.expanduser('~') + os.sep + ".CheProcess" + os.sep
+IMAGE_PATH = os.path.join(os.environ["CheProcess"], "images") + os.sep
 
 Preferences = ConfigParser()
-Preferences.read(conf_dir + "pychemqtrc")
+Preferences.read(conf_dir + "CheProcessrc")
 # FIXME: This instance is not updated when preferences are changed
 
 global currentConfig
 currentConfig = ConfigParser()
-currentConfig.read(conf_dir + "pychemqtrc_temporal")
+currentConfig.read(conf_dir + "CheProcessrc_temporal")
 
 
 def getComponents(solidos=False, config=None, name=True):

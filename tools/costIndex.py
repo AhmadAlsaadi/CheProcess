@@ -50,6 +50,7 @@ with open(config.conf_dir+"CostIndex.dat", "r") as archivo:
 
 class Ui_CostIndex(QtWidgets.QDialog):
     """Dialog to show/configure costIndex"""
+
     def __init__(self, parent=None):
         super(Ui_CostIndex, self).__init__(parent)
         self.setWindowTitle(
@@ -120,7 +121,7 @@ class Ui_CostIndex(QtWidgets.QDialog):
 
         # Fill all widget data
         self.indices = []
-        with open(os.environ["pychemqt"] + "dat/costindex.dat") as archivo:
+        with open(os.environ["CheProcess"] + "dat/costindex.dat") as archivo:
             texto = archivo.readlines()
             for txt in texto:
                 dato = txt.split()
@@ -172,8 +173,8 @@ class Ui_CostIndex(QtWidgets.QDialog):
         """Override close event to ask data changes"""
         dialog = QtWidgets.QMessageBox.question(
             self,
-            QtWidgets.QApplication.translate("pychemqt", "Unsaved changes"),
-            QtWidgets.QApplication.translate("pychemqt",
+            QtWidgets.QApplication.translate("CheProcess", "Unsaved changes"),
+            QtWidgets.QApplication.translate("CheProcess",
                                              "Save unsaved changes?"),
             QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
             QtWidgets.QMessageBox.Yes)
@@ -227,19 +228,19 @@ class CostData(QtWidgets.QWidget):
             20, 20, QtWidgets.QSizePolicy.Expanding,
             QtWidgets.QSizePolicy.Expanding), 1, 0, 1, 7)
         gridLayout.addWidget(QtWidgets.QLabel(QtWidgets.QApplication.translate(
-            "pychemqt", "Instalation factor:")), 2, 0, 1, 1)
+            "CheProcess", "Instalation factor:")), 2, 0, 1, 1)
         self.factorInstalacion = Entrada_con_unidades(
             float, spinbox=True, decimales=1, step=0.1, width=50, value=factor)
         self.factorInstalacion.valueChanged.connect(partial(
             self.valueChanged.emit, "f_install"))
         gridLayout.addWidget(self.factorInstalacion, 2, 1, 1, 1)
         gridLayout.addWidget(QtWidgets.QLabel(QtWidgets.QApplication.translate(
-            "pychemqt", "Base index:")), 2, 4, 1, 1)
+            "CheProcess", "Base index:")), 2, 4, 1, 1)
         self.indiceBase = Entrada_con_unidades(
             float, readOnly=True, value=indiceBase[self.indice], decimales=1)
         gridLayout.addWidget(self.indiceBase, 2, 5, 1, 1)
         gridLayout.addWidget(QtWidgets.QLabel(QtWidgets.QApplication.translate(
-            "pychemqt", "Current index:")), 3, 4, 1, 1)
+            "CheProcess", "Current index:")), 3, 4, 1, 1)
         self.indiceActual = Entrada_con_unidades(
             float, readOnly=True, colorReadOnly="white",
             value=indiceActual[self.indice], decimales=1)

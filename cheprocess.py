@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-"""Pychemqt, Chemical Engineering Process simulator
-Copyright (C) 2009-2017, Juan José Gómez Romera <jjgomera@gmail.com>
+"""CheProcess, Chemical Engineering Process simulator cloned from 
+Juan José Gómez Romera <jjgomera@gmail.com> repo pychemqt
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -29,10 +29,10 @@ import urllib.error
 
 
 # Parse command line options
-desc = """pychemqt intended as a free software tool for calculation and \
+desc = """CheProcess intended as a free software tool for calculation and \
 design of chemical engineering unit operations."""
 further = """For any suggestions, comments, bug ... you can contact me at \
-https://github.com/jjgomera/pychemqt or by email jjgomera@gmail.com."""
+https://github.com/ahmadalsaadi/CheProcess or by email al7akeeeem@gmail.com."""
 
 parser = argparse.ArgumentParser(description=desc, epilog=further)
 parser.add_argument("-l", "--log", dest="loglevel", default="INFO",
@@ -43,17 +43,17 @@ parser.add_argument("-n", "--nosplash", action="store_true",
                     help="Don't show the splash screen at start")
 parser.add_argument("--style", help="Set qt style")
 parser.add_argument("projectFile", nargs="*",
-                    help="Optional pychemqt project files to load at startup")
+                    help="Optional CheProcess project files to load at startup")
 args = parser.parse_args()
 
 
-# Add pychemqt folder to python path
+# Add CheProcess folder to python path
 path = os.path.dirname(os.path.realpath(sys.argv[0]))
 sys.path.append(path)
 
-# Define pychemqt environment
-os.environ["pychemqt"] = path + os.sep
-conf_dir = os.path.expanduser("~") + os.sep + ".pychemqt" + os.sep
+# Define CheProcess environment
+os.environ["CheProcess"] = path + os.sep
+conf_dir = os.path.expanduser("~") + os.sep + ".CheProcess" + os.sep
 
 # Check mandatory external dependences
 # PyQt5
@@ -65,9 +65,9 @@ except ImportError as err:
 
 # Qt application definition
 app = QtWidgets.QApplication(sys.argv)
-app.setOrganizationName("pychemqt")
-app.setOrganizationDomain("pychemqt")
-app.setApplicationName("pychemqt")
+app.setOrganizationName("CheProcess")
+app.setOrganizationDomain("CheProcess")
+app.setApplicationName("CheProcess")
 
 
 # Qt style definition
@@ -98,7 +98,8 @@ if not settings.contains("LastFile"):
 # Translation
 locale = QtCore.QLocale.system().name()
 myTranslator = QtCore.QTranslator()
-if myTranslator.load("pychemqt_" + locale, os.environ["pychemqt"] + "i18n"):
+if myTranslator.load("CheProcess_" + locale, os.environ["CheProcess"] + "i18n"):
+    # Note:change spanish translation file name
     app.installTranslator(myTranslator)
 qtTranslator = QtCore.QTranslator()
 path = QtCore.QLibraryInfo.location(QtCore.QLibraryInfo.TranslationsPath)
@@ -111,14 +112,14 @@ try:
     import scipy
 except ImportError as err:
     msg = QtWidgets.QApplication.translate(
-        "pychemqt", "scipy could not be found, you must install it.")
+        "CheProcess", "scipy could not be found, you must install it.")
     print(msg)
     raise err
 else:
     mayor, minor, corr = map(int, scipy.version.version.split("."))
     if mayor == 0 and minor < 14:
         msg = QtWidgets.QApplication.translate(
-            "pychemqt",
+            "CheProcess",
             "Your version of scipy is too old, you must update it.")
         raise ImportError(msg)
 
@@ -127,14 +128,14 @@ try:
     import numpy
 except ImportError as err:
     msg = QtWidgets.QApplication.translate(
-        "pychemqt", "numpy could not be found, you must install it.")
+        "CheProcess", "numpy could not be found, you must install it.")
     print(msg)
     raise err
 else:
     mayor, minor, corr = map(int, numpy.version.version.split("."))
     if mayor < 1 or minor < 8:
         msg = QtWidgets.QApplication.translate(
-            "pychemqt",
+            "CheProcess",
             "Your version of numpy is too old, you must update it.")
         raise ImportError(msg)
 
@@ -143,14 +144,14 @@ try:
     import matplotlib
 except ImportError as err:
     msg = QtWidgets.QApplication.translate(
-        "pychemqt", "matplotlib could not be found, you must install it.")
+        "CheProcess", "matplotlib could not be found, you must install it.")
     print(msg)
     raise err
 else:
     mayor, minor, corr = map(int, matplotlib.__version__.split("."))
     if mayor < 1 or (mayor == 1 and minor < 4):
         msg = QtWidgets.QApplication.translate(
-            "pychemqt",
+            "CheProcess",
             "Your version of matplotlib is too old, you must update it.")
         raise ImportError(msg)
 
@@ -160,13 +161,13 @@ try:
     import iapws  # noqa
 except ImportError as err:
     msg = QtWidgets.QApplication.translate(
-        "pychemqt", "iapws could not be found, you must install it.")
+        "CheProcess", "iapws could not be found, you must install it.")
     print(msg)
     raise err
 else:
     if iapws.__version__ != "1.4":
         msg = QtWidgets.QApplication.translate(
-            "pychemqt",
+            "CheProcess",
             "Your version of iapws is too old, you must update it.")
         raise ImportError(msg)
 
@@ -216,24 +217,25 @@ if not os.path.isdir(conf_dir):
     os.mkdir(conf_dir)
 
 try:
-    open(conf_dir + "pychemqt.log", 'x')
+    open(conf_dir + "CheProcess.log", 'x')
 except FileExistsError:  # noqa
     pass
 
 fmt = "[%(asctime)s.%(msecs)d] %(levelname)s: %(message)s"
-logging.basicConfig(filename=conf_dir+"pychemqt.log", filemode="w",
+logging.basicConfig(filename=conf_dir+"CheProcess.log", filemode="w",
                     level=loglevel, datefmt="%d-%b-%Y %H:%M:%S", format=fmt)
 logging.info(
-    QtWidgets.QApplication.translate("pychemqt", "Starting pychemqt"))
+    QtWidgets.QApplication.translate("CheProcess", "Starting CheProcess"))
 
 
-# Derive numpy error log to pychemqt log
+# Derive numpy error log to CheProcess log
 class NumpyErrorLog(object):
-    """Numpy error message catch and send to pychemqt log
+    """Numpy error message catch and send to CheProcess log
     Use debug level for this messages"""
     @staticmethod
     def write(msg):
         logging.debug(msg)
+
 
 from numpy import seterr, seterrcall  # noqa
 seterrcall(NumpyErrorLog)
@@ -242,10 +244,11 @@ seterr(all='log')
 
 class SplashScreen(QtWidgets.QSplashScreen):
     """Class to define a splash screen to show loading progress"""
+
     def __init__(self):
         QtWidgets.QSplashScreen.__init__(
             self,
-            QtGui.QPixmap(os.environ["pychemqt"] + "/images/splash.jpg"))
+            QtGui.QPixmap(os.environ["CheProcess"] + "/images/splash.jpg"))
         QtWidgets.QApplication.flush()
 
     def showMessage(self, msg):
@@ -270,19 +273,19 @@ if not args.nosplash:
 # Checking config files
 from tools import firstrun  # noqa
 splash.showMessage(QtWidgets.QApplication.translate(
-    "pychemqt", "Checking config files..."))
+    "CheProcess", "Checking config files..."))
 
 # Checking config file
 default_Preferences = firstrun.Preferences()
 change = False
-if not os.path.isfile(conf_dir + "pychemqtrc"):
-    default_Preferences.write(open(conf_dir + "pychemqtrc", "w"))
+if not os.path.isfile(conf_dir + "CheProcessrc"):
+    default_Preferences.write(open(conf_dir + "CheProcessrc", "w"))
     Preferences = default_Preferences
     change = True
 else:
     # Check Preferences options to find set new options
     Preferences = ConfigParser()
-    Preferences.read(conf_dir + "pychemqtrc")
+    Preferences.read(conf_dir + "CheProcessrc")
     for section in default_Preferences.sections():
         if not Preferences.has_section(section):
             Preferences.add_section(section)
@@ -296,28 +299,28 @@ else:
                                 "%s:%s" % (section, option) +
                                 ", run preferences dialog for configure")
     if change:
-        Preferences.write(open(conf_dir + "pychemqtrc", "w"))
+        Preferences.write(open(conf_dir + "CheProcessrc", "w"))
 
 # FIXME: This file might not to be useful but for now I use it to save project
 # configuration data
-if not os.path.isfile(conf_dir + "pychemqtrc_temporal"):
+if not os.path.isfile(conf_dir + "CheProcessrc_temporal"):
     Config = firstrun.config()
-    Config.write(open(conf_dir + "pychemqtrc_temporal", "w"))
+    Config.write(open(conf_dir + "CheProcessrc_temporal", "w"))
 
 # Checking costindex
 splash.showMessage(QtWidgets.QApplication.translate(
-    "pychemqt", "Checking cost index..."))
+    "CheProcess", "Checking cost index..."))
 if not os.path.isfile(conf_dir + "CostIndex.dat"):
-        orig = os.path.join(os.environ["pychemqt"], "dat", "costindex.dat")
-        with open(orig) as cost_index:
-            lista = cost_index.readlines()[-1].split(" ")
-            with open(conf_dir + "CostIndex.dat", "w") as archivo:
-                for data in lista:
-                    archivo.write(data.replace(os.linesep, "") + os.linesep)
+    orig = os.path.join(os.environ["CheProcess"], "dat", "costindex.dat")
+    with open(orig) as cost_index:
+        lista = cost_index.readlines()[-1].split(" ")
+        with open(conf_dir + "CostIndex.dat", "w") as archivo:
+            for data in lista:
+                archivo.write(data.replace(os.linesep, "") + os.linesep)
 
 # Checking currency rates
 splash.showMessage(QtWidgets.QApplication.translate(
-    "pychemqt", "Checking currency data"))
+    "CheProcess", "Checking currency data"))
 currency = False
 if not os.path.isfile(conf_dir + "moneda.dat"):
     # Exchange rates file don't available
@@ -342,20 +345,20 @@ if currency:
     except (urllib.error.URLError, urllib.error.HTTPError) as e:
         # Internet error, get hardcoded exchanges from pychemqt distribution
         # Possible outdated file, try to update each some commits
-        origen = os.path.join(os.environ["pychemqt"], "dat", "moneda.dat")
+        origen = os.path.join(os.environ["CheProcess"], "dat", "moneda.dat")
         shutil.copy(origen, conf_dir + "moneda.dat")
-        print(QtWidgets.QApplication.translate("pychemqt",
-              "Internet connection error, using archived currency rates"))
+        print(QtWidgets.QApplication.translate("CheProcess",
+                                               "Internet connection error, using archived currency rates"))
 
 # Checking database with custom components
 splash.showMessage(QtWidgets.QApplication.translate(
-    "pychemqt", "Checking custom database..."))
+    "CheProcess", "Checking custom database..."))
 if not os.path.isfile(conf_dir + "databank.db"):
     firstrun.createDatabase(conf_dir + "databank.db")
 
 # Import internal libraries
 splash.showMessage(QtWidgets.QApplication.translate(
-    "pychemqt", "Importing libraries..."))
+    "CheProcess", "Importing libraries..."))
 from lib import *  # noqa
 from UI import *  # noqa
 from equipment import UI_equipments, equipments  # noqa
@@ -364,13 +367,13 @@ from plots import *  # noqa
 
 # Load main program UI
 splash.showMessage(QtWidgets.QApplication.translate(
-    "pychemqt", "Loading main window..."))
+    "CheProcess", "Loading main window..."))
 from UI.mainWindow import UI_pychemqt  # noqa
 pychemqt = UI_pychemqt()
 
-# Load project files, opened in last pychemqt session and/or specified in
+# Load project files, opened in last CheProcess session and/or specified in
 # command line
-msg = QtWidgets.QApplication.translate("pychemqt", "Loading project files")
+msg = QtWidgets.QApplication.translate("CheProcess", "Loading project files")
 splash.showMessage(msg + "...")
 logging.info(msg)
 
@@ -386,7 +389,7 @@ for file in args.projectFile:
     filename.append(file)
 for fname in filename:
     if fname and QtCore.QFile.exists(fname):
-        msg = QtWidgets.QApplication.translate("pychemqt",
+        msg = QtWidgets.QApplication.translate("CheProcess",
                                                "Loading project files...")
         splash.showMessage(msg + "\n" + fname)
         logging.info(msg + ": " + fname)
@@ -396,6 +399,8 @@ for fname in filename:
 # Manage error message to avoid print to console
 def exceptfunction(error, msg, traceback):
     sys.__excepthook__(error, msg, traceback)
+
+
 sys.excepthook = exceptfunction  # noqa
 
 # Finish splash and start qt main loop

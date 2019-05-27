@@ -64,10 +64,10 @@ class Chart(QtWidgets.QDialog):
         self.logo = self.diagrama.fig.figimage(logo, 0, 0, zorder=1)
 
         self.botonGuardar = QtWidgets.QToolButton()
-        icon = os.environ["pychemqt"]+"/images/button/fileSave.png"
+        icon = os.environ["CheProcess"]+"/images/button/fileSave.png"
         self.botonGuardar.setIcon(QtGui.QIcon(QtGui.QPixmap(icon)))
         self.botonGuardar.setToolTip(
-            QtWidgets.QApplication.translate("pychemqt", "Save chart to file"))
+            QtWidgets.QApplication.translate("CheProcess", "Save chart to file"))
         self.botonGuardar.clicked.connect(self.save)
         layout.addWidget(self.botonGuardar, 5, 1)
         layout.addWidget(self.diagrama, 2, 1, 1, 6)
@@ -132,7 +132,8 @@ class Chart(QtWidgets.QDialog):
     def save(self):
         """Show the dialog to select name to save the image as file"""
         fname = str(QtWidgets[0].QFileDialog.getSaveFileName(
-            self, QtWidgets.QApplication.translate("pychemqt", "Save chart to file"),
+            self, QtWidgets.QApplication.translate(
+                "CheProcess", "Save chart to file"),
             "./", "Portable Network Graphics (*.png)"))
         self.diagrama.fig.savefig(fname, facecolor='#eeeeee')
 
@@ -140,18 +141,18 @@ class Chart(QtWidgets.QDialog):
 class Efectividad(Chart):
     """Heat Exchanger effectiveness plot"""
     title = QtWidgets.QApplication.translate(
-        "pychemqt", "Heat Exchanger effectiveness")
+        "CheProcess", "Heat Exchanger effectiveness")
     flujo = [
-        (QtWidgets.QApplication.translate("pychemqt", "Counterflow"), "CF"),
-        (QtWidgets.QApplication.translate("pychemqt", "Parallelflow"), "PF"),
+        (QtWidgets.QApplication.translate("CheProcess", "Counterflow"), "CF"),
+        (QtWidgets.QApplication.translate("CheProcess", "Parallelflow"), "PF"),
         (QtWidgets.QApplication.translate(
-            "pychemqt", "Crossflow, both fluids unmixed"), "CrFunMix"),
+            "CheProcess", "Crossflow, both fluids unmixed"), "CrFunMix"),
         (QtWidgets.QApplication.translate(
-            "pychemqt", "Crossflow, one fluid mixed, other unmixed"), "CrFSMix"),
+            "CheProcess", "Crossflow, one fluid mixed, other unmixed"), "CrFSMix"),
         (QtWidgets.QApplication.translate(
-            "pychemqt", "Crossflow, both fluids mixed"), "CrFMix"),
+            "CheProcess", "Crossflow, both fluids mixed"), "CrFMix"),
         (QtWidgets.QApplication.translate(
-            "pychemqt", "1-2 pass shell and tube exchanger"), "1-2TEMAE")]
+            "CheProcess", "1-2 pass shell and tube exchanger"), "1-2TEMAE")]
 
     mezclado = ("Cmin", "Cmax")
     PosLogo = (0, 1)
@@ -162,7 +163,7 @@ class Efectividad(Chart):
         self.diagrama.ax.set_xlim(0, 6)
         self.diagrama.ax.set_ylim(0, 1)
         title = QtWidgets.QApplication.translate(
-            "pychemqt", "Heat Transfer effectiveness")
+            "CheProcess", "Heat Transfer effectiveness")
         self.diagrama.ax.set_title(title, size='12')
         self.diagrama.ax.set_xlabel("NTU", size='12')
         self.diagrama.ax.set_ylabel("ε", size='14')
@@ -202,28 +203,28 @@ class Efectividad(Chart):
 
 class TemperatureEfectividad(Chart):
     title = QtWidgets.QApplication.translate(
-        "pychemqt", "Heat Exchanger temperature effectiveness")
+        "CheProcess", "Heat Exchanger temperature effectiveness")
     flujo = [
-        (QtWidgets.QApplication.translate("pychemqt", "Counterflow"), "CF"),
-        (QtWidgets.QApplication.translate("pychemqt", "Parallelflow"), "PF"),
+        (QtWidgets.QApplication.translate("CheProcess", "Counterflow"), "CF"),
+        (QtWidgets.QApplication.translate("CheProcess", "Parallelflow"), "PF"),
         (QtWidgets.QApplication.translate(
-            "pychemqt", "Crossflow, both fluids unmixed"), "CrFunMix"),
+            "CheProcess", "Crossflow, both fluids unmixed"), "CrFunMix"),
         (QtWidgets.QApplication.translate(
-            "pychemqt", "Crossflow, one fluid mixed, other unmixed"), "CrFSMix"),
+            "CheProcess", "Crossflow, one fluid mixed, other unmixed"), "CrFSMix"),
         (QtWidgets.QApplication.translate(
-            "pychemqt", "Crossflow, both fluids mixed"), "CrFMix"),
-        (QtWidgets.QApplication.translate("pychemqt", "1-2 TEMA E"), "1-2TEMAE"),
+            "CheProcess", "Crossflow, both fluids mixed"), "CrFMix"),
+        (QtWidgets.QApplication.translate("CheProcess", "1-2 TEMA E"), "1-2TEMAE"),
         (QtWidgets.QApplication.translate(
-            "pychemqt", "1-2 TEMA E, shell fluid divided"), "1-2TEMAE2"),
-        (QtWidgets.QApplication.translate("pychemqt", "1-3 TEMA E"), "1-3TEMAE"),
-        (QtWidgets.QApplication.translate("pychemqt", "1-4 TEMA E"), "1-4TEMAE"),
-        (QtWidgets.QApplication.translate("pychemqt", "1-1 TEMA G"), "1-1TEMAG"),
-        (QtWidgets.QApplication.translate("pychemqt", "1-2 TEMA G"), "1-2TEMAG"),
-        (QtWidgets.QApplication.translate("pychemqt", "1-1 TEMA H"), "1-1TEMAH"),
-        (QtWidgets.QApplication.translate("pychemqt", "1-2 TEMA H"), "1-2TEMAH"),
-        (QtWidgets.QApplication.translate("pychemqt", "1-1 TEMA J"), "1-1TEMAJ"),
-        (QtWidgets.QApplication.translate("pychemqt", "1-2 TEMA J"), "1-2TEMAJ"),
-        (QtWidgets.QApplication.translate("pychemqt", "1-4 TEMA J"), "1-4TEMAJ")]
+            "CheProcess", "1-2 TEMA E, shell fluid divided"), "1-2TEMAE2"),
+        (QtWidgets.QApplication.translate("CheProcess", "1-3 TEMA E"), "1-3TEMAE"),
+        (QtWidgets.QApplication.translate("CheProcess", "1-4 TEMA E"), "1-4TEMAE"),
+        (QtWidgets.QApplication.translate("CheProcess", "1-1 TEMA G"), "1-1TEMAG"),
+        (QtWidgets.QApplication.translate("CheProcess", "1-2 TEMA G"), "1-2TEMAG"),
+        (QtWidgets.QApplication.translate("CheProcess", "1-1 TEMA H"), "1-1TEMAH"),
+        (QtWidgets.QApplication.translate("CheProcess", "1-2 TEMA H"), "1-2TEMAH"),
+        (QtWidgets.QApplication.translate("CheProcess", "1-1 TEMA J"), "1-1TEMAJ"),
+        (QtWidgets.QApplication.translate("CheProcess", "1-2 TEMA J"), "1-2TEMAJ"),
+        (QtWidgets.QApplication.translate("CheProcess", "1-4 TEMA J"), "1-4TEMAJ")]
 
     mezclado = ("1", "2")
     PosLogo = (0, 1)
@@ -235,7 +236,7 @@ class TemperatureEfectividad(Chart):
         self.diagrama.ax.set_xscale("log")
 
         self.diagrama.ax.set_title(QtWidgets.QApplication.translate(
-            "pychemqt", "Heat Transfer Temperature Effectiveness"), size='12')
+            "CheProcess", "Heat Transfer Temperature Effectiveness"), size='12')
         self.diagrama.ax.set_xlabel("NTU", size='12')
         self.diagrama.ax.set_ylabel("P", size='14')
         self.diagrama.ax.set_xticklabels(["0.1", "1.0", "10"])
@@ -254,7 +255,8 @@ class TemperatureEfectividad(Chart):
 
         NTU = logspace(-1.5, 1, 100)
         for ri in R:
-            e = [0]+[TemperatureEffectiveness(N, ri, flujo, **kwargs) for N in NTU[1:]]
+            e = [
+                0]+[TemperatureEffectiveness(N, ri, flujo, **kwargs) for N in NTU[1:]]
             self.diagrama.plot(NTU, e, "k")
             self.diagrama.ax.annotate(" R=%0.1f" % ri, (NTU[-1], e[-1]),
                                       size="medium", ha="left", va="center")
@@ -285,17 +287,18 @@ class TemperatureEfectividad(Chart):
 
 
 class F(Chart):
-    title = QtWidgets.QApplication.translate("pychemqt", "ΔT Correction Factor")
+    title = QtWidgets.QApplication.translate(
+        "CheProcess", "ΔT Correction Factor")
 
     flujo = [
         (QtWidgets.QApplication.translate(
-            "pychemqt", "Crossflow, both fluids unmixed"), "CrFunMix"),
+            "CheProcess", "Crossflow, both fluids unmixed"), "CrFunMix"),
         (QtWidgets.QApplication.translate(
-            "pychemqt", "Crossflow, one fluid mixed, other unmixed"), "CrFSMix"),
+            "CheProcess", "Crossflow, one fluid mixed, other unmixed"), "CrFSMix"),
         (QtWidgets.QApplication.translate(
-            "pychemqt", "Crossflow, both fluids mixed"), "CrFMix"),
+            "CheProcess", "Crossflow, both fluids mixed"), "CrFMix"),
         (QtWidgets.QApplication.translate(
-            "pychemqt", "1-2 pass shell and tube exchanger"), "1-2TEMAE")]
+            "CheProcess", "1-2 pass shell and tube exchanger"), "1-2TEMAE")]
 
     mezclado = ("Cmin", "Cmax")
     PosLogo = (1, 1)
@@ -305,8 +308,10 @@ class F(Chart):
         self.diagrama.ax.clear()
         self.diagrama.ax.set_xlim(0, 1)
         self.diagrama.ax.set_ylim(0, 1)
-        self.diagrama.ax.set_title(QtWidgets.QApplication.translate("pychemqt", "$\Delta T_{ml}$ Correction Factor", None), size='12')
-        self.diagrama.ax.set_xlabel("$P=\\frac{T_{1o}-T_{1i}}{T_{2i}-T_{1i}}$", size='12')
+        self.diagrama.ax.set_title(QtWidgets.QApplication.translate(
+            "CheProcess", "$\Delta T_{ml}$ Correction Factor", None), size='12')
+        self.diagrama.ax.set_xlabel(
+            "$P=\\frac{T_{1o}-T_{1i}}{T_{2i}-T_{1i}}$", size='12')
         self.diagrama.ax.set_ylabel("F", size='14')
 
         flujo = self.flujo[indice][1]
@@ -340,12 +345,12 @@ class F(Chart):
 
 
 class Phi(Chart):
-    title = QtWidgets.QApplication.translate("pychemqt", "ψ", None)
+    title = QtWidgets.QApplication.translate("CheProcess", "ψ", None)
 
-    flujo=[#(QtWidgets.QApplication.translate("pychemqt", "Crossflow, both fluids unmixed"), "CrFunMix"),
-#                (QtGui.QApplication.translate("pychemqt", "Crossflow, one fluid mixed, other unmixed"), "CrFSMix"),
-#                (QtGui.QApplication.translate("pychemqt", "Crossflow, both fluids mixed"), "CrFMix"),
-                (QtWidgets.QApplication.translate("pychemqt", "1-2 pass shell and tube exchanger"), "1-2TEMAE")]
+    flujo = [  # (QtWidgets.QApplication.translate("CheProcess", "Crossflow, both fluids unmixed"), "CrFunMix"),
+        #                (QtGui.QApplication.translate("CheProcess", "Crossflow, one fluid mixed, other unmixed"), "CrFSMix"),
+        #                (QtGui.QApplication.translate("CheProcess", "Crossflow, both fluids mixed"), "CrFMix"),
+        (QtWidgets.QApplication.translate("CheProcess", "1-2 pass shell and tube exchanger"), "1-2TEMAE")]
 
     mezclado = ("Cmin", "Cmax")
     PosLogo = (1, 1)
@@ -354,8 +359,10 @@ class Phi(Chart):
         self.diagrama.ax.clear()
         self.diagrama.ax.set_xlim(0, 1)
         self.diagrama.ax.set_ylim(0, 1)
-        self.diagrama.ax.set_title(QtWidgets.QApplication.translate("pychemqt", "$\Delta T_{ml}$ Correction Factor", None), size='12')
-        self.diagrama.ax.set_xlabel("$P=\\frac{T_{1o}-T_{1i}}{T_{2i}-T_{1i}}$", size='12')
+        self.diagrama.ax.set_title(QtWidgets.QApplication.translate(
+            "CheProcess", "$\Delta T_{ml}$ Correction Factor", None), size='12')
+        self.diagrama.ax.set_xlabel(
+            "$P=\\frac{T_{1o}-T_{1i}}{T_{2i}-T_{1i}}$", size='12')
         self.diagrama.ax.set_ylabel("F", size='14')
 
         flujo = self.flujo[indice][1]

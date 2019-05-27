@@ -181,7 +181,7 @@ class Entrada_con_unidades(QtWidgets.QWidget):
         self.showNull = showNull
 
         Config = ConfigParser()
-        Config.read(conf_dir+"pychemqtrc")
+        Config.read(conf_dir+"CheProcessrc")
         if colorReadOnly:
             self.colorReadOnly = colorReadOnly
         else:
@@ -234,7 +234,7 @@ class Entrada_con_unidades(QtWidgets.QWidget):
 
         if boton:
             self.botonClear = QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(
-                os.environ["pychemqt"] +
+                os.environ["CheProcess"] +
                 os.path.join("images", "button", "editDelete.png"))), "")
             self.botonClear.setFixedSize(12, 24)
             self.botonClear.setVisible(False)
@@ -348,10 +348,10 @@ class Entrada_con_unidades(QtWidgets.QWidget):
     def setToolTip(self):
         """Define the tooltip with the values in confguration"""
         Preferences = ConfigParser()
-        Preferences.read(conf_dir+"pychemqtrc")
+        Preferences.read(conf_dir+"CheProcessrc")
         if Preferences.getboolean("Tooltip", "Show"):
             Config = ConfigParser()
-            Config.read(conf_dir+"pychemqtrc")
+            Config.read(conf_dir+"CheProcessrc")
             try:
                 lista = eval(Config.get('Tooltip', self.magnitud))
             except:
@@ -520,7 +520,7 @@ class Tabla(QtWidgets.QTableWidget):
             self.setItemDelegateForRow(row, delegate)
 
         Config = ConfigParser()
-        Config.read(conf_dir+"pychemqtrc")
+        Config.read(conf_dir+"CheProcessrc")
         inactivo = QtGui.QColor(Config.get("General", 'Color_ReadOnly'))
         for j in range(self.columnCount()):
             self.setItem(row, j, QtWidgets.QTableWidgetItem(data[j]))
@@ -992,7 +992,7 @@ class LineStyleCombo(CustomCombo):
     def _populate(self):
         for key in self.key:
             self.addItem(QtGui.QIcon(QtGui.QPixmap(
-                os.environ["pychemqt"] + self.image[key])), "")
+                os.environ["CheProcess"] + self.image[key])), "")
 
 
 class PFDLineCombo(LineStyleCombo):
@@ -1025,7 +1025,7 @@ class MarkerCombo(CustomCombo):
         for key in self.key:
             txt = self.text[key]
             if txt:
-                image = os.environ["pychemqt"] + \
+                image = os.environ["CheProcess"] + \
                     os.path.join("images", "marker", "%s.png" % txt)
                 self.addItem(QtGui.QIcon(QtGui.QPixmap(image)), self.text[key])
             else:
@@ -1222,7 +1222,7 @@ class InputFont(QtWidgets.QWidget):
             QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
         layout.addWidget(self.lineEdit)
         self.fontButton = QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"] +
+            os.environ["CheProcess"] +
             os.path.join("images", "button", "font.png"))), "")
         self.fontButton.setFixedSize(24, 24)
         self.fontButton.setIconSize(QtCore.QSize(24, 24))

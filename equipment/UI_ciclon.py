@@ -179,7 +179,7 @@ class UI_equipment(UI_equip):
             QtWidgets.QSizePolicy.Expanding), 5, 6, 10, 1)
 
         image = QtWidgets.QLabel()
-        path = os.environ["pychemqt"]+"/images/equip/ciclon.gif"
+        path = os.environ["CheProcess"]+"/images/equip/ciclon.gif"
         image.setPixmap(QtGui.QPixmap(path))
         image.setScaledContents(True)
         sizePolicy = QtWidgets.QSizePolicy(

@@ -113,19 +113,19 @@ class TreeEquipment(QtWidgets.QTreeWidget):
                 item = QtWidgets.QTreeWidgetItem(self.Stream, 1)
                 item.setText(0, str(id))
                 item.setIcon(0, QtGui.QIcon(QtGui.QPixmap(
-                    os.environ["pychemqt"] +
+                    os.environ["CheProcess"] +
                     os.path.join("images", "equipment", "in.svg"))))
             elif id in outs:
                 item = QtWidgets.QTreeWidgetItem(self.Stream, 2)
                 item.setText(0, str(id))
                 item.setIcon(0, QtGui.QIcon(QtGui.QPixmap(
-                    os.environ["pychemqt"] +
+                    os.environ["CheProcess"] +
                     os.path.join("images", "equipment", "out.svg"))))
             else:
                 item = QtWidgets.QTreeWidgetItem(self.Stream, 3)
                 item.setText(0, str(id))
                 item.setIcon(0, QtGui.QIcon(QtGui.QPixmap(
-                    os.environ["pychemqt"] +
+                    os.environ["CheProcess"] +
                     os.path.join("images", "equipment", "stream.png"))))
 
         for equip in items["equip"]:
@@ -1526,17 +1526,17 @@ class UI_pychemqt(QtWidgets.QMainWindow):
         setMainWindowConfig(config)
 
         # TODO: Delete this when its not necessary to run library isolated
-        config.write(open(conf_dir+"pychemqtrc_temporal", "w"))
+        config.write(open(conf_dir+"CheProcessrc_temporal", "w"))
 
     def updateStatus(self, text, success=True):
         """Función que añade entradas al cuadro de status
         text: texto a mostrar
         success: boolean que indica si va todo bien"""
         if success:
-            txt = QtWidgets.QApplication.translate("pychemqt", "Success")
+            txt = QtWidgets.QApplication.translate("CheProcess", "Success")
             color = "#00aa00"
         else:
-            txt = QtWidgets.QApplication.translate("pychemqt", "Failure")
+            txt = QtWidgets.QApplication.translate("CheProcess", "Failure")
             color = "#ff0000"
         self.status.append(
             '<b>' + time.strftime("%H:%M:%S", time.localtime()) +
@@ -1592,15 +1592,15 @@ class UI_pychemqt(QtWidgets.QMainWindow):
         dialog = UI_Preferences.Preferences(Preferences)
         if dialog.exec_():
             preferences = dialog.value()
-            preferences.write(open(conf_dir+"pychemqtrc", "w"))
+            preferences.write(open(conf_dir+"CheProcessrc", "w"))
             Preferences = ConfigParser()
-            Preferences.read(conf_dir+"pychemqtrc")
+            Preferences.read(conf_dir+"CheProcessrc")
             self.updateStatus(QtWidgets.QApplication.translate(
-                "pychemqt", "pychemqt configuration change"), True)
+                "CheProcess", "CheProcess configuration change"), True)
             self.changePreferenceLive()
         else:
             self.updateStatus(QtWidgets.QApplication.translate(
-                "pychemqt", "pychemqt configuration change"), False)
+                "CheProcess", "CheProcess configuration change"), False)
 
     def changePreferenceLive(self):
         if Preferences.getboolean("General", 'Tray'):
@@ -1666,7 +1666,7 @@ class UI_pychemqt(QtWidgets.QMainWindow):
     def help(self):
         # First search for a local documentation build
         # By default in docs/_build/html/
-        path = os.path.join(os.environ["pychemqt"], "docs") + os.sep
+        path = os.path.join(os.environ["CheProcess"], "docs") + os.sep
         if os.path.isdir(path):
             indexpath = os.path.join(path, "_build", "html", "index.html")
             url = QtCore.QUrl(indexpath)

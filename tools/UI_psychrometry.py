@@ -50,6 +50,7 @@ class PsychroPlot(mpl):
         Add custom margins
         Define a point for text state properties, to easy remove and redraw
     """
+
     def __init__(self, *args, **kwargs):
         mpl.__init__(self, *args, **kwargs)
         self.notes = []
@@ -149,13 +150,13 @@ class PsychroInput(QtWidgets.QWidget):
 
         layout = QtWidgets.QGridLayout(self)
         self.checkPresion = QtWidgets.QRadioButton(
-                QtWidgets.QApplication.translate("pychemqt", "Pressure"))
+            QtWidgets.QApplication.translate("pychemqt", "Pressure"))
         layout.addWidget(self.checkPresion, 1, 1, 1, 1)
         self.P = Entrada_con_unidades(Pressure, value=101325)
         self.P.valueChanged.connect(self.changePressure)
         layout.addWidget(self.P, 1, 2, 1, 1)
         self.checkAltitud = QtWidgets.QRadioButton(
-                QtWidgets.QApplication.translate("pychemqt", "Altitude"))
+            QtWidgets.QApplication.translate("pychemqt", "Altitude"))
         layout.addWidget(self.checkAltitud, 2, 1, 1, 1)
         self.z = Entrada_con_unidades(Length, value=0)
         self.checkPresion.toggled.connect(self.P.setEnabled)
@@ -274,12 +275,13 @@ class PsychroInput(QtWidgets.QWidget):
 
 class UI_Psychrometry(QtWidgets.QDialog):
     """Psychrometric charts tool"""
+
     def __init__(self, parent=None):
         super(UI_Psychrometry, self).__init__(parent)
         self.setWindowTitle(QtWidgets.QApplication.translate(
             "pychemqt", "Psychrometric chart"))
         self.setWindowIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"] + "/images/button/psychrometric.png")))
+            os.environ["CheProcess"] + "/images/button/psychrometric.png")))
         self.showMaximized()
 
         layout = QtWidgets.QGridLayout(self)
@@ -312,12 +314,12 @@ class UI_Psychrometry(QtWidgets.QDialog):
 
         btBox = QtWidgets.QDialogButtonBox(QtWidgets.QDialogButtonBox.Close)
         butonPNG = QtWidgets.QPushButton(QtGui.QIcon(
-            os.environ["pychemqt"] +
+            os.environ["CheProcess"] +
             os.path.join("images", "button", "image.png")),
             QtWidgets.QApplication.translate("pychemqt", "Save as PNG"))
         butonPNG.clicked.connect(self.plt.savePNG)
         butonConfig = QtWidgets.QPushButton(QtGui.QIcon(
-            os.environ["pychemqt"] +
+            os.environ["CheProcess"] +
             os.path.join("images", "button", "configure.png")),
             QtWidgets.QApplication.translate("pychemqt", "Configure"))
         butonConfig.clicked.connect(self.configure)
@@ -328,7 +330,7 @@ class UI_Psychrometry(QtWidgets.QDialog):
 
         self.showToolBar(False)
         self.Preferences = ConfigParser()
-        self.Preferences.read(conf_dir+"pychemqtrc")
+        self.Preferences.read(conf_dir+"CheProcessrc")
         self.plot()
         logging.info(QtWidgets.QApplication.translate(
             "pychemqt", "Started psychrometric chart tool"))
@@ -338,7 +340,7 @@ class UI_Psychrometry(QtWidgets.QDialog):
         dlg = Dialog(self.Preferences)
         if dlg.exec_():
             self.Preferences = dlg.value(self.Preferences)
-            self.Preferences.write(open(conf_dir+"pychemqtrc", "w"))
+            self.Preferences.write(open(conf_dir+"CheProcessrc", "w"))
             self.plot()
 
     def showToolBar(self, checked):
@@ -349,7 +351,7 @@ class UI_Psychrometry(QtWidgets.QDialog):
         else:
             image = "arrow-right-double.png"
         self.buttonShowToolbox.setIcon(QtGui.QIcon(
-            os.environ["pychemqt"] + os.path.join("images", "button", image)))
+            os.environ["CheProcess"] + os.path.join("images", "button", image)))
 
     def drawlabel(self, name, t, W, label, unit):
         """

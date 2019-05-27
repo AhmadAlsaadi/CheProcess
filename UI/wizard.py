@@ -75,7 +75,7 @@ def auto(tmin=None, tmax=None, pmin=None, pmax=None, components=[]):
         config.set("Thermo", "MEoS", "True")
     if os.environ["CoolProp"] == "True" and len(components) == 1 and \
             components[0] in coolProp.__all__:
-            config.set("Thermo", "coolprop", "True")
+        config.set("Thermo", "coolprop", "True")
     if os.environ["refprop"] == "True" and REFPROP_available:
         config.set("Thermo", "refprop", "True")
     if GERG_available:
@@ -86,6 +86,7 @@ def auto(tmin=None, tmax=None, pmin=None, pmax=None, components=[]):
 
 class AutoDialog(QtWidgets.QDialog):
     """Dialog to input value for auto thermal function"""
+
     def __init__(self, parent=None):
         super(AutoDialog, self).__init__(parent)
         layout = QtWidgets.QGridLayout(self)
@@ -115,6 +116,7 @@ class AutoDialog(QtWidgets.QDialog):
 
 class Wizard(QtWidgets.QWizard):
     """Wizard dialog for project configuration"""
+
     def __init__(self, config=None, parent=None):
         super(Wizard, self).__init__(parent)
         self.config = config
@@ -140,10 +142,10 @@ class Wizard(QtWidgets.QWizard):
             "pychemqt",
             "That's the configuration wizard of a new project from pychemqt"))
         page1_welcome.setPixmap(QtWidgets.QWizard.LogoPixmap, QtGui.QPixmap(
-            os.path.join(os.environ["pychemqt"], "images", "pychemqt_98.png")))
+            os.path.join(os.environ["CheProcess"], "images", "pychemqt_98.png")))
         page1_welcome.setPixmap(
             QtWidgets.QWizard.WatermarkPixmap, QtGui.QPixmap(
-                os.path.join(os.environ["pychemqt"], "images", "logo_2.jpg")))
+                os.path.join(os.environ["CheProcess"], "images", "logo_2.jpg")))
         lyt = QtWidgets.QVBoxLayout(page1_welcome)
         lyt.addWidget(QtWidgets.QLabel(QtWidgets.QApplication.translate(
             "pychemqt",
@@ -170,7 +172,7 @@ These are the options you must expecific next:<br>
         page2_components.setSubTitle(QtWidgets.QApplication.translate(
             "pychemqt", "Add componentes from database"))
         page2_components.setPixmap(QtWidgets.QWizard.LogoPixmap, QtGui.QPixmap(
-            os.path.join(os.environ["pychemqt"], "images", "pychemqt_98.png")))
+            os.path.join(os.environ["CheProcess"], "images", "pychemqt_98.png")))
         lyt = QtWidgets.QVBoxLayout(page2_components)
         self.componentes = UI_confComponents.UI_confComponents_widget(config)
         self.componentes.componentChanged.connect(self.button(
@@ -186,7 +188,7 @@ These are the options you must expecific next:<br>
             "pychemqt", "The thermodynamics properties are the basic of \
 pychemqt, a bad selection would be disastrous for the results"))
         page3_thermo.setPixmap(QtWidgets.QWizard.LogoPixmap, QtGui.QPixmap(
-            os.path.join(os.environ["pychemqt"], "images", "pychemqt_98.png")))
+            os.path.join(os.environ["CheProcess"], "images", "pychemqt_98.png")))
         lyt = QtWidgets.QVBoxLayout(page3_thermo)
         self.thermo = UI_confThermo.UI_confThermo_widget(config)
         lyt.addWidget(self.thermo)
@@ -199,7 +201,7 @@ pychemqt, a bad selection would be disastrous for the results"))
             "pychemqt", "The transport properties are important too for good \
 simulation results"))
         page4_transport.setPixmap(QtWidgets.QWizard.LogoPixmap, QtGui.QPixmap(
-            os.path.join(os.environ["pychemqt"], "images", "pychemqt_98.png")))
+            os.path.join(os.environ["CheProcess"], "images", "pychemqt_98.png")))
         lyt = QtWidgets.QVBoxLayout(page4_transport)
         self.transport = UI_confTransport.UI_confTransport_widget(config)
         lyt.addWidget(self.transport)
@@ -212,7 +214,7 @@ simulation results"))
             "pychemqt", "The preferred units are not necessary for the \
 simulation, but a good election let you only focus in simulation"))
         page5_units.setPixmap(QtWidgets.QWizard.LogoPixmap, QtGui.QPixmap(
-            os.path.join(os.environ["pychemqt"], "images", "pychemqt_98.png")))
+            os.path.join(os.environ["CheProcess"], "images", "pychemqt_98.png")))
         lyt = QtWidgets.QVBoxLayout(page5_units)
         self.units = UI_confUnits.UI_confUnits_widget(config)
         lyt.addWidget(self.units)
@@ -246,7 +248,7 @@ simulation, but a good election let you only focus in simulation"))
         if not config.has_section("PFD"):
             config.add_section("PFD")
             Preferences = ConfigParser()
-            Preferences.read(conf_dir+"pychemqtrc")
+            Preferences.read(conf_dir+"CheProcessrc")
             config.set("PFD", "x", Preferences.get("PFD", "x"))
             config.set("PFD", "y", Preferences.get("PFD", "y"))
         return config
@@ -260,6 +262,7 @@ simulation, but a good election let you only focus in simulation"))
         config = UI_confUnits.UI_confUnits_widget.default(config)
         config = UI_confResolution.UI_confResolution_widget.default(config)
         return config
+
 
 if __name__ == "__main__":
     import sys

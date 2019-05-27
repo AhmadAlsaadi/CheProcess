@@ -18,7 +18,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.'''
 
 
-
 ###############################################################################
 # Units config tools
 ###############################################################################
@@ -36,6 +35,7 @@ from lib.config import conf_dir
 
 class UI_confUnits_widget(QtWidgets.QWidget):
     """Units widget, to use in whatever need, dialog, wizard..."""
+
     def __init__(self, config=None, parent=None):
         """Constructor, opcional config paramater with project config"""
         super(UI_confUnits_widget, self).__init__(parent)
@@ -86,7 +86,7 @@ class UI_confUnits_widget(QtWidgets.QWidget):
                 for texto, unidad in zip(magnitud[2].__text__,
                                          magnitud[2].__units__):
                     combo.addItem(QtGui.QIcon(QtGui.QPixmap(
-                        os.environ["pychemqt"]+"/images/flag/%s.gif" % unidad)),
+                        os.environ["CheProcess"]+"/images/flag/%s.gif" % unidad)),
                         texto + " - " + unidad)
             else:
                 for unidad in magnitud[2].__text__:
@@ -102,7 +102,7 @@ class UI_confUnits_widget(QtWidgets.QWidget):
         self.nombre.textChanged.connect(self.nameChanged)
         layout.addWidget(self.nombre, 3, 2)
         self.Guardar = QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"]+"/images/button/fileSave.png")),
+            os.environ["CheProcess"]+"/images/button/fileSave.png")),
             QtWidgets.QApplication.translate("pychemqt", "Save profile"))
         self.Guardar.setEnabled(False)
         self.Guardar.clicked.connect(self.guardar)
@@ -110,7 +110,7 @@ class UI_confUnits_widget(QtWidgets.QWidget):
         self.perfiles = QtWidgets.QComboBox()
         layout.addWidget(self.perfiles, 6, 2)
         self.Cargar = QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"]+"/images/button/fileOpen.png")),
+            os.environ["CheProcess"]+"/images/button/fileOpen.png")),
             QtWidgets.QApplication.translate("pychemqt", "Load profile"))
         self.Cargar.clicked.connect(self.load)
         layout.addWidget(self.Cargar, 7, 2)
@@ -143,7 +143,8 @@ class UI_confUnits_widget(QtWidgets.QWidget):
             Config = ConfigParser()
             Config.read(conf_dir+"unitrc")
             for i in Config.options("units"):
-                self.perfiles.addItem(QtWidgets.QApplication.translate("pychemqt", i))
+                self.perfiles.addItem(
+                    QtWidgets.QApplication.translate("pychemqt", i))
             self.perfiles.setEnabled(True)
             self.Cargar.setEnabled(True)
         else:
@@ -215,14 +216,16 @@ class UI_confUnits_widget(QtWidgets.QWidget):
 
 class Dialog(QtWidgets.QDialog):
     """Units configuration dialog"""
+
     def __init__(self, config=None, parent=None):
         super(Dialog, self).__init__(parent)
-        self.setWindowTitle(QtWidgets.QApplication.translate("pychemqt", "Units"))
+        self.setWindowTitle(
+            QtWidgets.QApplication.translate("pychemqt", "Units"))
         layout = QtWidgets.QVBoxLayout(self)
         self.datos = UI_confUnits_widget(config)
         layout.addWidget(self.datos)
         self.buttonBox = QtWidgets.QDialogButtonBox(QtWidgets.QDialogButtonBox.Cancel |
-                                                QtWidgets.QDialogButtonBox.Ok)
+                                                    QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.accepted.connect(self.accept)
         self.buttonBox.rejected.connect(self.reject)
         layout.addWidget(self.buttonBox)

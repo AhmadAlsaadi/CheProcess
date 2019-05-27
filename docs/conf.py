@@ -31,7 +31,7 @@ autodoc_mock_imports = ['sip', 'PyQt5', 'PyQt5.QtGui', 'PyQt5.QtCore',
 
 
 # Define pychemqt environment
-os.environ["pychemqt"] = os.path.abspath('../')
+os.environ["CheProcess"] = os.path.abspath('../')
 os.environ["freesteam"] = "False"
 os.environ["pybel"] = "False"
 os.environ["CoolProp"] = "False"
@@ -60,14 +60,14 @@ from tools import firstrun  # noqa
 # Checking config file
 default_Preferences = firstrun.Preferences()
 change = False
-if not os.path.isfile(conf_dir + "pychemqtrc"):
-    default_Preferences.write(open(conf_dir + "pychemqtrc", "w"))
+if not os.path.isfile(conf_dir + "CheProcessrc"):
+    default_Preferences.write(open(conf_dir + "CheProcessrc", "w"))
     Preferences = default_Preferences
     change = True
 else:
     # Check Preferences options to find set new options
     Preferences = ConfigParser()
-    Preferences.read(conf_dir + "pychemqtrc")
+    Preferences.read(conf_dir + "CheProcessrc")
     for section in default_Preferences.sections():
         if not Preferences.has_section(section):
             Preferences.add_section(section)
@@ -78,25 +78,25 @@ else:
                 Preferences.set(section, option, value)
                 change = True
     if change:
-        Preferences.write(open(conf_dir + "pychemqtrc", "w"))
+        Preferences.write(open(conf_dir + "CheProcessrc", "w"))
 
 # FIXME: This file might not to be useful but for now I use it to save project
 # configuration data
-if not os.path.isfile(conf_dir + "pychemqtrc_temporal"):
+if not os.path.isfile(conf_dir + "CheProcessrc_temporal"):
     Config = firstrun.config()
-    Config.write(open(conf_dir + "pychemqtrc_temporal", "w"))
+    Config.write(open(conf_dir + "CheProcessrc_temporal", "w"))
 
 # Checking costindex
 if not os.path.isfile(conf_dir + "CostIndex.dat"):
-        orig = os.path.join(os.environ["pychemqt"], "dat", "costindex.dat")
-        with open(orig) as cost_index:
-            lista = cost_index.readlines()[-1].split(" ")
-            with open(conf_dir + "CostIndex.dat", "w") as archivo:
-                for data in lista:
-                    archivo.write(data.replace(os.linesep, "") + os.linesep)
+    orig = os.path.join(os.environ["CheProcess"], "dat", "costindex.dat")
+    with open(orig) as cost_index:
+        lista = cost_index.readlines()[-1].split(" ")
+        with open(conf_dir + "CostIndex.dat", "w") as archivo:
+            for data in lista:
+                archivo.write(data.replace(os.linesep, "") + os.linesep)
 
 # Checking currency rates
-origen = os.path.join(os.environ["pychemqt"], "dat", "moneda.dat")
+origen = os.path.join(os.environ["CheProcess"], "dat", "moneda.dat")
 shutil.copy(origen, conf_dir + "moneda.dat")
 
 # Checking database with custom components
@@ -211,8 +211,8 @@ html_theme = 'sphinx_rtd_theme'
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
-        "display_version": False,
-        }
+    "display_version": False,
+}
 
 # Add any paths that contain custom themes here, relative to this directory.
 # html_theme_path = []
@@ -321,8 +321,8 @@ htmlhelp_basename = 'pychemqtdoc'
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'pychemqt.tex', u'pychemqt Documentation',
-   u'Juan José Gómez Romera', 'manual'),
+    (master_doc, 'pychemqt.tex', u'pychemqt Documentation',
+     u'Juan José Gómez Romera', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -365,9 +365,9 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'pychemqt', u'pychemqt Documentation',
-   author, 'pychemqt', 'One line description of project.',
-   'Miscellaneous'),
+    (master_doc, 'pychemqt', u'pychemqt Documentation',
+     author, 'pychemqt', 'One line description of project.',
+     'Miscellaneous'),
 ]
 
 # Documents to append as an appendix to all manuals.

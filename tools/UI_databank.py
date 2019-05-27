@@ -33,6 +33,7 @@ from UI import viewComponents
 class UI_databank_widget(QtWidgets.QWidget):
     """Database widget, to use in whatever need: database dialog, proyect
     component list definnition"""
+
     def __init__(self, parent=None):
         super(UI_databank_widget, self).__init__(parent)
         gridLayout = QtWidgets.QGridLayout(self)
@@ -43,21 +44,21 @@ class UI_databank_widget(QtWidgets.QWidget):
         self.buttonNew.setToolTip(QtWidgets.QApplication.translate(
             "pychemqt", "Create new element"))
         self.buttonNew.setIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"]+"/images/button/fileNew.png")))
+            os.environ["CheProcess"]+"/images/button/fileNew.png")))
         self.buttonNew.clicked.connect(self.newComponent)
         layoutTitle.addWidget(self.buttonNew)
         self.buttonCopy = QtWidgets.QToolButton(self)
         self.buttonCopy.setToolTip(QtWidgets.QApplication.translate(
             "pychemqt", "Clone this element"))
         self.buttonCopy.setIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"]+"/images/button/editCopy.png")))
+            os.environ["CheProcess"]+"/images/button/editCopy.png")))
         self.buttonCopy.clicked.connect(self.copyComponent)
         layoutTitle.addWidget(self.buttonCopy)
         self.buttonDelete = QtWidgets.QToolButton(self)
         self.buttonDelete.setToolTip(QtWidgets.QApplication.translate(
             "pychemqt", "Delete element"))
         self.buttonDelete.setIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"]+"/images/button/editDelete.png")))
+            os.environ["CheProcess"]+"/images/button/editDelete.png")))
         self.buttonDelete.clicked.connect(self.deleteComponent)
         self.buttonDelete.setEnabled(False)
         layoutTitle.addWidget(self.buttonDelete)
@@ -179,6 +180,7 @@ class UI_databank_widget(QtWidgets.QWidget):
 
 class UI_databank(QtWidgets.QDialog):
     """Database dialog"""
+
     def __init__(self, parent=None):
         super(UI_databank, self).__init__(parent)
         self.setWindowTitle(QtWidgets.QApplication.translate(

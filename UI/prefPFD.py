@@ -37,6 +37,7 @@ from tools import UI_confResolution
 
 class Widget(QtWidgets.QDialog):
     """Flow Diagram configuration"""
+
     def __init__(self, config=None, parent=None):
         super(Widget, self).__init__(parent)
 
@@ -117,6 +118,7 @@ class Widget(QtWidgets.QDialog):
 
 class Dialog(QtWidgets.QDialog):
     """Dialog to config thermal method calculations"""
+
     def __init__(self, config=None, parent=None):
         super(Dialog, self).__init__(parent)
         self.setWindowTitle(QtWidgets.QApplication.translate(
@@ -172,7 +174,7 @@ class ConfLine(QtWidgets.QWidget):
         lyt2.addWidget(self.mitterLimit)
         toolJoinMitter = QtWidgets.QToolButton()
         toolJoinMitter.setIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"] +
+            os.environ["CheProcess"] +
             os.path.join("images", "button", "stroke-join-miter.png"))))
         toolJoinMitter.setIconSize(QtCore.QSize(24, 24))
         toolJoinMitter.setCheckable(True)
@@ -183,7 +185,7 @@ class ConfLine(QtWidgets.QWidget):
         lyt2.addWidget(toolJoinMitter)
         toolJoinBevel = QtWidgets.QToolButton()
         toolJoinBevel.setIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"] +
+            os.environ["CheProcess"] +
             os.path.join("images", "button", "stroke-join-bevel.png"))))
         toolJoinBevel.setIconSize(QtCore.QSize(24, 24))
         toolJoinBevel.setCheckable(True)
@@ -194,7 +196,7 @@ class ConfLine(QtWidgets.QWidget):
         lyt2.addWidget(toolJoinBevel)
         toolJoinRound = QtWidgets.QToolButton()
         toolJoinRound.setIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"] +
+            os.environ["CheProcess"] +
             os.path.join("images", "button", "stroke-join-round.png"))))
         toolJoinRound.setIconSize(QtCore.QSize(24, 24))
         toolJoinRound.setCheckable(True)
@@ -215,7 +217,7 @@ class ConfLine(QtWidgets.QWidget):
             QtWidgets.QApplication.translate("pychemqt", "Cap")))
         toolCapFlat = QtWidgets.QToolButton()
         toolCapFlat.setIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"] +
+            os.environ["CheProcess"] +
             os.path.join("images", "button", "stroke-cap-butt.png"))))
         toolCapFlat.setIconSize(QtCore.QSize(24, 24))
         toolCapFlat.setCheckable(True)
@@ -226,7 +228,7 @@ class ConfLine(QtWidgets.QWidget):
         lyt3.addWidget(toolCapFlat)
         toolCapRound = QtWidgets.QToolButton()
         toolCapRound.setIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"] +
+            os.environ["CheProcess"] +
             os.path.join("images", "button", "stroke-cap-round.png"))))
         toolCapRound.setIconSize(QtCore.QSize(24, 24))
         toolCapRound.setCheckable(True)
@@ -235,7 +237,7 @@ class ConfLine(QtWidgets.QWidget):
         lyt3.addWidget(toolCapRound)
         toolCapSquare = QtWidgets.QToolButton()
         toolCapSquare.setIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"] +
+            os.environ["CheProcess"] +
             os.path.join("images", "button", "stroke-cap-square.png"))))
         toolCapSquare.setIconSize(QtCore.QSize(24, 24))
         toolCapSquare.setCheckable(True)
@@ -311,9 +313,9 @@ if __name__ == "__main__":
     from configparser import ConfigParser
     app = QtWidgets.QApplication(sys.argv)
 
-    conf_dir = os.path.expanduser('~') + "/.pychemqt/"
+    conf_dir = os.path.expanduser('~') + "/.CheProcess/"
     config = ConfigParser()
-    config.read(conf_dir+"pychemqtrc")
+    config.read(conf_dir+"CheProcessrc")
 
     Dialog = Dialog(config)
     Dialog.show()

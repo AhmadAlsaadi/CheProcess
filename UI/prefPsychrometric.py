@@ -153,6 +153,7 @@ class Widget(QtWidgets.QWidget):
 
 class Dialog(QtWidgets.QDialog):
     """Dialog to config thermal method calculations"""
+
     def __init__(self, config=None, parent=None):
         super(Dialog, self).__init__(parent)
         self.setWindowTitle(QtWidgets.QApplication.translate(
@@ -177,9 +178,9 @@ if __name__ == "__main__":
     from configparser import ConfigParser
     app = QtWidgets.QApplication(sys.argv)
 
-    conf_dir = os.path.expanduser('~') + "/.pychemqt/"
+    conf_dir = os.path.expanduser('~') + "/.CheProcess/"
     config = ConfigParser()
-    config.read(conf_dir+"pychemqtrc")
+    config.read(conf_dir+"CheProcessrc")
 
     Dialog = Dialog(config)
     Dialog.show()

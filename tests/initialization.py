@@ -28,16 +28,16 @@ import sys
 sys.path.insert(0, os.path.abspath('.'))
 
 # Define pychemqt environment
-os.environ["pychemqt"] = os.path.abspath('.')
+os.environ["CheProcess"] = os.path.abspath('.')
 
-conf_dir = os.path.expanduser("~") + os.sep + ".pychemqt" + os.sep
+conf_dir = os.path.expanduser("~") + os.sep + ".CheProcess" + os.sep
 
 # Checking config folder
 if not os.path.isdir(conf_dir):
     os.mkdir(conf_dir)
 
 try:
-    open(conf_dir + "pychemqt.log", 'x')
+    open(conf_dir + "CheProcess.log", 'x')
 except FileExistsError:  # noqa
     pass
 
@@ -48,14 +48,14 @@ from tools import firstrun  # noqa
 # Checking config file
 default_Preferences = firstrun.Preferences()
 change = False
-if not os.path.isfile(conf_dir + "pychemqtrc"):
-    default_Preferences.write(open(conf_dir + "pychemqtrc", "w"))
+if not os.path.isfile(conf_dir + "CheProcessrc"):
+    default_Preferences.write(open(conf_dir + "CheProcessrc", "w"))
     Preferences = default_Preferences
     change = True
 else:
     # Check Preferences options to find set new options
     Preferences = ConfigParser()
-    Preferences.read(conf_dir + "pychemqtrc")
+    Preferences.read(conf_dir + "CheProcessrc")
     for section in default_Preferences.sections():
         if not Preferences.has_section(section):
             Preferences.add_section(section)
@@ -66,25 +66,25 @@ else:
                 Preferences.set(section, option, value)
                 change = True
     if change:
-        Preferences.write(open(conf_dir + "pychemqtrc", "w"))
+        Preferences.write(open(conf_dir + "CheProcessrc", "w"))
 
 # FIXME: This file might not to be useful but for now I use it to save project
 # configuration data
-if not os.path.isfile(conf_dir + "pychemqtrc_temporal"):
+if not os.path.isfile(conf_dir + "CheProcessrc_temporal"):
     Config = firstrun.config()
-    Config.write(open(conf_dir + "pychemqtrc_temporal", "w"))
+    Config.write(open(conf_dir + "CheProcessrc_temporal", "w"))
 
 # Checking costindex
 if not os.path.isfile(conf_dir + "CostIndex.dat"):
-        orig = os.path.join(os.environ["pychemqt"], "dat", "costindex.dat")
-        with open(orig) as cost_index:
-            lista = cost_index.readlines()[-1].split(" ")
-            with open(conf_dir + "CostIndex.dat", "w") as archivo:
-                for data in lista:
-                    archivo.write(data.replace(os.linesep, "") + os.linesep)
+    orig = os.path.join(os.environ["CheProcess"], "dat", "costindex.dat")
+    with open(orig) as cost_index:
+        lista = cost_index.readlines()[-1].split(" ")
+        with open(conf_dir + "CostIndex.dat", "w") as archivo:
+            for data in lista:
+                archivo.write(data.replace(os.linesep, "") + os.linesep)
 
 # Checking currency rates
-origen = os.path.join(os.environ["pychemqt"], "dat", "moneda.dat")
+origen = os.path.join(os.environ["CheProcess"], "dat", "moneda.dat")
 shutil.copy(origen, conf_dir + "moneda.dat")
 
 # Checking database with custom components

@@ -319,7 +319,7 @@ class unidad(float):
         if not unit:
             unit = self.func(magnitud)
         Preferences = ConfigParser()
-        Preferences.read(conf_dir+"pychemqtrc")
+        Preferences.read(conf_dir+"CheProcessrc")
         kwargs = eval(Preferences.get("NumericFormat", magnitud))
         value = self.__getattribute__(unit)
         return representacion(value, **kwargs)
@@ -378,7 +378,7 @@ with support for class unidad operations: txt, config. func."""
     def format(self, unit):
         """Using config file return the unit value in desired numeric format"""
         Preferences = ConfigParser()
-        Preferences.read(conf_dir+"pychemqtrc")
+        Preferences.read(conf_dir+"CheProcessrc")
         kwargs = eval(Preferences.get("NumericFormat", "Dimensionless"))
         return representacion(self, **kwargs)
 

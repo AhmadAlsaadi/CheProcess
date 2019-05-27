@@ -39,6 +39,7 @@ from UI.delegate import CellEditor
 
 class UI_conversorUnidades(QtWidgets.QDialog):
     """Dialog to show all values of a magnitud in every supported unit"""
+
     def __init__(self, unidad, valor=None, parent=None):
         """
         unidad: unidades class
@@ -103,6 +104,7 @@ class moneda(UI_conversorUnidades):
         - Add date and exchange update button at top
         - Add country flags to easy recognize
     """
+
     def __init__(self, valor=None, parent=None):
         super(moneda, self).__init__(Currency, valor=valor, parent=parent)
 
@@ -117,7 +119,7 @@ class moneda(UI_conversorUnidades):
         for i in range(len(Currency.__units__)):
             header = self.tabla.verticalHeaderItem(i)
             header.setIcon(QtGui.QIcon(QtGui.QPixmap(
-                os.environ["pychemqt"] +
+                os.environ["CheProcess"] +
                 "/images/flag/%s.png" % Currency.__units__[i])))
             # Set backgroundcolor to better look or rare currencies
             # Use olimpic continent color code

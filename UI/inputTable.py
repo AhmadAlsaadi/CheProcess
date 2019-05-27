@@ -38,6 +38,7 @@ from UI.widgets import Entrada_con_unidades, Tabla
 
 class eqDIPPR(QtWidgets.QWidget):
     """Custom widget to define DIPPR equation input"""
+
     def __init__(self, value, parent=None):
         super(eqDIPPR, self).__init__(parent)
         layout = QtWidgets.QHBoxLayout(self)
@@ -86,6 +87,7 @@ class eqDIPPR(QtWidgets.QWidget):
 
 class InputTableWidget(QtWidgets.QWidget):
     """Table data input dialog"""
+
     def __init__(self, columnas, data=None, t=[], property=[],
                  horizontalHeader=[], title="", DIPPR=False, hasTc=0,
                  Tc=None, eq=1, unit=[], parent=None):
@@ -107,19 +109,19 @@ class InputTableWidget(QtWidgets.QWidget):
         gridLayout = QtWidgets.QGridLayout(self)
         gridLayout.setContentsMargins(0, 0, 0, 0)
         openButton = QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"]+"/images/button/fileOpen.png")), "")
+            os.environ["CheProcess"]+"/images/button/fileOpen.png")), "")
         openButton.setToolTip(QtWidgets.QApplication.translate(
             "pychemqt", "Load data from a file"))
         openButton.clicked.connect(self.open)
         gridLayout.addWidget(openButton, 1, 1)
         saveButton = QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"]+"/images/button/fileSave.png")), "")
+            os.environ["CheProcess"]+"/images/button/fileSave.png")), "")
         saveButton.setToolTip(QtWidgets.QApplication.translate(
             "pychemqt", "Save data to a file"))
         saveButton.clicked.connect(self.save)
         gridLayout.addWidget(saveButton, 1, 2)
         clearButton = QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"]+"/images/button/clear.png")), "")
+            os.environ["CheProcess"]+"/images/button/clear.png")), "")
         clearButton.setToolTip(QtWidgets.QApplication.translate(
             "pychemqt", "Clear data"))
         clearButton.clicked.connect(self.delete)
@@ -255,12 +257,13 @@ class InputTableWidget(QtWidgets.QWidget):
         txt = self.tabla.horizontalHeaderItem(col).text()
         newtxt = "%s, %s" % (txt.split(",")[0], widget.currentText())
         self.tabla.setHorizontalHeaderItem(
-                col, QtWidgets.QTableWidgetItem(newtxt))
+            col, QtWidgets.QTableWidgetItem(newtxt))
         widget.close()
 
 
 class InputTableDialog(QtWidgets.QDialog):
     """Dialog to config thermal method calculations"""
+
     def __init__(self, columnas=2, help=False, helpFile="", **kwargs):
         """
         title: window title

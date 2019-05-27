@@ -245,7 +245,7 @@ class Fired_Heater(equipment):
     357.685
     """
     title = QApplication.translate("pychemqt", "Fired Heater")
-    help = os.environ["pychemqt"] + "doc/fireHeater.htm"
+    help = os.environ["CheProcess"] + "doc/fireHeater.htm"
     kwargs = {
         "entrada": None,
         "Tout": 0.0,

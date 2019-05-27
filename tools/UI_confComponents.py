@@ -18,7 +18,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.'''
 
 
-
 ###############################################################################
 # Component list tools
 ###############################################################################
@@ -44,61 +43,62 @@ class UI_confComponents_widget(QtWidgets.QWidget):
         layout.addWidget(self.databank, 1, 1, 17, 1)
 
         layout.addItem(QtWidgets.QSpacerItem(30, 30, QtWidgets.QSizePolicy.Expanding,
-                                         QtWidgets.QSizePolicy.Fixed), 1, 2, 1, 2)
+                                             QtWidgets.QSizePolicy.Fixed), 1, 2, 1, 2)
         layout.addWidget(QtWidgets.QLabel(QtWidgets.QApplication.translate(
-            "pychemqt", "Components list")), 2, 3)
+            "CheProcess", "Components list")), 2, 3)
         self.DeleteComponente = QtWidgets.QToolButton()
         self.DeleteComponente.setIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"] + "/images/button/arrow-left.png")))
+            os.environ["CheProcess"] + "/images/button/arrow-left.png")))
         self.DeleteComponente.clicked.connect(self.Delete)
         layout.addWidget(self.DeleteComponente, 4, 2)
         self.AddComponente = QtWidgets.QToolButton()
         self.AddComponente.setIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"] + "/images/button/arrow-right.png")))
+            os.environ["CheProcess"] + "/images/button/arrow-right.png")))
         self.AddComponente.clicked.connect(self.Add)
         layout.addWidget(self.AddComponente, 5, 2)
         self.Arriba = QtWidgets.QToolButton()
         self.Arriba.setIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"] + "/images/button/arrow-up.png")))
+            os.environ["CheProcess"] + "/images/button/arrow-up.png")))
         self.Arriba.clicked.connect(self.Up)
         layout.addWidget(self.Arriba, 6, 2)
         self.Abajo = QtWidgets.QToolButton()
         self.Abajo.setIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"] + "/images/button/arrow-down.png")))
+            os.environ["CheProcess"] + "/images/button/arrow-down.png")))
         self.Abajo.clicked.connect(self.Down)
         layout.addWidget(self.Abajo, 7, 2)
         self.clearComp = QtWidgets.QToolButton()
         self.clearComp.setIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"] + "/images/button/clear.png")))
+            os.environ["CheProcess"] + "/images/button/clear.png")))
         self.clearComp.clicked.connect(self.clear)
         layout.addWidget(self.clearComp, 8, 2)
 
         self.ListaComponentes = QtWidgets.QListWidget()
         self.ListaComponentes.setSizePolicy(QtWidgets.QSizePolicy.Expanding,
                                             QtWidgets.QSizePolicy.Expanding)
-        self.ListaComponentes.itemSelectionChanged.connect(self.comprobarBotones)
+        self.ListaComponentes.itemSelectionChanged.connect(
+            self.comprobarBotones)
         layout.addWidget(self.ListaComponentes, 3, 3, 7, 1)
 
         self.DeleteSolido = QtWidgets.QToolButton()
         self.DeleteSolido.setIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"] + "/images/button/arrow-left.png")))
+            os.environ["CheProcess"] + "/images/button/arrow-left.png")))
         self.DeleteSolido.clicked.connect(self.DeleteSolid)
         layout.addWidget(self.DeleteSolido, 13, 2)
         self.AddSolido = QtWidgets.QToolButton()
         self.AddSolido.setIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"] + "/images/button/arrow-right.png")))
+            os.environ["CheProcess"] + "/images/button/arrow-right.png")))
         self.AddSolido.clicked.connect(self.AddSolid)
         layout.addWidget(self.AddSolido, 14, 2)
         self.clearSolido = QtWidgets.QToolButton()
         self.clearSolido.setIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"] + "/images/button/clear.png")))
+            os.environ["CheProcess"] + "/images/button/clear.png")))
         self.clearSolido.clicked.connect(self.clearSolids)
         layout.addWidget(self.clearSolido, 15, 2)
 
         layout.addItem(QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Fixed,
-                                         QtWidgets.QSizePolicy.Expanding), 10, 4, 1, 1)
+                                             QtWidgets.QSizePolicy.Expanding), 10, 4, 1, 1)
         layout.addWidget(QtWidgets.QLabel(QtWidgets.QApplication.translate(
-            "pychemqt", "Solids", None)), 11, 3)
+            "CheProcess", "Solids", None)), 11, 3)
         self.ListaSolidos = QtWidgets.QListWidget()
         self.ListaSolidos.setFixedHeight(100)
         self.ListaSolidos.itemSelectionChanged.connect(self.comprobarBotones)
@@ -247,15 +247,16 @@ class UI_confComponents_widget(QtWidgets.QWidget):
 
 class Dialog(QtWidgets.QDialog):
     """Component list config dialog"""
+
     def __init__(self, config=None, parent=None):
         super(Dialog, self).__init__(parent)
         self.setWindowTitle(QtWidgets.QApplication.translate(
-            "pychemqt", "Define project Components"))
+            "CheProcess", "Define project Components"))
         layout = QtWidgets.QVBoxLayout(self)
         self.datos = UI_confComponents_widget(config)
         layout.addWidget(self.datos)
         self.buttonBox = QtWidgets.QDialogButtonBox(QtWidgets.QDialogButtonBox.Cancel |
-                                                QtWidgets.QDialogButtonBox.Ok)
+                                                    QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.accepted.connect(self.accept)
         self.buttonBox.rejected.connect(self.reject)
         layout.addWidget(self.buttonBox)

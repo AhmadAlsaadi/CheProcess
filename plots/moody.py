@@ -108,7 +108,7 @@ class Chart(QtWidgets.QDialog):
         layout.addWidget(btBox, 3, 1, 1, 4)
 
         self.Preferences = ConfigParser()
-        self.Preferences.read(conf_dir+"pychemqtrc")
+        self.Preferences.read(conf_dir+"CheProcessrc")
         self.config()
         self.plot()
 
@@ -120,7 +120,7 @@ class Chart(QtWidgets.QDialog):
         dlg = self.configDialog(self.Preferences)
         if dlg.exec_():
             self.Preferences = dlg.value(self.Preferences)
-            self.Preferences.write(open(conf_dir+"pychemqtrc", "w"))
+            self.Preferences.write(open(conf_dir+"CheProcessrc", "w"))
             self.plot()
 
     def config(self):
@@ -384,6 +384,7 @@ class Moody(Chart):
 
 class CalculateDialog(QtWidgets.QDialog):
     """Dialog to calculate a specified point"""
+
     def __init__(self, parent=None):
         super(CalculateDialog, self).__init__(parent)
         title = QtWidgets.QApplication.translate(

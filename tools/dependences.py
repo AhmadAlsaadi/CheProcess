@@ -48,22 +48,23 @@ optional_modules = (
         "pychemqt", "Pdf report exporting disabled")),
     ("PyQt5.Qsci", QtWidgets.QApplication.translate(
         "pychemqt", "Qscintilla custom module editor disabled")),
-    )
+)
 
 
 class ShowDependences(QtWidgets.QDialog):
     """Dialog to show optional dependences availability"""
+
     def __init__(self, parent=None):
         super(ShowDependences, self).__init__(parent)
         self.setWindowIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"]+"/images/button/showPrograms.png")))
+            os.environ["CheProcess"]+"/images/button/showPrograms.png")))
         self.setWindowTitle(
-            QtWidgets.QApplication.translate("pychemqt", "External program"))
+            QtWidgets.QApplication.translate("CheProcess", "External program"))
         layout = QtWidgets.QVBoxLayout(self)
         self.tree = QtWidgets.QTreeWidget()
         header = QtWidgets.QTreeWidgetItem(
-            [QtWidgets.QApplication.translate("pychemqt", "Module"),
-             QtWidgets.QApplication.translate("pychemqt", "Status")])
+            [QtWidgets.QApplication.translate("CheProcess", "Module"),
+             QtWidgets.QApplication.translate("CheProcess", "Status")])
         self.tree.setHeaderItem(header)
 
         for module, txt in optional_modules:
@@ -71,7 +72,8 @@ class ShowDependences(QtWidgets.QDialog):
                 mod = __import__(module)
                 st = mod.__file__
             else:
-                st = QtWidgets.QApplication.translate("pychemqt", "not found")
+                st = QtWidgets.QApplication.translate(
+                    "CheProcess", "not found")
             item = QtWidgets.QTreeWidgetItem([module, st])
             self.tree.addTopLevelItem(item)
 
@@ -83,7 +85,7 @@ class ShowDependences(QtWidgets.QDialog):
 
 if __name__ == "__main__":
     import sys
-    os.environ["pychemqt"] = "/home/jjgomera/pychemqt/"
+    os.environ["CheProcess"] = "/home/jjgomera/pychemqt/"
     os.environ["freesteam"] = "False"
     os.environ["pybel"] = "False"
     os.environ["CoolProp"] = "False"

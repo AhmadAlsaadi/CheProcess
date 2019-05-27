@@ -32,18 +32,18 @@ class ShowReference(QtWidgets.QDialog):
     def __init__(self, parent=None):
         super(ShowReference, self).__init__(parent)
         self.setWindowIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"]+"/images/button/help.png")))
+            os.environ["CheProcess"]+"/images/button/help.png")))
         self.setWindowTitle(QtWidgets.QApplication.translate(
-            "pychemqt", "Reference Paper Show Dialog"))
+            "CheProcess", "Reference Paper Show Dialog"))
         layout = QtWidgets.QGridLayout(self)
 
         self.tree = QtWidgets.QTreeWidget()
         header = QtWidgets.QTreeWidgetItem(
             ["id",
-             QtWidgets.QApplication.translate("pychemqt", "Autor"),
-             QtWidgets.QApplication.translate("pychemqt", "Title"),
-             QtWidgets.QApplication.translate("pychemqt", "Reference"),
-             QtWidgets.QApplication.translate("pychemqt", "doi")])
+             QtWidgets.QApplication.translate("CheProcess", "Autor"),
+             QtWidgets.QApplication.translate("CheProcess", "Title"),
+             QtWidgets.QApplication.translate("CheProcess", "Reference"),
+             QtWidgets.QApplication.translate("CheProcess", "doi")])
         self.tree.setHeaderItem(header)
         layout.addWidget(self.tree, 1, 1, 2, 2)
 
@@ -199,7 +199,7 @@ class ShowReference(QtWidgets.QDialog):
 
         # Equipment
         itemEquipment = QtWidgets.QTreeWidgetItem(
-            [QtWidgets.QApplication.translate("pychemqt", "Equipments")])
+            [QtWidgets.QApplication.translate("CheProcess", "Equipments")])
         self.tree.addTopLevelItem(itemEquipment)
         for equip in equipments:
             itemequip = QtWidgets.QTreeWidgetItem([equip.__name__])

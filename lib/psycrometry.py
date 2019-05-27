@@ -77,7 +77,7 @@ __doi__ = {
          "ref": "",
          "doi": ""},
 
-        }
+}
 
 
 @refDoc(__doi__, [1])
@@ -195,7 +195,7 @@ def _Psat(T):
     else:
         raise NotImplementedError("Incoming out of bound")
 
-    return Pressure(pws) 
+    return Pressure(pws)
 
 
 def _Tsat(Pv):
@@ -451,7 +451,7 @@ class PsyState(object):
         QApplication.translate("pychemqt", "T dry bulb, T dew point"),
         QApplication.translate("pychemqt", "T dew point, Relative humidity"),
         QApplication.translate("pychemqt", "T wet bulb, Relative humidity")
-        ]
+    ]
     VAR_NAME = [
         ("tdb", "w"),
         ("tdb", "HR"),
@@ -459,7 +459,7 @@ class PsyState(object):
         ("tdb", "tdp"),
         ("tdp", "HR"),
         ("twb", "HR")
-        ]
+    ]
 
 #        QApplication.translate("pychemqt", "T dry bulb, Enthalpy"))
 #        QApplication.translate("pychemqt", "Tª bulbo seco, Densidad"))
@@ -569,6 +569,7 @@ class PsyState(object):
 
 class PsyIdeal(PsyState):
     """Psychrometric state using ideal gas equation"""
+
     def _lib(self):
         """Properties calculate library"""
         P = self._P()
@@ -665,7 +666,7 @@ class PsyIdeal(PsyState):
     def calculatePlot(cls, parent):
         """Funtion to calculate point in chart"""
         Preferences = ConfigParser()
-        Preferences.read(conf_dir+"pychemqtrc")
+        Preferences.read(conf_dir+"CheProcessrc")
         parent.setProgressValue(0)
 
         data = {}
@@ -741,6 +742,7 @@ class PsyIdeal(PsyState):
 
 class PsyVirial(PsyState):
     """Psychrometric state using virial equation of state"""
+
     def _lib(self):
         pass
 
@@ -807,7 +809,6 @@ class PsyVirial(PsyState):
 #            return self.Humedad_Absoluta(Tw)-w-Cs/Hv*(Td-Tw)
 #        Tw = fsolve(f, Td)
 #        return Temperature(Tw)
-
 
 
 class PsyCoolprop(PsyState):
@@ -899,7 +900,7 @@ class PsyCoolprop(PsyState):
     def calculatePlot(cls, parent):
         """Funtion to calculate point in chart"""
         Preferences = ConfigParser()
-        Preferences.read(conf_dir+"pychemqtrc")
+        Preferences.read(conf_dir+"CheProcessrc")
         parent.setProgressValue(0)
 
         data = {}
@@ -982,7 +983,7 @@ class PsyRefprop(PsyState):
 
 
 Preferences = ConfigParser()
-Preferences.read(conf_dir+"pychemqtrc")
+Preferences.read(conf_dir+"CheProcessrc")
 
 if Preferences.getboolean("Psychr", "virial"):
     if Preferences.getboolean("Psychr", "coolprop") and \
@@ -1007,10 +1008,12 @@ else:
 
 if __name__ == '__main__':
     aire = PsyIdeal(tdb=40+273.15, w=0.001)
-    print(aire.tdb.C, aire.twb.C, aire.tdp.C, aire.w, aire.v, aire.mu, aire.h.kJkg, aire.Pv.Pa, aire.ws)
+    print(aire.tdb.C, aire.twb.C, aire.tdp.C, aire.w,
+          aire.v, aire.mu, aire.h.kJkg, aire.Pv.Pa, aire.ws)
 
     aire = PsyCoolprop(tdb=40+273.15, w=0.001)
-    print(aire.tdb.C, aire.twb.C, aire.tdp.C, aire.w, aire.v, aire.mu, aire.h.kJkg, aire.Pv.Pa, aire.ws)
+    print(aire.tdb.C, aire.twb.C, aire.tdp.C, aire.w,
+          aire.v, aire.mu, aire.h.kJkg, aire.Pv.Pa, aire.ws)
 
 #    aire = PsyIdeal(tdb=40+273.15, HR=10)
 #    print aire.tdb.C, aire.twb.C, aire.tdp.C, aire.w, aire.v, aire.mu, aire.h.kJkg, aire.Pv.Pa

@@ -28,9 +28,9 @@ from configparser import ConfigParser
 # from pygraph.classes.graph import graph
 # from pygraph.algorithms.cycles import find_cycle
 # try:
-   # from pygraph.readwrite.dot import write
+# from pygraph.readwrite.dot import write
 # except:
-   # from pygraph.readwrite.markup import write
+# from pygraph.readwrite.markup import write
 
 from lib.config import conf_dir
 from lib.corriente import Corriente
@@ -51,7 +51,7 @@ class Project(object):
         self.out = {}
         if not config:
             config = ConfigParser()
-            config.read(conf_dir+"pychemqtrc")
+            config.read(conf_dir+"CheProcessrc")
         self.config = config
         self.streams = streams
         # self.graph = self.calGraph()
@@ -74,9 +74,9 @@ class Project(object):
     # def calGraph(self):
         # grafo = graph()
         # for item in self.items:
-            # grafo.add_node(item, attrs=[("splines",  "")])
+        # grafo.add_node(item, attrs=[("splines",  "")])
         # for key, stream in self.streams.items():
-            # grafo.add_edge((stream[0], stream[1]), attrs=[("splines",  "")])
+        # grafo.add_edge((stream[0], stream[1]), attrs=[("splines",  "")])
         # return grafo
 
     def getObject(self, id):
@@ -169,7 +169,8 @@ class Project(object):
         if tipo == "i":
             obj = self.getInput(ind)
             if obj.status:
-                key, (up, down, ind_up, ind_down, oldobj) = self.getDownToEquip(name)[0]
+                key, (up, down, ind_up, ind_down,
+                      oldobj) = self.getDownToEquip(name)[0]
                 self.setStream(key, obj)
                 self.run("s%i" % key)
 
@@ -207,7 +208,7 @@ class Project(object):
 
         # write equipments
         equipment = {}
-        dependences = set()  #  Set of external dependences used
+        dependences = set()  # Set of external dependences used
         for key, equip in self.items.items():
             if key[0] == "e":
                 eq = {}
@@ -247,8 +248,9 @@ class Project(object):
 
         self.setConfig(config)
         if not huella:
-            os.rename(conf_dir+"pychemqtrc_temporal", conf_dir+"pychemqtrc_temporal_bak")
-        config.write(open(conf_dir+"pychemqtrc_temporal", "w"))
+            os.rename(conf_dir+"CheProcessrc_temporal",
+                      conf_dir+"CheProcessrc_temporal_bak")
+        config.write(open(conf_dir+"CheProcessrc_temporal", "w"))
 
         # read equipments
         items = {}
@@ -291,7 +293,8 @@ class Project(object):
         self.setStreams(streams)
 
         if not huella:
-            os.rename(conf_dir+"pychemqtrc_temporal_bak", conf_dir+"pychemqtrc_temporal")
+            os.rename(conf_dir+"CheProcessrc_temporal_bak",
+                      conf_dir+"CheProcessrc_temporal")
 
     # def printer(self):
         # # Draw as PNG

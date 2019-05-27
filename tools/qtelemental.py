@@ -56,15 +56,16 @@ alignment = QtCore.Qt.AlignRight | \
 
 class qtelemental(QtWidgets.QDialog):
     """Periodic table graph"""
+
     def __init__(self, parent=None):
         super(qtelemental, self).__init__(parent)
         self.setWindowIcon(QtGui.QIcon(QtGui.QPixmap(
-            os.environ["pychemqt"]+"/images/button/PeriodicTableIcon.png")))
+            os.environ["CheProcess"]+"/images/button/PeriodicTableIcon.png")))
         self.setWindowTitle(
-            QtWidgets.QApplication.translate("pychemqt", "Periodic Table"))
+            QtWidgets.QApplication.translate("CheProcess", "Periodic Table"))
 
         self.Preferences = ConfigParser()
-        self.Preferences.read(conf_dir+"pychemqtrc")
+        self.Preferences.read(conf_dir+"CheProcessrc")
 
         layout = QtWidgets.QGridLayout(self)
         layout.setSpacing(2)
@@ -96,7 +97,7 @@ class qtelemental(QtWidgets.QDialog):
 
         butonConfig = QtWidgets.QToolButton()
         butonConfig.setIcon(QtGui.QIcon(
-            os.environ["pychemqt"] +
+            os.environ["CheProcess"] +
             os.path.join("images", "button", "configure.png")))
         butonConfig.clicked.connect(self.configure)
         layout.addWidget(butonConfig, 11, 1)
@@ -112,12 +113,12 @@ class qtelemental(QtWidgets.QDialog):
         self.Info.setPalette(palette)
         self.numero_atomico = QtWidgets.QLabel()
         self.numero_atomico.setToolTip(
-            QtWidgets.QApplication.translate("pychemqt", "Atomic number"))
+            QtWidgets.QApplication.translate("CheProcess", "Atomic number"))
         layoutInfo.addWidget(self.numero_atomico, 1, 1)
         self.simbolo = QtWidgets.QLabel()
         self.simbolo.setAlignment(alignment)
         self.simbolo.setToolTip(QtWidgets.QApplication.translate(
-            "pychemqt", "Symbol"))
+            "CheProcess", "Symbol"))
         self.simbolo.setFont(font11)
         layoutInfo.addWidget(self.simbolo, 1, 3)
         self.nombre = QtWidgets.QLabel()
@@ -129,36 +130,36 @@ class qtelemental(QtWidgets.QDialog):
         self.peso_atomico = QtWidgets.QLabel()
         self.peso_atomico.setFont(font8)
         self.peso_atomico.setToolTip(QtWidgets.QApplication.translate(
-            "pychemqt", "Atomic mass, g/mol"))
+            "CheProcess", "Atomic mass, g/mol"))
         layoutInfo.addWidget(self.peso_atomico, 3, 1)
         self.densidad = QtWidgets.QLabel()
         self.densidad.setFont(font8)
         self.densidad.setAlignment(alignment)
         self.densidad.setToolTip(QtWidgets.QApplication.translate(
-            "pychemqt",
+            "CheProcess",
             "Density:\nBrown: Solid, kg/l\nBlue: Liquid, kg/l\n"
             "Green: Gas, g/l"))
         layoutInfo.addWidget(self.densidad, 3, 3)
         self.Tf = QtWidgets.QLabel()
         self.Tf.setFont(font8)
         self.Tf.setToolTip(QtWidgets.QApplication.translate(
-            "pychemqt", "Melting Point, K"))
+            "CheProcess", "Melting Point, K"))
         layoutInfo.addWidget(self.Tf, 4, 1)
         self.Heat_f = QtWidgets.QLabel()
         self.Heat_f.setFont(font8)
         self.Heat_f.setToolTip(QtWidgets.QApplication.translate(
-            "pychemqt", "Heat of fusion, kJmol"))
+            "CheProcess", "Heat of fusion, kJmol"))
         self.Heat_f.setAlignment(alignment)
         layoutInfo.addWidget(self.Heat_f, 4, 3)
         self.Tb = QtWidgets.QLabel()
         self.Tb.setFont(font8)
         self.Tb.setToolTip(QtWidgets.QApplication.translate(
-            "pychemqt", "Boiling Point, K"))
+            "CheProcess", "Boiling Point, K"))
         layoutInfo.addWidget(self.Tb, 5, 1)
         self.Heat_b = QtWidgets.QLabel()
         self.Heat_b.setFont(font8)
         self.Heat_b.setToolTip(QtWidgets.QApplication.translate(
-            "pychemqt", "Heat of vaporization, kJmol"))
+            "CheProcess", "Heat of vaporization, kJmol"))
         self.Heat_b.setAlignment(alignment)
         layoutInfo.addWidget(self.Heat_b, 5, 3)
 
@@ -166,7 +167,7 @@ class qtelemental(QtWidgets.QDialog):
         self.configuracion.setFont(font7)
         self.configuracion.setAlignment(QtCore.Qt.AlignCenter)
         self.configuracion.setToolTip(QtWidgets.QApplication.translate(
-            "pychemqt", "Electronic configuration"))
+            "CheProcess", "Electronic configuration"))
         layoutInfo.addWidget(self.configuracion, 6, 1, 1, 3)
 
         self.Info2 = QtWidgets.QFrame()
@@ -181,51 +182,51 @@ class qtelemental(QtWidgets.QDialog):
         self.atomic_volume = QtWidgets.QLabel()
         self.atomic_volume.setFont(font8)
         self.atomic_volume.setToolTip(QtWidgets.QApplication.translate(
-            "pychemqt", "Atomic volume")+", cm³/mol")
+            "CheProcess", "Atomic volume")+", cm³/mol")
         layoutInfo2.addWidget(self.atomic_volume, 1, 1)
         self.atomic_radius = QtWidgets.QLabel()
         self.atomic_radius.setFont(font8)
         self.atomic_radius.setToolTip(QtWidgets.QApplication.translate(
-            "pychemqt", "Atomic radius") + ", pm")
+            "CheProcess", "Atomic radius") + ", pm")
         layoutInfo2.addWidget(self.atomic_radius, 2, 1)
         self.covalent_radius = QtWidgets.QLabel()
         self.covalent_radius.setFont(font8)
         self.covalent_radius.setToolTip(QtWidgets.QApplication.translate(
-            "pychemqt", "Covalent radius") + ", pm")
+            "CheProcess", "Covalent radius") + ", pm")
         layoutInfo2.addWidget(self.covalent_radius, 3, 1)
         self.vanderWaals_radius = QtWidgets.QLabel()
         self.vanderWaals_radius.setFont(font8)
         self.vanderWaals_radius.setToolTip(QtWidgets.QApplication.translate(
-            "pychemqt", "Van der Waals radius")+", pm")
+            "CheProcess", "Van der Waals radius")+", pm")
         layoutInfo2.addWidget(self.vanderWaals_radius, 4, 1)
         self.ionic_radii = QtWidgets.QLabel()
         self.ionic_radii.setFont(font7)
         self.ionic_radii.setToolTip(QtWidgets.QApplication.translate(
-            "pychemqt", "Ionic radii")+", pm")
+            "CheProcess", "Ionic radii")+", pm")
         layoutInfo2.addWidget(self.ionic_radii, 5, 1, 1, 3)
         self.electronegativity = QtWidgets.QLabel()
         self.electronegativity.setFont(font8)
         self.electronegativity.setToolTip(QtWidgets.QApplication.translate(
-            "pychemqt", "Electronegativity, Pauling scale"))
+            "CheProcess", "Electronegativity, Pauling scale"))
         self.electronegativity.setAlignment(
             QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
         layoutInfo2.addWidget(self.electronegativity, 1, 3)
         self.Cp = QtWidgets.QLabel()
         self.Cp.setFont(font8)
         self.Cp.setToolTip(QtWidgets.QApplication.translate(
-            "pychemqt", "Specific heat capacitiy") + ", kJ/kgK")
+            "CheProcess", "Specific heat capacitiy") + ", kJ/kgK")
         self.Cp.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
         layoutInfo2.addWidget(self.Cp, 2, 3)
         self.k = QtWidgets.QLabel()
         self.k.setFont(font8)
         self.k.setToolTip(QtWidgets.QApplication.translate(
-            "pychemqt", "Thermal conductivity") + ", W/mK")
+            "CheProcess", "Thermal conductivity") + ", W/mK")
         self.k.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
         layoutInfo2.addWidget(self.k, 3, 3)
         self.first_ionization = QtWidgets.QLabel()
         self.first_ionization.setFont(font8)
         self.first_ionization.setToolTip(QtWidgets.QApplication.translate(
-            "pychemqt", "First ionization energy") + ", kJ/mol")
+            "CheProcess", "First ionization energy") + ", kJ/mol")
         self.first_ionization.setAlignment(
             QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
         layoutInfo2.addWidget(self.first_ionization, 4, 3)
@@ -233,7 +234,7 @@ class qtelemental(QtWidgets.QDialog):
         self.oxidation = QtWidgets.QLabel()
         self.oxidation.setFont(font8)
         self.oxidation.setToolTip(QtWidgets.QApplication.translate(
-            "pychemqt", "Oxidation states"))
+            "CheProcess", "Oxidation states"))
         self.oxidation.setAlignment(
             QtCore.Qt.AlignCenter | QtCore.Qt.AlignVCenter)
         layoutInfo2.addWidget(self.oxidation, 6, 1, 1, 3)
@@ -241,7 +242,7 @@ class qtelemental(QtWidgets.QDialog):
         elemento = Elemental(1)
         self.actualizar(elemento)
         logging.info(QtWidgets.QApplication.translate(
-            "pychemqt", "Starting periodic table tool"))
+            "CheProcess", "Starting periodic table tool"))
 
     def populate(self):
         CATEGORIES, PROP, COLORS, PMAX = _configValues(self.Preferences)
@@ -308,12 +309,13 @@ class qtelemental(QtWidgets.QDialog):
         dlg = Dialog(self.Preferences)
         if dlg.exec_():
             self.Preferences = dlg.value(self.Preferences)
-            self.Preferences.write(open(conf_dir+"pychemqtrc", "w"))
+            self.Preferences.write(open(conf_dir+"CheProcessrc", "w"))
             self.populate()
 
 
 class boton(QtWidgets.QPushButton):
     """Button widget to define a element"""
+
     def __init__(self, element, CATEGORIES, PROP, COLORS, PMAX, parent=None):
         """Constructor,
         element: the atomic number, used as id to tagged button
@@ -365,6 +367,7 @@ class boton(QtWidgets.QPushButton):
 
 class ElementDialog(QtWidgets.QDialog):
     """Dialog to show all element properties"""
+
     def __init__(self, elemento, parent=None):
         super(ElementDialog, self).__init__(parent)
         self.setWindowTitle(QtWidgets.QApplication.translate(
