@@ -308,6 +308,40 @@ class SplashScreen(QtWidgets.QSplashScreen):
                         archivo.write(data.replace(
                             os.linesep, "") + os.linesep)
 
+    def currency_rate(self, path):
+        # Checking currency rates
+        self.showMessage(QtWidgets.QApplication.translate(
+            "CheProcess", "Checking currency data"))
+        currency = False
+        if not os.path.isfile(path + "moneda.dat"):
+            # Exchange rates file don't available
+            currency = True
+        else:
+            filename = path + "moneda.dat"
+            try:
+                archivo = open(filename, "r")
+                rates = json.load(archivo)
+            except urllib.error.URLError:
+                # Failed to load json file
+                currency = True
+
+            if not isinstance(rates["date"], int):
+                # Old version exchange rates format, force upgrade
+                currency = True
+
+        if currency:
+            # Try to retrieve exchange rates from yahoo
+            try:
+                firstrun.getrates(path + "moneda.dat")
+            except (urllib.error.URLError, urllib.error.HTTPError) as e:
+                # Internet error, get hardcoded exchanges from pychemqt distribution
+                # Possible outdated file, try to update each some commits
+                origen = os.path.join(
+                    os.environ["CheProcess"], "dat", "moneda.dat")
+                shutil.copy(origen, path + "moneda.dat")
+                print(QtWidgets.QApplication.translate("CheProcess",
+                                                       "Internet connection error, using archived currency rates"))
+
 
 splash = SplashScreen()
 if not args.nosplash:
@@ -320,6 +354,7 @@ from tools import firstrun  # noqa
 #   "CheProcess", "Checking config files..."))
 splash.file_config(conf_dir)
 splash.cost_index(conf_dir)
+splash.currency_rate(conf_dir)
 """ # Checking config file
 default_Preferences = firstrun.Preferences()
 change = False
@@ -363,7 +398,7 @@ if not os.path.isfile(conf_dir + "CostIndex.dat"):
             for data in lista:
                 archivo.write(data.replace(os.linesep, "") + os.linesep) """
 
-# Checking currency rates
+""" # Checking currency rates
 splash.showMessage(QtWidgets.QApplication.translate(
     "CheProcess", "Checking currency data"))
 currency = False
@@ -394,7 +429,7 @@ if currency:
         shutil.copy(origen, conf_dir + "moneda.dat")
         print(QtWidgets.QApplication.translate("CheProcess",
                                                "Internet connection error, using archived currency rates"))
-
+ """
 # Checking database with custom components
 splash.showMessage(QtWidgets.QApplication.translate(
     "CheProcess", "Checking custom database..."))
