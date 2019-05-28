@@ -256,6 +256,7 @@ class SplashScreen(QtWidgets.QSplashScreen):
         self.file_config(conf_dir)
         self.cost_index(conf_dir)
         self.currency_rate(conf_dir)
+        self.database_check(conf_dir)
 
     def showMessage(self, msg):
         """Procedure to update message in splash"""
@@ -279,7 +280,7 @@ class SplashScreen(QtWidgets.QSplashScreen):
         if not os.path.isfile(path + "CheProcessrc"):
             default_Preferences.write(open(path + "CheProcessrc", "w"))
             Preferences = default_Preferences
-            change = True
+            self.has_changed = True
         else:
             # Check Preferences options to find set new options
             Preferences = ConfigParser()
@@ -346,6 +347,13 @@ class SplashScreen(QtWidgets.QSplashScreen):
                 shutil.copy(origen, path + "moneda.dat")
                 print(QtWidgets.QApplication.translate("CheProcess",
                                                        "Internet connection error, using archived currency rates"))
+
+    def database_check(self, path):
+       # Checking database with custom components
+        self.showMessage(QtWidgets.QApplication.translate(
+            "CheProcess", "Checking custom database..."))
+        if not os.path.isfile(path + "databank.db"):
+            firstrun.createDatabase(path + "databank.db")
 
 
 """ if not args.nosplash:
@@ -435,11 +443,11 @@ if currency:
         print(QtWidgets.QApplication.translate("CheProcess",
                                                "Internet connection error, using archived currency rates"))
  """
-# Checking database with custom components
+""" # Checking database with custom components
 splash.showMessage(QtWidgets.QApplication.translate(
     "CheProcess", "Checking custom database..."))
 if not os.path.isfile(conf_dir + "databank.db"):
-    firstrun.createDatabase(conf_dir + "databank.db")
+    firstrun.createDatabase(conf_dir + "databank.db") """
 
 # Import internal libraries
 splash.showMessage(QtWidgets.QApplication.translate(
