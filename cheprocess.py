@@ -244,13 +244,18 @@ seterr(all='log')
 
 class SplashScreen(QtWidgets.QSplashScreen):
     """Class to define a splash screen to show loading progress"""
-    change = False
+    has_changed = False
 
-    def __init__(self):
+    def __init__(self, splash_arg):
         QtWidgets.QSplashScreen.__init__(
             self,
             QtGui.QPixmap(os.environ["CheProcess"] + "/images/splash.jpg"))
         QtWidgets.QApplication.flush()
+        if not splash_arg:
+            self.show()
+        self.file_config(conf_dir)
+        self.cost_index(conf_dir)
+        self.currency_rate(conf_dir)
 
     def showMessage(self, msg):
         """Procedure to update message in splash"""
@@ -270,7 +275,7 @@ class SplashScreen(QtWidgets.QSplashScreen):
             "CheProcess", "Checking config files..."))
         # Checking config file
         default_Preferences = firstrun.Preferences()
-        #self.change = False
+        #self.has_changed = False
         if not os.path.isfile(path + "CheProcessrc"):
             default_Preferences.write(open(path + "CheProcessrc", "w"))
             Preferences = default_Preferences
@@ -282,16 +287,16 @@ class SplashScreen(QtWidgets.QSplashScreen):
             for section in default_Preferences.sections():
                 if not Preferences.has_section(section):
                     Preferences.add_section(section)
-                    self.change = True
+                    self.has_changed = True
                 for option in default_Preferences.options(section):
                     if not Preferences.has_option(section, option):
                         value = default_Preferences.get(section, option)
                         Preferences.set(section, option, value)
-                        change = True
+                        self.has_changed = True
                         logging.warning("Using default configuration option for " +
                                         "%s:%s" % (section, option) +
                                         ", run preferences dialog for configure")
-            if self.change:
+            if self.has_changed:
                 Preferences.write(open(path + "CheProcessrc", "w"))
 
     def cost_index(self, path):
@@ -343,18 +348,18 @@ class SplashScreen(QtWidgets.QSplashScreen):
                                                        "Internet connection error, using archived currency rates"))
 
 
-splash = SplashScreen()
-if not args.nosplash:
-    splash.show()
+""" if not args.nosplash:
+    splash.show() """
 
 
 # Checking config files
 from tools import firstrun  # noqa
+splash = SplashScreen(args.nosplash)
 # splash.showMessage(QtWidgets.QApplication.translate(
 #   "CheProcess", "Checking config files..."))
-splash.file_config(conf_dir)
+""" splash.file_config(conf_dir)
 splash.cost_index(conf_dir)
-splash.currency_rate(conf_dir)
+splash.currency_rate(conf_dir) """
 """ # Checking config file
 default_Preferences = firstrun.Preferences()
 change = False
@@ -457,7 +462,7 @@ msg = QtWidgets.QApplication.translate("CheProcess", "Loading project files")
 splash.showMessage(msg + "...")
 logging.info(msg)
 
-if splash.change:
+if splash.has_changed:
     config.Preferences = Preferences
 
 filename = []
