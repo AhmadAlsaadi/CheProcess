@@ -266,6 +266,8 @@ class SplashScreen(QtWidgets.QSplashScreen):
         QtWidgets.QApplication.processEvents()
 
     def file_config(self, path):
+        self.showMessage(QtWidgets.QApplication.translate(
+            "CheProcess", "Checking config files..."))
         # Checking config file
         default_Preferences = firstrun.Preferences()
         #self.change = False
@@ -292,6 +294,20 @@ class SplashScreen(QtWidgets.QSplashScreen):
             if self.change:
                 Preferences.write(open(path + "CheProcessrc", "w"))
 
+    def cost_index(self, path):
+        # Checking costindex
+        self.showMessage(QtWidgets.QApplication.translate(
+            "CheProcess", "Checking cost index..."))
+        if not os.path.isfile(path + "CostIndex.dat"):
+            orig = os.path.join(
+                os.environ["CheProcess"], "dat", "costindex.dat")
+            with open(orig) as cost_index:
+                lista = cost_index.readlines()[-1].split(" ")
+                with open(conf_dir + "CostIndex.dat", "w") as archivo:
+                    for data in lista:
+                        archivo.write(data.replace(
+                            os.linesep, "") + os.linesep)
+
 
 splash = SplashScreen()
 if not args.nosplash:
@@ -300,9 +316,10 @@ if not args.nosplash:
 
 # Checking config files
 from tools import firstrun  # noqa
-splash.showMessage(QtWidgets.QApplication.translate(
-    "CheProcess", "Checking config files..."))
+# splash.showMessage(QtWidgets.QApplication.translate(
+#   "CheProcess", "Checking config files..."))
 splash.file_config(conf_dir)
+splash.cost_index(conf_dir)
 """ # Checking config file
 default_Preferences = firstrun.Preferences()
 change = False
@@ -335,7 +352,7 @@ if not os.path.isfile(conf_dir + "CheProcessrc_temporal"):
     Config = firstrun.config()
     Config.write(open(conf_dir + "CheProcessrc_temporal", "w"))
 
-# Checking costindex
+""" # Checking costindex
 splash.showMessage(QtWidgets.QApplication.translate(
     "CheProcess", "Checking cost index..."))
 if not os.path.isfile(conf_dir + "CostIndex.dat"):
@@ -344,7 +361,7 @@ if not os.path.isfile(conf_dir + "CostIndex.dat"):
         lista = cost_index.readlines()[-1].split(" ")
         with open(conf_dir + "CostIndex.dat", "w") as archivo:
             for data in lista:
-                archivo.write(data.replace(os.linesep, "") + os.linesep)
+                archivo.write(data.replace(os.linesep, "") + os.linesep) """
 
 # Checking currency rates
 splash.showMessage(QtWidgets.QApplication.translate(
