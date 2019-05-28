@@ -244,6 +244,7 @@ seterr(all='log')
 
 class SplashScreen(QtWidgets.QSplashScreen):
     """Class to define a splash screen to show loading progress"""
+    change = False
 
     def __init__(self):
         QtWidgets.QSplashScreen.__init__(
@@ -264,6 +265,33 @@ class SplashScreen(QtWidgets.QSplashScreen):
         QtWidgets.QSplashScreen.clearMessage(self)
         QtWidgets.QApplication.processEvents()
 
+    def file_config(self, path):
+        # Checking config file
+        default_Preferences = firstrun.Preferences()
+        #self.change = False
+        if not os.path.isfile(path + "CheProcessrc"):
+            default_Preferences.write(open(path + "CheProcessrc", "w"))
+            Preferences = default_Preferences
+            change = True
+        else:
+            # Check Preferences options to find set new options
+            Preferences = ConfigParser()
+            Preferences.read(path + "CheProcessrc")
+            for section in default_Preferences.sections():
+                if not Preferences.has_section(section):
+                    Preferences.add_section(section)
+                    self.change = True
+                for option in default_Preferences.options(section):
+                    if not Preferences.has_option(section, option):
+                        value = default_Preferences.get(section, option)
+                        Preferences.set(section, option, value)
+                        change = True
+                        logging.warning("Using default configuration option for " +
+                                        "%s:%s" % (section, option) +
+                                        ", run preferences dialog for configure")
+            if self.change:
+                Preferences.write(open(path + "CheProcessrc", "w"))
+
 
 splash = SplashScreen()
 if not args.nosplash:
@@ -274,8 +302,8 @@ if not args.nosplash:
 from tools import firstrun  # noqa
 splash.showMessage(QtWidgets.QApplication.translate(
     "CheProcess", "Checking config files..."))
-
-# Checking config file
+splash.file_config(conf_dir)
+""" # Checking config file
 default_Preferences = firstrun.Preferences()
 change = False
 if not os.path.isfile(conf_dir + "CheProcessrc"):
@@ -299,7 +327,7 @@ else:
                                 "%s:%s" % (section, option) +
                                 ", run preferences dialog for configure")
     if change:
-        Preferences.write(open(conf_dir + "CheProcessrc", "w"))
+        Preferences.write(open(conf_dir + "CheProcessrc", "w")) """
 
 # FIXME: This file might not to be useful but for now I use it to save project
 # configuration data
@@ -377,7 +405,7 @@ msg = QtWidgets.QApplication.translate("CheProcess", "Loading project files")
 splash.showMessage(msg + "...")
 logging.info(msg)
 
-if change:
+if splash.change:
     config.Preferences = Preferences
 
 filename = []
