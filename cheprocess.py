@@ -16,17 +16,26 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>."""
-
-
-import argparse
-from configparser import ConfigParser
-import json
-import logging
-import os
-import shutil
-import sys
+from tools.dependences import install_module
 import urllib.error
+import shutil
+import logging
+import json
+from configparser import ConfigParser
+import argparse
+import os
+import sys
 
+# Add CheProcess folder to python path
+path = os.path.dirname(os.path.realpath(sys.argv[0]))
+sys.path.append(path)
+
+# Define CheProcess environment
+os.environ["CheProcess"] = path + os.sep
+conf_dir = os.path.expanduser("~") + os.sep + ".CheProcess" + os.sep
+# install optional modules
+install_module()
+from UI.mainWindow import UI_pychemqt  # noqa
 
 # Parse command line options
 desc = """CheProcess intended as a free software tool for calculation and \
@@ -46,14 +55,6 @@ parser.add_argument("projectFile", nargs="*",
                     help="Optional CheProcess project files to load at startup")
 args = parser.parse_args()
 
-
-# Add CheProcess folder to python path
-path = os.path.dirname(os.path.realpath(sys.argv[0]))
-sys.path.append(path)
-
-# Define CheProcess environment
-os.environ["CheProcess"] = path + os.sep
-conf_dir = os.path.expanduser("~") + os.sep + ".CheProcess" + os.sep
 
 # Check mandatory external dependences
 # PyQt5
@@ -106,7 +107,7 @@ path = QtCore.QLibraryInfo.location(QtCore.QLibraryInfo.TranslationsPath)
 if qtTranslator.load("qt_" + locale, path):
     app.installTranslator(qtTranslator)
 
-
+""" 
 # scipy
 try:
     import scipy
@@ -169,25 +170,25 @@ else:
         msg = QtWidgets.QApplication.translate(
             "CheProcess",
             "Your version of iapws is too old, you must update it.")
-        raise ImportError(msg)
+        raise ImportError(msg) """
 
 
 # TODO: Disable python-graph external dependence, functional mock up in
 # project yet useless
 # python-graph
 # try:
-    # from pygraph.classes.graph import graph  # noqa
-    # from pygraph.algorithms.cycles import find_cycle  # noqa
+# from pygraph.classes.graph import graph  # noqa
+# from pygraph.algorithms.cycles import find_cycle  # noqa
 # except ImportError as err:
-    # msg = QtWidgets.QApplication.translate(
-    #     "pychemqt", "Python-graph don't found, you need install it")
-    # print(msg)
-    # raise err
+# msg = QtWidgets.QApplication.translate(
+#     "pychemqt", "Python-graph don't found, you need install it")
+# print(msg)
+# raise err
 
 
 # Check external optional modules
-from tools.dependences import optional_modules  # noqa
-for module, use in optional_modules:
+# noqa
+""" for module, use in optional_modules:
     try:
         __import__(module)
         os.environ[module] = "True"
@@ -202,7 +203,7 @@ for module, use in optional_modules:
             mayor, minor, rev = map(int, version.split("."))
             if mayor < 6:
                 print("Find CoolProp %s but CoolProp 6 required" % version)
-                os.environ[module] = ""
+                os.environ[module] = "" """
 
 
 # Logging configuration
@@ -299,6 +300,11 @@ class SplashScreen(QtWidgets.QSplashScreen):
                                         ", run preferences dialog for configure")
             if self.has_changed:
                 Preferences.write(open(path + "CheProcessrc", "w"))
+        # FIXME: This file might not to be useful but for now I use it to save project
+        # configuration data
+        if not os.path.isfile(conf_dir + "CheProcessrc_temporal"):
+            Config = firstrun.config()
+            Config.write(open(conf_dir + "CheProcessrc_temporal", "w"))
 
     def cost_index(self, path):
         # Checking costindex
@@ -394,11 +400,11 @@ else:
     if change:
         Preferences.write(open(conf_dir + "CheProcessrc", "w")) """
 
-# FIXME: This file might not to be useful but for now I use it to save project
+""" # FIXME: This file might not to be useful but for now I use it to save project
 # configuration data
 if not os.path.isfile(conf_dir + "CheProcessrc_temporal"):
     Config = firstrun.config()
-    Config.write(open(conf_dir + "CheProcessrc_temporal", "w"))
+    Config.write(open(conf_dir + "CheProcessrc_temporal", "w")) """
 
 """ # Checking costindex
 splash.showMessage(QtWidgets.QApplication.translate(
@@ -461,7 +467,7 @@ from plots import *  # noqa
 # Load main program UI
 splash.showMessage(QtWidgets.QApplication.translate(
     "CheProcess", "Loading main window..."))
-from UI.mainWindow import UI_pychemqt  # noqa
+
 pychemqt = UI_pychemqt()
 
 # Load project files, opened in last CheProcess session and/or specified in

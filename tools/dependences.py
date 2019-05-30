@@ -26,29 +26,65 @@ import os
 
 from PyQt5 import QtGui, QtWidgets
 
-optional_modules = (
-    ("freesteam", QtWidgets.QApplication.translate(
-        "pychemqt", "freesteam thermal option disabled")),
-    ("CoolProp", QtWidgets.QApplication.translate(
-        "pychemqt", "coolprop thermal option disabled")),
-    ("refprop", QtWidgets.QApplication.translate(
-        "pychemqt", "refprop thermal option disabled")),
-    ("pybel", QtWidgets.QApplication.translate(
-        "pychemqt", "graphic formula disabled")),
-    ("ezodf", QtWidgets.QApplication.translate(
-        "pychemqt", "openoffice/libreoffice interaction disabled")),
-    ("openpyxl", QtWidgets.QApplication.translate(
-        "pychemqt", "Microsoft Excel 2007/2010 interaction disabled")),
-    ("xlwt", QtWidgets.QApplication.translate(
-        "pychemqt", "Microsoft Excel 97/2000/XP/2003 interaction disabled")),
-    ("icu", QtWidgets.QApplication.translate(
-        "pychemqt",
+external_modules = (("scipy", (0, 14, 0), QtWidgets.QApplication.translate(
+    "CheProcess", "scipy could not be found, you must install it.")),
+    ("numpy", (1, 8, 0), QtWidgets.QApplication.translate(
+        "CheProcess", "numpy could not be found, you must install it.")),
+    ("matplotlib", (1, 4, 0), QtWidgets.QApplication.translate(
+        "CheProcess", "matplotlib could not be found, you must install it.")),
+    ("iapws", (1, 4), QtWidgets.QApplication.translate(
+        "CheProcess", "iapws could not be found, you must install it.")),
+    ("freesteam", "optional", QtWidgets.QApplication.translate(
+        "CheProcess", "freesteam thermal option disabled")),
+    ("CoolProp", "optional", QtWidgets.QApplication.translate(
+        "CheProcess", "coolprop thermal option disabled")),
+    ("refprop", "optional", QtWidgets.QApplication.translate(
+        "CheProcess", "refprop thermal option disabled")),
+    ("pybel", "optional", QtWidgets.QApplication.translate(
+        "CheProcess", "graphic formula disabled")),
+    ("ezodf", "optional", QtWidgets.QApplication.translate(
+        "CheProcess", "openoffice/libreoffice interaction disabled")),
+    ("openpyxl", "optional", QtWidgets.QApplication.translate(
+        "CheProcess", "Microsoft Excel 2007/2010 interaction disabled")),
+    ("xlwt", "optional", QtWidgets.QApplication.translate(
+        "CheProcess", "Microsoft Excel 97/2000/XP/2003 interaction disabled")),
+    ("icu", "optional", QtWidgets.QApplication.translate(
+        "CheProcess",
         "Unicode collation algorithm for improved string sorting disabled")),
-    ("reportlab", QtWidgets.QApplication.translate(
-        "pychemqt", "Pdf report exporting disabled")),
-    ("PyQt5.Qsci", QtWidgets.QApplication.translate(
-        "pychemqt", "Qscintilla custom module editor disabled")),
+    ("reportlab", "optional", QtWidgets.QApplication.translate(
+        "CheProcess", "Pdf report exporting disabled")),
+    ("PyQt5.Qsci", "optional", QtWidgets.QApplication.translate(
+        "CheProcess", "Qscintilla custom module editor disabled")),
 )
+
+
+def install_module():
+    for module, v_spec, msg in external_modules:
+        try:
+            __import__(module)
+            os.environ[module] = "True"
+        except ImportError as err:
+            print(msg)
+            os.environ[module] = ""
+            if v_spec != "optional":
+                raise err
+        else:
+            if v_spec != "optional":
+                installed_version = tuple(
+                    map(int, __import__(module).__version__.split(".")))
+                if installed_version < v_spec:
+                    msg = "Your "+module+" is too old, you must update it."
+                    raise ImportError(msg)
+            else:
+                os.environ[module] = "True"
+                # Check required version
+                if module == "CoolProp":
+                    import CoolProp.CoolProp as CP
+                    version = CP.get_global_param_string("version")
+                    mayor, minor, rev = map(int, version.split("."))
+                    if mayor < 6:
+                        print("Find CoolProp %s but CoolProp 6 required" % version)
+                        os.environ[module] = ""
 
 
 class ShowDependences(QtWidgets.QDialog):
@@ -67,15 +103,17 @@ class ShowDependences(QtWidgets.QDialog):
              QtWidgets.QApplication.translate("CheProcess", "Status")])
         self.tree.setHeaderItem(header)
 
-        for module, txt in optional_modules:
-            if os.environ[module] == "True":
-                mod = __import__(module)
-                st = mod.__file__
-            else:
-                st = QtWidgets.QApplication.translate(
-                    "CheProcess", "not found")
-            item = QtWidgets.QTreeWidgetItem([module, st])
-            self.tree.addTopLevelItem(item)
+        for module, v_spec, txt in external_modules:
+
+            if v_spec == "optional":
+                if os.environ[module] == "True":
+                    mod = __import__(module)
+                    st = mod.__file__
+                else:
+                    st = QtWidgets.QApplication.translate(
+                        "CheProcess", "not found")
+                item = QtWidgets.QTreeWidgetItem([module, st])
+                self.tree.addTopLevelItem(item)
 
         layout.addWidget(self.tree)
         button = QtWidgets.QDialogButtonBox(QtWidgets.QDialogButtonBox.Close)
@@ -85,7 +123,9 @@ class ShowDependences(QtWidgets.QDialog):
 
 if __name__ == "__main__":
     import sys
+
     os.environ["CheProcess"] = "/home/jjgomera/pychemqt/"
+    '''
     os.environ["freesteam"] = "False"
     os.environ["pybel"] = "False"
     os.environ["CoolProp"] = "False"
@@ -93,6 +133,11 @@ if __name__ == "__main__":
     os.environ["ezodf"] = "False"
     os.environ["openpyxl"] = "False"
     os.environ["xlwt"] = "False"
+    os.environ["icu"] = "False"
+    os.environ['reportlab'] = "False"
+    os.environ['PyQt5.Qsci'] = "False"
+    '''
+    install_module()
     app = QtWidgets.QApplication(sys.argv)
     dialog = ShowDependences()
     dialog.show()

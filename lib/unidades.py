@@ -341,7 +341,7 @@ class unidad(float):
 
 class Dimensionless(float):
     """Dummy class to integrate dimensionless magnitudes
-with support for class unidad operations: txt, config. func."""
+    with support for class unidad operations: txt, config. func."""
     __title__ = QApplication.translate("pychemqt", "Dimensionless")
     __text__ = []
     _magnitudes = []
