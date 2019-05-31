@@ -30,7 +30,6 @@ import re
 from PyQt5 import QtWidgets
 from scipy import arange
 
-from lib.config import conf_dir
 from lib.crude import Z_list
 from lib.utilities import formatLine
 from plots.moody import Chart
@@ -90,7 +89,7 @@ def calculate(config, dat=None):
     dat[method] = lines
 
     # Save to file
-    with open(conf_dir+"standing_katz.dat", "w") as file:
+    with open(os.environ["CP_conf_dir"]+"standing_katz.dat", "w") as file:
         json.dump(dat, file, indent=4)
 
 
@@ -115,11 +114,11 @@ class Standing_Katz(Chart):
         self.plt.ax.set_ylabel(r"$Z=\frac{PV}{nRT}$", va="bottom", size='14')
         self.plt.ax.grid(b=True, which='both', color='0.6', ls=':')
 
-        if not os.path.isfile(conf_dir+"standing_katz.dat"):
+        if not os.path.isfile(os.environ["CP_conf_dir"]+"standing_katz.dat"):
             calculate(self.Preferences)
 
         load = False
-        with open(conf_dir+"standing_katz.dat", "r") as file:
+        with open(os.environ["CP_conf_dir"]+"standing_katz.dat", "r") as file:
             try:
                 dat = json.load(file)
             except ValueError:
@@ -132,7 +131,7 @@ class Standing_Katz(Chart):
 
         # Reload file if it's created in last with statement
         if load:
-            with open(conf_dir+"standing_katz.dat", "r") as file:
+            with open(os.environ["CP_conf_dir"]+"standing_katz.dat", "r") as file:
                 dat = json.load(file)
 
         # Define Crux
@@ -195,6 +194,7 @@ class Standing_Katz(Chart):
 
 class CalculateDialog(QtWidgets.QDialog):
     """Dialog to calculate a specified point"""
+
     def __init__(self, parent=None):
         super(CalculateDialog, self).__init__(parent)
         title = QtWidgets.QApplication.translate(

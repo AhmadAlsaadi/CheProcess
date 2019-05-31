@@ -59,7 +59,6 @@ try:
 except:
     pass
 
-from lib.config import conf_dir
 from lib.unidades import (Temperature, Pressure, Dimensionless, SpecificVolume,
                           Density, Enthalpy, Length)
 from lib.utilities import refDoc
@@ -666,7 +665,7 @@ class PsyIdeal(PsyState):
     def calculatePlot(cls, parent):
         """Funtion to calculate point in chart"""
         Preferences = ConfigParser()
-        Preferences.read(conf_dir+"CheProcessrc")
+        Preferences.read(os.environ["CP_conf_dir"]+"CheProcessrc")
         parent.setProgressValue(0)
 
         data = {}
@@ -900,7 +899,7 @@ class PsyCoolprop(PsyState):
     def calculatePlot(cls, parent):
         """Funtion to calculate point in chart"""
         Preferences = ConfigParser()
-        Preferences.read(conf_dir+"CheProcessrc")
+        Preferences.read(os.environ["CP_conf_dir"]+"CheProcessrc")
         parent.setProgressValue(0)
 
         data = {}
@@ -983,7 +982,7 @@ class PsyRefprop(PsyState):
 
 
 Preferences = ConfigParser()
-Preferences.read(conf_dir+"CheProcessrc")
+Preferences.read(os.environ["CP_conf_dir"]+"CheProcessrc")
 
 if Preferences.getboolean("Psychr", "virial"):
     if Preferences.getboolean("Psychr", "coolprop") and \

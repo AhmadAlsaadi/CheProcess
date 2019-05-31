@@ -57,16 +57,15 @@ from PyQt5 import QtWidgets
 from lib.sql import databank
 
 
-conf_dir = os.path.expanduser('~') + os.sep + ".CheProcess" + os.sep
 IMAGE_PATH = os.path.join(os.environ["CheProcess"], "images") + os.sep
 
 Preferences = ConfigParser()
-Preferences.read(conf_dir + "CheProcessrc")
+Preferences.read(os.environ['CP_conf_dir'] + "CheProcessrc")
 # FIXME: This instance is not updated when preferences are changed
 
 global currentConfig
 currentConfig = ConfigParser()
-currentConfig.read(conf_dir + "CheProcessrc_temporal")
+currentConfig.read(os.environ['CP_conf_dir'] + "CheProcessrc_temporal")
 
 
 def getComponents(solidos=False, config=None, name=True):
@@ -280,6 +279,7 @@ class Entity(object):
 #        if run:
 #            self.__call__()
 #            print(self)
+
 
     def readListFromJSON(self, data, key):
         """Read list from file, customize in entities with complex list"""

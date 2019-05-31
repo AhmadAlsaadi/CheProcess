@@ -38,7 +38,6 @@ import os
 
 from PyQt5 import QtGui, QtWidgets
 
-from lib.config import conf_dir
 from lib.unidades import Temperature, Pressure
 from tools import (UI_confComponents, UI_confTransport, UI_confThermo,
                    UI_confUnits, UI_confResolution)
@@ -248,7 +247,7 @@ simulation, but a good election let you only focus in simulation"))
         if not config.has_section("PFD"):
             config.add_section("PFD")
             Preferences = ConfigParser()
-            Preferences.read(conf_dir+"CheProcessrc")
+            Preferences.read(os.environ["CP_conf_dir"]+"CheProcessrc")
             config.set("PFD", "x", Preferences.get("PFD", "x"))
             config.set("PFD", "y", Preferences.get("PFD", "y"))
         return config

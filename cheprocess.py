@@ -16,6 +16,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>."""
+
 from tools.dependences import install_module
 import urllib.error
 import shutil
@@ -25,16 +26,28 @@ from configparser import ConfigParser
 import argparse
 import os
 import sys
-
 # Add CheProcess folder to python path
 path = os.path.dirname(os.path.realpath(sys.argv[0]))
 sys.path.append(path)
 
 # Define CheProcess environment
 os.environ["CheProcess"] = path + os.sep
-conf_dir = os.path.expanduser("~") + os.sep + ".CheProcess" + os.sep
+os.environ["CP_conf_dir"] = os.path.expanduser(
+    "~") + os.sep + ".CheProcess" + os.sep
+#conf_dir = os.environ['CP_conf_dir']
+
 # install optional modules
 install_module()
+
+# Check mandatory external dependences
+# PyQt5
+try:
+    from PyQt5 import QtCore, QtGui, QtWidgets
+except ImportError as err:
+    print("PyQt5 could not be found, you must install it.")
+    raise err
+
+
 from UI.mainWindow import UI_pychemqt  # noqa
 
 # Parse command line options
@@ -55,14 +68,6 @@ parser.add_argument("projectFile", nargs="*",
                     help="Optional CheProcess project files to load at startup")
 args = parser.parse_args()
 
-
-# Check mandatory external dependences
-# PyQt5
-try:
-    from PyQt5 import QtCore, QtGui, QtWidgets
-except ImportError as err:
-    print("PyQt5 could not be found, you must install it.")
-    raise err
 
 # Qt application definition
 app = QtWidgets.QApplication(sys.argv)
@@ -107,71 +112,6 @@ path = QtCore.QLibraryInfo.location(QtCore.QLibraryInfo.TranslationsPath)
 if qtTranslator.load("qt_" + locale, path):
     app.installTranslator(qtTranslator)
 
-""" 
-# scipy
-try:
-    import scipy
-except ImportError as err:
-    msg = QtWidgets.QApplication.translate(
-        "CheProcess", "scipy could not be found, you must install it.")
-    print(msg)
-    raise err
-else:
-    mayor, minor, corr = map(int, scipy.version.version.split("."))
-    if mayor == 0 and minor < 14:
-        msg = QtWidgets.QApplication.translate(
-            "CheProcess",
-            "Your version of scipy is too old, you must update it.")
-        raise ImportError(msg)
-
-# numpy
-try:
-    import numpy
-except ImportError as err:
-    msg = QtWidgets.QApplication.translate(
-        "CheProcess", "numpy could not be found, you must install it.")
-    print(msg)
-    raise err
-else:
-    mayor, minor, corr = map(int, numpy.version.version.split("."))
-    if mayor < 1 or minor < 8:
-        msg = QtWidgets.QApplication.translate(
-            "CheProcess",
-            "Your version of numpy is too old, you must update it.")
-        raise ImportError(msg)
-
-# matplotlib
-try:
-    import matplotlib
-except ImportError as err:
-    msg = QtWidgets.QApplication.translate(
-        "CheProcess", "matplotlib could not be found, you must install it.")
-    print(msg)
-    raise err
-else:
-    mayor, minor, corr = map(int, matplotlib.__version__.split("."))
-    if mayor < 1 or (mayor == 1 and minor < 4):
-        msg = QtWidgets.QApplication.translate(
-            "CheProcess",
-            "Your version of matplotlib is too old, you must update it.")
-        raise ImportError(msg)
-
-# iapws
-# Externalized version of iapws, to avoid duple maintenance
-try:
-    import iapws  # noqa
-except ImportError as err:
-    msg = QtWidgets.QApplication.translate(
-        "CheProcess", "iapws could not be found, you must install it.")
-    print(msg)
-    raise err
-else:
-    if iapws.__version__ != "1.4":
-        msg = QtWidgets.QApplication.translate(
-            "CheProcess",
-            "Your version of iapws is too old, you must update it.")
-        raise ImportError(msg) """
-
 
 # TODO: Disable python-graph external dependence, functional mock up in
 # project yet useless
@@ -186,26 +126,6 @@ else:
 # raise err
 
 
-# Check external optional modules
-# noqa
-""" for module, use in optional_modules:
-    try:
-        __import__(module)
-        os.environ[module] = "True"
-    except ImportError:
-        print("%s could not be found, %s" % (module, use))
-        os.environ[module] = ""
-    else:
-        # Check required version
-        if module == "CoolProp":
-            import CoolProp.CoolProp as CP
-            version = CP.get_global_param_string("version")
-            mayor, minor, rev = map(int, version.split("."))
-            if mayor < 6:
-                print("Find CoolProp %s but CoolProp 6 required" % version)
-                os.environ[module] = "" """
-
-
 # Logging configuration
 if args.debug:
     loglevel = "DEBUG"
@@ -214,16 +134,16 @@ else:
 loglevel = getattr(logging, loglevel.upper())
 
 # Checking config folder
-if not os.path.isdir(conf_dir):
-    os.mkdir(conf_dir)
+if not os.path.isdir(os.environ["CP_conf_dir"]):
+    os.mkdir(os.environ["CP_conf_dir"])
 
 try:
-    open(conf_dir + "CheProcess.log", 'x')
+    open(os.environ["CP_conf_dir"] + "CheProcess.log", 'x')
 except FileExistsError:  # noqa
     pass
 
 fmt = "[%(asctime)s.%(msecs)d] %(levelname)s: %(message)s"
-logging.basicConfig(filename=conf_dir+"CheProcess.log", filemode="w",
+logging.basicConfig(filename=os.environ["CP_conf_dir"]+"CheProcess.log", filemode="w",
                     level=loglevel, datefmt="%d-%b-%Y %H:%M:%S", format=fmt)
 logging.info(
     QtWidgets.QApplication.translate("CheProcess", "Starting CheProcess"))
@@ -254,10 +174,10 @@ class SplashScreen(QtWidgets.QSplashScreen):
         QtWidgets.QApplication.flush()
         if not splash_arg:
             self.show()
-        self.file_config(conf_dir)
-        self.cost_index(conf_dir)
-        self.currency_rate(conf_dir)
-        self.database_check(conf_dir)
+        self.file_config(os.environ["CP_conf_dir"])
+        self.cost_index(os.environ["CP_conf_dir"])
+        self.currency_rate(os.environ["CP_conf_dir"])
+        self.database_check(os.environ["CP_conf_dir"])
 
     def showMessage(self, msg):
         """Procedure to update message in splash"""
@@ -302,9 +222,10 @@ class SplashScreen(QtWidgets.QSplashScreen):
                 Preferences.write(open(path + "CheProcessrc", "w"))
         # FIXME: This file might not to be useful but for now I use it to save project
         # configuration data
-        if not os.path.isfile(conf_dir + "CheProcessrc_temporal"):
+        if not os.path.isfile(os.environ["CP_conf_dir"] + "CheProcessrc_temporal"):
             Config = firstrun.config()
-            Config.write(open(conf_dir + "CheProcessrc_temporal", "w"))
+            Config.write(
+                open(os.environ["CP_conf_dir"] + "CheProcessrc_temporal", "w"))
 
     def cost_index(self, path):
         # Checking costindex
@@ -315,7 +236,7 @@ class SplashScreen(QtWidgets.QSplashScreen):
                 os.environ["CheProcess"], "dat", "costindex.dat")
             with open(orig) as cost_index:
                 lista = cost_index.readlines()[-1].split(" ")
-                with open(conf_dir + "CostIndex.dat", "w") as archivo:
+                with open(os.environ["CP_conf_dir"] + "CostIndex.dat", "w") as archivo:
                     for data in lista:
                         archivo.write(data.replace(
                             os.linesep, "") + os.linesep)
@@ -362,98 +283,10 @@ class SplashScreen(QtWidgets.QSplashScreen):
             firstrun.createDatabase(path + "databank.db")
 
 
-""" if not args.nosplash:
-    splash.show() """
-
-
 # Checking config files
 from tools import firstrun  # noqa
 splash = SplashScreen(args.nosplash)
-# splash.showMessage(QtWidgets.QApplication.translate(
-#   "CheProcess", "Checking config files..."))
-""" splash.file_config(conf_dir)
-splash.cost_index(conf_dir)
-splash.currency_rate(conf_dir) """
-""" # Checking config file
-default_Preferences = firstrun.Preferences()
-change = False
-if not os.path.isfile(conf_dir + "CheProcessrc"):
-    default_Preferences.write(open(conf_dir + "CheProcessrc", "w"))
-    Preferences = default_Preferences
-    change = True
-else:
-    # Check Preferences options to find set new options
-    Preferences = ConfigParser()
-    Preferences.read(conf_dir + "CheProcessrc")
-    for section in default_Preferences.sections():
-        if not Preferences.has_section(section):
-            Preferences.add_section(section)
-            change = True
-        for option in default_Preferences.options(section):
-            if not Preferences.has_option(section, option):
-                value = default_Preferences.get(section, option)
-                Preferences.set(section, option, value)
-                change = True
-                logging.warning("Using default configuration option for " +
-                                "%s:%s" % (section, option) +
-                                ", run preferences dialog for configure")
-    if change:
-        Preferences.write(open(conf_dir + "CheProcessrc", "w")) """
 
-""" # FIXME: This file might not to be useful but for now I use it to save project
-# configuration data
-if not os.path.isfile(conf_dir + "CheProcessrc_temporal"):
-    Config = firstrun.config()
-    Config.write(open(conf_dir + "CheProcessrc_temporal", "w")) """
-
-""" # Checking costindex
-splash.showMessage(QtWidgets.QApplication.translate(
-    "CheProcess", "Checking cost index..."))
-if not os.path.isfile(conf_dir + "CostIndex.dat"):
-    orig = os.path.join(os.environ["CheProcess"], "dat", "costindex.dat")
-    with open(orig) as cost_index:
-        lista = cost_index.readlines()[-1].split(" ")
-        with open(conf_dir + "CostIndex.dat", "w") as archivo:
-            for data in lista:
-                archivo.write(data.replace(os.linesep, "") + os.linesep) """
-
-""" # Checking currency rates
-splash.showMessage(QtWidgets.QApplication.translate(
-    "CheProcess", "Checking currency data"))
-currency = False
-if not os.path.isfile(conf_dir + "moneda.dat"):
-    # Exchange rates file don't available
-    currency = True
-else:
-    filename = conf_dir+"moneda.dat"
-    try:
-        archivo = open(filename, "r")
-        rates = json.load(archivo)
-    except urllib.error.URLError:
-        # Failed to load json file
-        currency = True
-
-    if not isinstance(rates["date"], int):
-        # Old version exchange rates format, force upgrade
-        currency = True
-
-if currency:
-    # Try to retrieve exchange rates from yahoo
-    try:
-        firstrun.getrates(conf_dir + "moneda.dat")
-    except (urllib.error.URLError, urllib.error.HTTPError) as e:
-        # Internet error, get hardcoded exchanges from pychemqt distribution
-        # Possible outdated file, try to update each some commits
-        origen = os.path.join(os.environ["CheProcess"], "dat", "moneda.dat")
-        shutil.copy(origen, conf_dir + "moneda.dat")
-        print(QtWidgets.QApplication.translate("CheProcess",
-                                               "Internet connection error, using archived currency rates"))
- """
-""" # Checking database with custom components
-splash.showMessage(QtWidgets.QApplication.translate(
-    "CheProcess", "Checking custom database..."))
-if not os.path.isfile(conf_dir + "databank.db"):
-    firstrun.createDatabase(conf_dir + "databank.db") """
 
 # Import internal libraries
 splash.showMessage(QtWidgets.QApplication.translate(

@@ -51,7 +51,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 
-from lib.config import conf_dir, IMAGE_PATH
+from lib.config import IMAGE_PATH
 from lib.corriente import Corriente
 from lib.utilities import representacion
 from tools.UI_unitConverter import UI_conversorUnidades, moneda
@@ -181,7 +181,7 @@ class Entrada_con_unidades(QtWidgets.QWidget):
         self.showNull = showNull
 
         Config = ConfigParser()
-        Config.read(conf_dir+"CheProcessrc")
+        Config.read(os.environ["CP_conf_dir"]+"CheProcessrc")
         if colorReadOnly:
             self.colorReadOnly = colorReadOnly
         else:
@@ -348,10 +348,10 @@ class Entrada_con_unidades(QtWidgets.QWidget):
     def setToolTip(self):
         """Define the tooltip with the values in confguration"""
         Preferences = ConfigParser()
-        Preferences.read(conf_dir+"CheProcessrc")
+        Preferences.read(os.environ["CP_conf_dir"]+"CheProcessrc")
         if Preferences.getboolean("Tooltip", "Show"):
             Config = ConfigParser()
-            Config.read(conf_dir+"CheProcessrc")
+            Config.read(os.environ["CP_conf_dir"]+"CheProcessrc")
             try:
                 lista = eval(Config.get('Tooltip', self.magnitud))
             except:
@@ -520,7 +520,7 @@ class Tabla(QtWidgets.QTableWidget):
             self.setItemDelegateForRow(row, delegate)
 
         Config = ConfigParser()
-        Config.read(conf_dir+"CheProcessrc")
+        Config.read(os.environ["CP_conf_dir"]+"CheProcessrc")
         inactivo = QtGui.QColor(Config.get("General", 'Color_ReadOnly'))
         for j in range(self.columnCount()):
             self.setItem(row, j, QtWidgets.QTableWidgetItem(data[j]))

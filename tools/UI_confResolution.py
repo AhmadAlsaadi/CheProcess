@@ -21,14 +21,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.'''
 ###############################################################################
 # PFD resolution tools
 ###############################################################################
-
+import os
 from configparser import ConfigParser
 
 from PyQt5 import QtWidgets
 
 
 from UI.widgets import Entrada_con_unidades
-from lib.config import conf_dir
 
 
 class UI_confResolution_widget(QtWidgets.QWidget):
@@ -100,7 +99,7 @@ class UI_confResolution_widget(QtWidgets.QWidget):
     def default(cls, config):
         config.add_section("PFD")
         Preferences = ConfigParser()
-        Preferences.read(conf_dir+"CheProcessrc")
+        Preferences.read(os.environ["CP_conf_dir"]+"CheProcessrc")
         config.set("PFD", "x", Preferences.get("PFD", "x"))
         config.set("PFD", "y", Preferences.get("PFD", "y"))
         return config

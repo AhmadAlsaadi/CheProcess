@@ -38,7 +38,7 @@ indiceBase = ["Jan-1982", 313.95, 336.19, 326.01, 312.03, 383.18, 297.63,
 
 # Load data from config file
 indiceActual = []
-with open(config.conf_dir+"CostIndex.dat", "r") as archivo:
+with open(os.environ["CP_conf_dir"]+"CostIndex.dat", "r") as archivo:
     indiceActual.append(archivo.readline()[:-1])
     while True:
         data = archivo.readline().rstrip("\n")
@@ -185,7 +185,7 @@ class Ui_CostIndex(QtWidgets.QDialog):
 
     def accept(self):
         """Overwrite accept signal to save changes"""
-        with open(config.conf_dir+"CostIndex.dat", "w") as archivo:
+        with open(os.environ["CP_conf_dir"]+"CostIndex.dat", "w") as archivo:
             if self.custom:
                 archivo.write("custom\n")
             else:
@@ -259,7 +259,7 @@ class CostData(QtWidgets.QWidget):
         """Show costIndes dialog to show/change"""
         dialog = Ui_CostIndex()
         if dialog.exec_():
-            with open(config.conf_dir+"CostIndex.dat", "r") as archivo:
+            with open(os.environ["CP_conf_dir"]+"CostIndex.dat", "r") as archivo:
                 self.indiceActual.setValue(
                     float(archivo.readlines()[self.indice][:-1]))
             self.valueChanged.emit("Current_index", self.indiceActual.value)

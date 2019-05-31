@@ -26,8 +26,9 @@ import os
 
 from PyQt5 import QtGui, QtWidgets
 
-external_modules = (("scipy", (0, 14, 0), QtWidgets.QApplication.translate(
-    "CheProcess", "scipy could not be found, you must install it.")),
+external_modules = (
+    ("scipy", (0, 14, 0), QtWidgets.QApplication.translate(
+        "CheProcess", "scipy could not be found, you must install it.")),
     ("numpy", (1, 8, 0), QtWidgets.QApplication.translate(
         "CheProcess", "numpy could not be found, you must install it.")),
     ("matplotlib", (1, 4, 0), QtWidgets.QApplication.translate(

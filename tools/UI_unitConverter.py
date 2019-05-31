@@ -33,7 +33,6 @@ import os
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from lib.unidades import Currency, getrates, _all
-from lib.config import conf_dir
 from UI.delegate import CellEditor
 
 
@@ -144,7 +143,7 @@ class moneda(UI_conversorUnidades):
             header.setBackground(QtGui.QBrush(QtGui.QColor(color)))
 
     def getrates(self):
-        filename = conf_dir + "moneda.dat"
+        filename = os.environ["CP_conf_dir"] + "moneda.dat"
         getrates(filename)
         self.value = self.unidad(self.value)
         self.fecha.setText(QtWidgets.QApplication.translate(

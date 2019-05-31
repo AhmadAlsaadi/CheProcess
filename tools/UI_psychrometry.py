@@ -36,7 +36,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from scipy import pi, arctan
 
 from lib.psycrometry import PsyState, PsychroState, _Pbar, _height
-from lib.config import conf_dir
 from lib.plot import mpl
 from lib.unidades import (Temperature, Pressure, Length, Mass,
                           SpecificVolume, Enthalpy)
@@ -330,7 +329,7 @@ class UI_Psychrometry(QtWidgets.QDialog):
 
         self.showToolBar(False)
         self.Preferences = ConfigParser()
-        self.Preferences.read(conf_dir+"CheProcessrc")
+        self.Preferences.read(os.environ["CP_conf_dir"]+"CheProcessrc")
         self.plot()
         logging.info(QtWidgets.QApplication.translate(
             "pychemqt", "Started psychrometric chart tool"))
@@ -340,7 +339,8 @@ class UI_Psychrometry(QtWidgets.QDialog):
         dlg = Dialog(self.Preferences)
         if dlg.exec_():
             self.Preferences = dlg.value(self.Preferences)
-            self.Preferences.write(open(conf_dir+"CheProcessrc", "w"))
+            self.Preferences.write(
+                open(os.environ["CP_conf_dir"]+"CheProcessrc", "w"))
             self.plot()
 
     def showToolBar(self, checked):
@@ -399,7 +399,7 @@ class UI_Psychrometry(QtWidgets.QDialog):
         self.plt.ax.clear()
         chart = self.Preferences.getboolean("Psychr", "chart")
         self.plt.config(self.Preferences)
-        filename = conf_dir+"%s_%i.json" % (
+        filename = os.environ["CP_conf_dir"]+"%s_%i.json" % (
             PsychroState().__class__.__name__, self.inputs.P.value)
         if os.path.isfile(filename):
             with open(filename, "r") as archivo:

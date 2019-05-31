@@ -30,7 +30,6 @@ from PyQt5 import QtGui, QtWidgets
 
 
 from lib import unidades
-from lib.config import conf_dir
 
 
 class UI_confUnits_widget(QtWidgets.QWidget):
@@ -139,9 +138,9 @@ class UI_confUnits_widget(QtWidgets.QWidget):
     def actualizar_lista_perfiles(self):
         """Update custom units profile list"""
         self.perfiles.clear()
-        if os.path.isfile(conf_dir+"unitrc"):
+        if os.path.isfile(os.environ["CP_conf_dir"]+"unitrc"):
             Config = ConfigParser()
-            Config.read(conf_dir+"unitrc")
+            Config.read(os.environ["CP_conf_dir"]+"unitrc")
             for i in Config.options("units"):
                 self.perfiles.addItem(
                     QtWidgets.QApplication.translate("pychemqt", i))
@@ -157,12 +156,12 @@ class UI_confUnits_widget(QtWidgets.QWidget):
         for combo in self.combos:
             lista.append(combo.currentIndex())
         Config = ConfigParser()
-        if os.path.isfile(conf_dir+"unitrc"):
-            Config.read(conf_dir+"unitrc")
+        if os.path.isfile(os.environ["CP_conf_dir"]+"unitrc"):
+            Config.read(os.environ["CP_conf_dir"]+"unitrc")
         else:
             Config.add_section("units")
         Config.set("units", str(self.nombre.text()), lista)
-        Config.write(open(conf_dir+"unitrc", "w"))
+        Config.write(open(os.environ["CP_conf_dir"]+"unitrc", "w"))
         self.actualizar_lista_perfiles()
 
     def nameChanged(self, nombre):
@@ -178,7 +177,7 @@ class UI_confUnits_widget(QtWidgets.QWidget):
             lista = unidades.units_set[set]
         else:
             Config = ConfigParser()
-            Config.read(conf_dir+"unitrc")
+            Config.read(os.environ["CP_conf_dir"]+"unitrc")
             lista = eval(Config.get("units", str(self.perfiles.currentText())))
         for combo, indice in zip(self.combos, lista):
             combo.setCurrentIndex(indice)

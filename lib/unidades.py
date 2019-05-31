@@ -104,7 +104,7 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5 import QtCore
 import scipy.constants as k
 
-from lib.config import conf_dir, getMainWindowConfig
+from lib.config import getMainWindowConfig
 from lib.utilities import representacion
 from tools.firstrun import getrates
 
@@ -319,7 +319,7 @@ class unidad(float):
         if not unit:
             unit = self.func(magnitud)
         Preferences = ConfigParser()
-        Preferences.read(conf_dir+"CheProcessrc")
+        Preferences.read(os.environ["CP_conf_dir"]+"CheProcessrc")
         kwargs = eval(Preferences.get("NumericFormat", magnitud))
         value = self.__getattribute__(unit)
         return representacion(value, **kwargs)
@@ -2010,7 +2010,7 @@ class Currency(unidad):
 
     >>> S=Currency(5, "eur")
     """
-    filename = conf_dir+"moneda.dat"
+    filename = os.environ["CP_conf_dir"]+"moneda.dat"
     try:
         archivo = open(filename, "r")
         rates = json.load(archivo)

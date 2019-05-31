@@ -32,7 +32,6 @@ from configparser import ConfigParser
 # except:
 # from pygraph.readwrite.markup import write
 
-from lib.config import conf_dir
 from lib.corriente import Corriente
 from equipment import equipments
 from equipment.flux import Mixer
@@ -51,7 +50,7 @@ class Project(object):
         self.out = {}
         if not config:
             config = ConfigParser()
-            config.read(conf_dir+"CheProcessrc")
+            config.read(os.environ["CP_conf_dir"]+"CheProcessrc")
         self.config = config
         self.streams = streams
         # self.graph = self.calGraph()
@@ -248,9 +247,10 @@ class Project(object):
 
         self.setConfig(config)
         if not huella:
-            os.rename(conf_dir+"CheProcessrc_temporal",
-                      conf_dir+"CheProcessrc_temporal_bak")
-        config.write(open(conf_dir+"CheProcessrc_temporal", "w"))
+            os.rename(os.environ["CP_conf_dir"]+"CheProcessrc_temporal",
+                      os.environ["CP_conf_dir"]+"CheProcessrc_temporal_bak")
+        config.write(
+            open(os.environ["CP_conf_dir"]+"CheProcessrc_temporal", "w"))
 
         # read equipments
         items = {}
@@ -293,8 +293,8 @@ class Project(object):
         self.setStreams(streams)
 
         if not huella:
-            os.rename(conf_dir+"CheProcessrc_temporal_bak",
-                      conf_dir+"CheProcessrc_temporal")
+            os.rename(os.environ["CP_conf_dir"]+"CheProcessrc_temporal_bak",
+                      os.environ["CP_conf_dir"]+"CheProcessrc_temporal")
 
     # def printer(self):
         # # Draw as PNG

@@ -102,7 +102,6 @@ from numpy import array
 from lib import unidades
 from lib.physics import R_atml, R_Btu
 from lib.newComponent import newComponente
-from lib.config import conf_dir
 from lib.compuestos import prop_Edmister
 from lib.utilities import refDoc
 
@@ -3480,7 +3479,7 @@ class Petroleo(newComponente):
 
     def __init__(self, **kwargs):
         self.Preferences = ConfigParser()
-        self.Preferences.read(conf_dir+"CheProcessrc")
+        self.Preferences.read(os.environ["CP_conf_dir"]+"CheProcessrc")
         self.__call__(**kwargs)
 
     def __call__(self, **kwargs):

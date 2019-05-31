@@ -165,7 +165,6 @@ from scipy.constants import Boltzmann, pi, Avogadro, R, u
 from scipy.optimize import fsolve
 
 from lib import unidades
-from lib.config import conf_dir
 from lib.utilities import SimpleEq
 from lib.physics import R_atml, Collision_Neufeld
 from lib.thermo import ThermoAdvanced
@@ -2975,7 +2974,7 @@ class MEoS(ThermoAdvanced):
             self.soffset = 0
             return
 
-        filename = conf_dir+"MEoSref.json"
+        filename = os.environ["CP_conf_dir"]+"MEoSref.json"
         if os.path.isfile(filename):
             with open(filename, "r") as archivo:
                 dat = json.load(archivo)

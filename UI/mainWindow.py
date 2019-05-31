@@ -34,7 +34,7 @@ from UI.petro import Definicion_Petro
 import plots as charts
 from UI.widgets import createAction, ClickableLabel
 from lib import config
-from lib.config import conf_dir, setMainWindowConfig, IMAGE_PATH, Preferences
+from lib.config import setMainWindowConfig, IMAGE_PATH, Preferences
 from lib.project import Project
 from lib.EoS import K, H
 import equipment
@@ -1526,7 +1526,7 @@ class UI_pychemqt(QtWidgets.QMainWindow):
         setMainWindowConfig(config)
 
         # TODO: Delete this when its not necessary to run library isolated
-        config.write(open(conf_dir+"CheProcessrc_temporal", "w"))
+        config.write(open(os.environ["CP_conf_dir"]+"CheProcessrc_temporal", "w"))
 
     def updateStatus(self, text, success=True):
         """Función que añade entradas al cuadro de status
@@ -1592,9 +1592,9 @@ class UI_pychemqt(QtWidgets.QMainWindow):
         dialog = UI_Preferences.Preferences(Preferences)
         if dialog.exec_():
             preferences = dialog.value()
-            preferences.write(open(conf_dir+"CheProcessrc", "w"))
+            preferences.write(open(os.environ["CP_conf_dir"]+"CheProcessrc", "w"))
             Preferences = ConfigParser()
-            Preferences.read(conf_dir+"CheProcessrc")
+            Preferences.read(os.environ["CP_conf_dir"]+"CheProcessrc")
             self.updateStatus(QtWidgets.QApplication.translate(
                 "CheProcess", "CheProcess configuration change"), True)
             self.changePreferenceLive()
@@ -1680,7 +1680,7 @@ class UI_pychemqt(QtWidgets.QMainWindow):
 
     def log(self):
         command = Preferences.get("Applications", 'TextViewer')
-        path = os.path.join(conf_dir, "pychemqt.log")
+        path = os.path.join(os.environ["CP_conf_dir"], "pychemqt.log")
         subprocess.Popen([command, path])
 
     def acerca(self):

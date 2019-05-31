@@ -32,7 +32,7 @@ from scipy import logspace, log10
 from matplotlib.patches import ConnectionPatch
 from matplotlib import image
 
-from lib.config import conf_dir, IMAGE_PATH
+from lib.config import IMAGE_PATH
 from lib.friction import f_list, eD
 from lib.plot import mpl
 from lib.utilities import formatLine, representacion
@@ -72,7 +72,7 @@ def calculate(config):
     dat["fully"] = [(1/(1.14-2*log10(3500/R)))**2/x for R in Re_fully]
 
     # Save to file
-    with open(conf_dir+"moody.dat", "w") as file:
+    with open(os.environ["CP_conf_dir"]+"moody.dat", "w") as file:
         json.dump(dat, file, indent=4)
 
 
@@ -108,7 +108,7 @@ class Chart(QtWidgets.QDialog):
         layout.addWidget(btBox, 3, 1, 1, 4)
 
         self.Preferences = ConfigParser()
-        self.Preferences.read(conf_dir+"CheProcessrc")
+        self.Preferences.read(os.environ["CP_conf_dir"]+"CheProcessrc")
         self.config()
         self.plot()
 
@@ -120,7 +120,8 @@ class Chart(QtWidgets.QDialog):
         dlg = self.configDialog(self.Preferences)
         if dlg.exec_():
             self.Preferences = dlg.value(self.Preferences)
-            self.Preferences.write(open(conf_dir+"CheProcessrc", "w"))
+            self.Preferences.write(
+                open(os.environ["CP_conf_dir"]+"CheProcessrc", "w"))
             self.plot()
 
     def config(self):
@@ -288,11 +289,11 @@ class Moody(Chart):
         self.plt.ax.set_yticks(yticks)
         self.plt.ax.set_yticklabels(ytickslabel)
 
-        if not os.path.isfile(conf_dir+"moody.dat"):
+        if not os.path.isfile(os.environ["CP_conf_dir"]+"moody.dat"):
             calculate(self.Preferences)
 
         load = False
-        with open(conf_dir+"moody.dat", "r") as file:
+        with open(os.environ["CP_conf_dir"]+"moody.dat", "r") as file:
             try:
                 dat = json.load(file)
             except ValueError:
@@ -305,7 +306,7 @@ class Moody(Chart):
 
         # Reload file if it's created in last with statement
         if load:
-            with open(conf_dir+"moody.dat", "r") as file:
+            with open(os.environ["CP_conf_dir"]+"moody.dat", "r") as file:
                 dat = json.load(file)
 
         # Plot data
